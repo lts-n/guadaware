@@ -54,6 +54,16 @@ body {
   margin: 0 auto;
 }
 
+@media (orientation: landscape) {
+  #homescreen {
+    max-width: 1240px;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(64px, 10dvh, 96px), 1fr));
+    gap: clamp(22px, 5dvh, 52px) clamp(32px, 5vw, 88px);
+    padding-left: clamp(40px, 7vw, 120px);
+    padding-right: clamp(40px, 7vw, 120px);
+  }
+}
+
 .app {
   display: flex;
   flex-direction: column;
