@@ -18,7 +18,7 @@
                 <li>
                     <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23ff9500'/><path d='M10.7 2.6c0-.7.6-1.3 1.3-1.3s1.3.6 1.3 1.3v5.6l7.2 4.3v2.1l-7.2-2.3v4.9l1.9 1.4v1.7L12 19.6l-2.2.7v-1.7l1.9-1.4v-4.9L4.5 14.6v-2.1l7.2-4.3z' fill='%23fff'/></svg>" alt="">
                     Airplane Mode
-                    <label><input type="checkbox"><span></span></label>
+                    <label><input id="airplane-toggle" type="checkbox"><span></span></label>
                 </li>
                 <li>
                     <a href="#">
@@ -86,5 +86,22 @@
             </ul>
         </section>
     </main>
+    <script>
+      const SYSTEM_API = "http://localhost:8080";
+      const airplaneToggle = document.getElementById("airplane-toggle");
+
+      function setAirplaneMode(on) {
+        fetch(`${SYSTEM_API}/setAirplanemode/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
+        localStorage.setItem("airplanemode", on ? "1" : "0");
+      }
+
+      if (localStorage.getItem("airplanemode") === "1") {
+        airplaneToggle.checked = true;
+      }
+
+      airplaneToggle.addEventListener("change", () => {
+        setAirplaneMode(airplaneToggle.checked);
+      });
+    </script>
 </body>
 </html>
