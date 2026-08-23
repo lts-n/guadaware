@@ -1,14 +1,6 @@
 from bottle import run as runapi
 from bottle import route, response, hook
 import subprocess
-import html
-
-TERMINAL_PAGE = """<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-body {{ margin: 0; padding: 10px 12px; background: #000; color: #e8e8e8;
-font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-user-select: text; cursor: text; word-break: break-word; white-space: pre-wrap; }}
-.err {{ color: #ff6b60; }}
-</style></head><body>{}</body></html>"""
 
 @hook("after_request")
 def allow_cors():
@@ -21,10 +13,7 @@ def poweroff():
 @route("/sh/<cmd:path>")
 def sh(cmd):
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    out = html.escape(result.stdout)
-    err = html.escape(result.stderr)
-    body = out + (f'<span class="err">{err}</span>' if err else "")
-    return TERMINAL_PAGE.format(body)
+    return result.stdout + result.stderr
 
 @route("/getStatusbarUser")
 def get_statusbaruser():
