@@ -21,7 +21,7 @@ const APPS = [
     "Safari",
   ),
   new App(
-    "icons/calculator-icon.webp",
+    "icons/calculator-icon.png",
     "../calculator/",
     "Calculator"
   )
