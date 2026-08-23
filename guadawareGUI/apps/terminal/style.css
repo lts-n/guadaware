@@ -1,0 +1,113 @@
+/* Estilos locales de la app Terminal (no modifican el framework) */
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: #111114;
+}
+
+header {
+  background: rgba(24, 24, 28, 0.94);
+  border-bottom-color: #2c2c30;
+}
+
+h1 {
+  color: #f2f2f7;
+}
+
+#terminal-screen {
+  flex: 1;
+  min-height: 0;
+  margin: 10px 10px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    inset 0 0 0 1px #2c2c30,
+    0 4px 18px rgba(0, 0, 0, 0.5);
+}
+
+#terminal-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+
+#command-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+  background: rgba(24, 24, 28, 0.94);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 0.5px solid #2c2c30;
+}
+
+#prompt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green);
+  user-select: none;
+}
+
+#command-input {
+  flex: 1;
+  height: 38px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 9px;
+  background: #1c1c1e;
+  box-shadow: inset 0 0 0 1px #3a3a3c;
+  color: #f2f2f7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+  caret-color: var(--green);
+}
+
+#command-input::placeholder {
+  color: #6d6d72;
+}
+
+#command-input:focus {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 1px var(--green),
+    0 0 0 3px rgba(76, 217, 100, 0.25);
+}
+
+#execute-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  min-width: 44px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 19px;
+  background: linear-gradient(180deg, #34d15e, var(--green));
+  box-shadow: 0 2px 6px rgba(76, 217, 100, 0.35);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#execute-button::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid currentColor;
+}
+
+#execute-button:active {
+  filter: brightness(0.82);
+}
