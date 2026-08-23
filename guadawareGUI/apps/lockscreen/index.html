@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock Screen</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    <header>
+        <h1 id="time">12:34</h1>
+        <h3 id="date">Friday, June 7th.</h3>
+        <script>
+            function updateTime() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const timeString = `${hours}:${minutes}`;
+                document.getElementById('time').textContent = timeString;
+
+                const options = { weekday: 'long', month: 'long', day: 'numeric' };
+                const dateString = now.toLocaleDateString(undefined, options);
+                document.getElementById('date').textContent = dateString;
+            }
+
+            setInterval(updateTime, 1000);
+            updateTime();
+        </script>
+
+    </header>
+</body>
+</html>

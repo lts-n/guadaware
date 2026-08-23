@@ -4,33 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>guadaware</title>
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background: #000;
+      user-select: none;
+    }
+
+    #statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 34px;
+      padding: 6px 16px 0;
+      background: #000;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    #frame-wrap {
+      position: relative;
+      flex: 1;
+    }
+
+    #app-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #gesture-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      height: 26px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #gesture-bar span {
+      width: 134px;
+      height: 5px;
+      margin-top: 9px;
+      border-radius: 3px;
+      background: #000;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
   <header id="statusbar">
-    <span id="status-user"><iframe src="http://localhost:8080/getStatusbarUser" title="usuario" scrolling="no"></iframe></span>
-    <span class="sb-center" id="status-time"></span>
-    <span id="status-battery">100% 🔋</span>
+    <span id="status-time"></span>
+    <span id="status-battery">100%</span>
   </header>
 
-  <main id="homescreen"></main>
+  <main id="frame-wrap">
+    <iframe id="app-frame" src="apps/lockscreen/" title="app"></iframe>
+    <footer id="gesture-bar"><span></span></footer>
+  </main>
 
-  <footer id="dock"></footer>
+  <script>
+    const frame = document.getElementById("app-frame");
+    const clock = document.getElementById("status-time");
+    const batteryLabel = document.getElementById("status-battery");
 
-  <div id="lockscreen">
-    <div id="lock-clock">
-      <div id="lock-time"></div>
-      <div id="lock-date"></div>
-    </div>
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours() % 12 || 12;
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      clock.textContent = `${hours}:${minutes}`;
+    }
 
-    <div id="slider">
-      <div id="slide-text">slide to unlock</div>
-      <div id="knob">›</div>
-    </div>
-  </div>
+    updateClock();
+    setInterval(updateClock, 1000);
 
-  <script src="js/App.js"></script>
-  <script src="js/lockscreen.js"></script>
-  <script src="js/main.js"></script>
+    if (navigator.getBattery) {
+      navigator.getBattery().then((battery) => {
+        function updateBattery() {
+          batteryLabel.textContent = `${Math.round(battery.level * 100)}%`;
+        }
+        updateBattery();
+        battery.addEventListener("levelchange", updateBattery);
+      });
+    }
+
+    const gestureBar = document.getElementById("gesture-bar");
+    let startY = null;
+    let startTime = null;
+
+    gestureBar.addEventListener("pointerdown", (event) => {
+      gestureBar.setPointerCapture(event.pointerId);
+      startY = event.clientY;
+      startTime = performance.now();
+    });
+
+    gestureBar.addEventListener("pointerup", (event) => {
+      if (startY === null) return;
+      const dy = event.clientY - startY;
+      const dt = performance.now() - startTime;
+      const speed = dy / dt;
+      if (dy < -40 && speed < -0.4) {
+        frame.src = "apps/homescreen/";
+      }
+      startY = null;
+      startTime = null;
+    });
+
+    gestureBar.addEventListener("pointercancel", () => {
+      startY = null;
+      startTime = null;
+    });
+  </script>
 </body>
 </html>
