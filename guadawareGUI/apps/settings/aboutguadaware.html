@@ -10,17 +10,59 @@
     <header>
         <span><a href="index.html">Back</a></span>
         <span><h1>Guadaware 26.1</h1></span>
-        
+
     </header>
     <section>
         <ul>
             <li>
-                <span>RAM</span>
-                <b><iframe src=´http://localhost:8080/sh/free -h | awk '/Mem:/ {print $3 "/" $2}'´ frameborder="0"></iframe></b>
+                PC Model
+                <b id="pc-model">—</b>
             </li>
-            
+        </ul>
+    </section>
+    <section>
+        <ul>
+            <li>
+                RAM
+                <b id="ram-usage">—</b>
+            </li>
+            <li>
+                Storage
+                <b id="disk-usage">—</b>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <ul>
+            <li>
+                CPU Model
+                <b id="cpu-model">—</b>
+            </li>
+            <li>
+                GPU Model
+                <b id="gpu-model">—</b>
+            </li>
         </ul>
     </section>
 
+    <script>
+      const SYSTEM_API = "http://localhost:8080";
+
+      async function fill(id, endpoint) {
+        const el = document.getElementById(id);
+        try {
+          const res = await fetch(SYSTEM_API + endpoint);
+          el.textContent = (await res.text()).trim() || "—";
+        } catch {
+          el.textContent = "Unavailable";
+        }
+      }
+
+      fill("pc-model", "/getPCModel");
+      fill("ram-usage", "/getRAMUsage");
+      fill("disk-usage", "/getDiskUsage");
+      fill("cpu-model", "/getCPUModel");
+      fill("gpu-model", "/getGPUModel");
+    </script>
 </body>
 </html>

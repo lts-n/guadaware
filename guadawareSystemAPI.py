@@ -44,7 +44,7 @@ def get_cpu_model():
 
 @route("/getGPUModel")
 def get_gpu_model():
-    result = subprocess.run("lspci | grep -i 'vga\|3d\|2d' | awk -F: '{print $3}'", shell=True, capture_output=True, text=True)
+    result = subprocess.run(r"lspci | grep -i 'vga\|3d\|2d' | awk -F: '{print $3}'", shell=True, capture_output=True, text=True)
     return result.stdout.strip()
 
 runapi(host="localhost", port=8080, debug=True)

@@ -1,5 +1,7 @@
 body {
     background: url("http://localhost:8000/wallpaper.webp") center / cover no-repeat fixed;
+    background-size: cover;
+    background-position: center;
 }
 header {
     font-family: sans-serif;
