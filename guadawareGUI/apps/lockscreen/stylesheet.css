@@ -1,7 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
 body {
-    background: url("http://localhost:8000/wallpaper.webp") center / cover no-repeat fixed;
-    background-size: cover;
-    background-position: center;
+    height: 100%;
+}
+
+body {
+    background: url("../../wallpaper.webp") center / cover no-repeat fixed;
 }
 header {
     font-family: sans-serif;
@@ -12,7 +20,4 @@ header h1 {
     font-size: 2cm;
     border: 0;
     padding: 0%;
-}
-body {
-    background: url("../../wallpaper.webp");
 }
