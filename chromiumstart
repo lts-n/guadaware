@@ -1,2 +1,2 @@
 #!/bin/sh
-chromium --kiosk --app=http://localhost:8000
+chromium --disk-cache-size=0 --kiosk --app=http://localhost:8000

@@ -6,6 +6,15 @@ import subprocess
 def allow_cors():
     response.headers["Access-Control-Allow-Origin"] = "*"
 
+@route("/getGuadawareBuild")
+def get_guadaware_build():
+    result = subprocess.run("cat /etc/guadaware-build", shell=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
+@route("/setWallpaper/<number>")
+def set_wallpaper(number):
+    subprocess.run(["cp", f"guadawareGUI/wallpapers/{number}.webp", "guadawareGUI/wallpaper.webp"])
+
 @route("/poweroff")
 def poweroff():
     subprocess.run(["poweroff"])
