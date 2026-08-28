@@ -1,5 +1,6 @@
 from bottle import run as runapi
 from bottle import route, response, hook
+from urllib.parse import unquote
 import subprocess
 
 @hook("after_request")
@@ -8,6 +9,9 @@ def allow_cors():
 
 @route("/safariProxy/<url:path>")
 def safariProxy(url):
+    url = unquote(url)
+    if not url:
+        return "no URL", 400
     result = subprocess.run(f"curl -A 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' {url}", shell=True, capture_output=True, text=True)
     return result.stdout
 
