@@ -1,23 +1,136 @@
-/* Estilos locales de la app Terminal (no modifican el framework) */
+/* Estilos locales de la app Safari (apariencia iOS Safari) */
+
+#top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: auto;
+  min-height: 52px;
+  padding: calc(5px + env(safe-area-inset-top, 0px)) 8px 5px;
+  background: rgba(249, 249, 249, 0.92);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.16);
+}
+
+#command-form {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin: 0;
+  padding: 0 10px;
+  border-radius: 11px;
+  background: #e9e9eb;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+#command-form:focus-within {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.18);
+}
+
+.lock-icon {
+  width: 13px;
+  height: 13px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: #8e8e93;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#command-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #000;
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  caret-color: #007aff;
+  outline: none;
+  user-select: text;
+}
+
+#command-input::-webkit-search-decoration,
+#command-input::-webkit-search-cancel-button,
+#command-input::-webkit-search-results-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#command-input::placeholder {
+  color: #8e8e93;
+  opacity: 1;
+}
+
+.safari-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #26262a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#top-bar button::before,
+#top-bar button::after {
+  content: none;
+}
+
+.safari-btn svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#tabs-btn {
+  color: #007aff;
+}
+
+.safari-btn:active {
+  background: rgba(0, 0, 0, 0.08);
+}
 
 body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-height: 0;
   overflow: hidden;
-  
+  background: #fff;
 }
-
-
-
 
 #terminal-screen {
   flex: 1;
   min-height: 0;
-  margin: 10px 10px 0;
-  border-radius: 12px;
+  display: flex;
   overflow: hidden;
-
+  background: #fff;
 }
 
 #terminal-iframe {
@@ -25,70 +138,23 @@ body {
   width: 100%;
   height: 100%;
   border: none;
-
 }
 
-#command-form {
+#bottom-bar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
-
-  border-top: 0.5px solid #2c2c30;
+  justify-content: space-around;
+  height: 50px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(249, 249, 249, 0.92);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.16);
 }
 
-#prompt {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-
-  user-select: none;
-}
-
-#command-input {
-  flex: 1;
-  height: 38px;
-  margin: 0;
-  padding: 0 12px;
-  border-radius: 9px;
-  
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  caret-color: var(--green);
-}
-
-
-
-#command-input:focus {
-  outline: none;
-
-}
-
-#execute-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: auto;
-  min-width: 44px;
-  height: 38px;
-  padding: 0 16px;
-  border-radius: 19px;
-
-  font-size: 15px;
-  font-weight: 600;
-}
-
-#execute-button::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid currentColor;
-}
-
-#execute-button:active {
-  filter: brightness(0.82);
+#bottom-bar .safari-btn {
+  width: 52px;
+  height: 44px;
+  border-radius: 10px;
 }

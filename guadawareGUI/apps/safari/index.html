@@ -8,16 +8,55 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Safari</h1>
+    <header id="top-bar">
+        <form id="command-form" autocomplete="off">
+            <svg class="lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="9" rx="2.5"/>
+                <path d="M8.5 11V7.5a3.5 3.5 0 0 1 7 0V11"/>
+            </svg>
+            <input type="search" id="command-input" placeholder="Buscar o escribir URL" spellcheck="false" autofocus>
+        </form>
+        <button id="tabs-btn" class="safari-btn" aria-label="Pestañas">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3.5" y="3.5" width="13" height="13" rx="3"/>
+                <rect x="7.5" y="7.5" width="13" height="13" rx="3"/>
+            </svg>
+        </button>
     </header>
+
     <div id="terminal-screen">
-        <iframe src="" id="terminal-iframe" frameborder="0"></iframe>
+        <iframe src="" id="terminal-iframe" frameborder="0" title="Contenido web"></iframe>
     </div>
-    <form id="command-form" autocomplete="off">
-        <input type="text" id="command-input" placeholder="URL" spellcheck="false" autofocus>
-        <button id="execute-button" type="submit" aria-label="Run"></button>
-    </form>
+
+    <footer id="bottom-bar">
+        <button id="back-btn" class="safari-btn" aria-label="Atrás">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 4L7 12l8 8"/>
+            </svg>
+        </button>
+        <button id="forward-btn" class="safari-btn" aria-label="Adelante">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 4l8 8-8 8"/>
+            </svg>
+        </button>
+        <button id="share-btn" class="safari-btn" aria-label="Compartir">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 15V3"/>
+                <path d="M7 8l5-5 5 5"/>
+                <rect x="4" y="13" width="16" height="7" rx="2"/>
+            </svg>
+        </button>
+        <button id="bookmarks-btn" class="safari-btn" aria-label="Marcadores">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 6.5C10.2 5.1 8.3 4.5 6 4.5c-1.8 0-3 .6-3 1.4V18c0 .8 1.2 1.4 3 1.4 2.3 0 4.2-.6 6-2 1.8 1.4 3.7 2 6 2 1.8 0 3-.6 3-1.4V5.9c0-.8-1.2-1.4-3-1.4-2.3 0-4.2.6-6 2z"/>
+            </svg>
+        </button>
+        <button id="new-tab-btn" class="safari-btn" aria-label="Nueva pestaña">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+            </svg>
+        </button>
+    </footer>
     <script src="index.js"></script>
 </body>
 </html>
