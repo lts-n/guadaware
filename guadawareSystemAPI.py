@@ -6,6 +6,11 @@ import subprocess
 def allow_cors():
     response.headers["Access-Control-Allow-Origin"] = "*"
 
+@route("/getSafariWebpage/<url:path>")
+def get_safari_webpage(url):
+    result = subprocess.run(f"curl -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' {url}", shell=True, capture_output=True, text=True)
+    return result.stdout
+
 @route("/getGuadawareBuild")
 def get_guadaware_build():
     result = subprocess.run("cat /etc/guadaware-build", shell=True, capture_output=True, text=True)
