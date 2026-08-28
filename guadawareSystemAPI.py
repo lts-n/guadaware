@@ -29,6 +29,34 @@ def sh(cmd):
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     return result.stdout + result.stderr
 
+@route("/getBatteryPercentage")
+def get_battery_percentage():
+    result = subprocess.run("cat /sys/class/power_supply/BAT0/capacity", shell=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
+@route("/getCellularDataStatus")
+def get_cellular_data_status():
+    result = subprocess.run("nmcli radio wwan", shell=True, capture_output=True, text=True)
+    if "disabled" in result.stdout:
+        return "0"
+    else:
+        return "1"
+
+@route("/setCellularDataStatus/<switch>")
+def set_cellular_data_status(switch):
+    if switch=="0":
+        subprocess.run(["nmcli", "radio", "wwan", "off"])
+    elif switch=="1":
+        subprocess.run(["nmcli", "radio", "wwan", "on"])
+
+@route("/getAirplanemode")
+def get_airplanemode():
+    result = subprocess.run(["nmcli", "radio", "all"], capture_output=True, text=True)
+    if "disabled" in result.stdout:
+        return "1"
+    else:
+        return "0"
+
 @route("/setAirplanemode/<switch>")
 def set_airplanemode(switch):
     if switch=="0":
