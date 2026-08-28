@@ -24,6 +24,11 @@ const APPS = [
     "icons/calculator-icon.png",
     "../calculator/",
     "Calculator"
+  ),
+  new App(
+    "icons/safari-icon.webp",
+    "../safari no proxy/",
+    "Safari (Without Proxy)"
   )
 ];
 

@@ -100,7 +100,7 @@
       const text = batteryLabel.textContent;
       const value = parseInt(text, 10);
       if (!isNaN(value) && value < 4) {
-        fetch("http://localhost:8080/poweroff", { mode: "no-cors" }).catch(() => {});
+        fetch("http://localhost:8080/poweroff").catch(() => {});
       }
     }
 
@@ -110,7 +110,7 @@
     const SYSTEM_API = "http://localhost:8080";
 
     function updateBatteryFromOS() {
-      fetch(`${SYSTEM_API}/getBatteryPercentage`, { mode: "no-cors" })
+      fetch(`${SYSTEM_API}/getBatteryPercentage`)
         .then((res) => res.text())
         .then((text) => {
           if (text) batteryLabel.textContent = `${text}%`;
