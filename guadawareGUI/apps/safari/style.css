@@ -116,6 +116,11 @@
   background: rgba(0, 0, 0, 0.08);
 }
 
+.safari-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 body {
   display: flex;
   flex-direction: column;
