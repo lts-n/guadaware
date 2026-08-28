@@ -3,8 +3,9 @@ const input = document.getElementById("command-input");
 const iframe = document.getElementById("terminal-iframe");
 const backBtn = document.getElementById("back-btn");
 const forwardBtn = document.getElementById("forward-btn");
+const searchBtn = document.getElementById("search-btn");
 
-const PROXY = "http://localhost:8080/getSafariWebpage/";
+const PROXY = "http://localhost:8080/safariProxy/";
 
 let history = [];
 let index = -1;
@@ -30,6 +31,10 @@ function go(url) {
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+    go(input.value.trim());
+});
+
+searchBtn.addEventListener("click", () => {
     go(input.value.trim());
 });
 
