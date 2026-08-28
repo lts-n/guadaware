@@ -93,9 +93,15 @@
       const hours = now.getHours() % 12 || 12;
       const minutes = String(now.getMinutes()).padStart(2, "0");
       clock.textContent = `${hours}:${minutes}`;
-      if (document.getElementById("status-battery").textContent < "2%") [
-        fetch("http://localhost:8080/poweroff")
-      ]
+      checkBatterySafety();
+    }
+
+    function checkBatterySafety() {
+      const text = batteryLabel.textContent;
+      const value = parseInt(text, 10);
+      if (!isNaN(value) && value < 4) {
+        fetch("http://localhost:8080/poweroff", { mode: "no-cors" }).catch(() => {});
+      }
     }
 
     updateClock();
