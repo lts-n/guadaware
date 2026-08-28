@@ -35,7 +35,7 @@
                 <li>
                     <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%2334c759'/><g fill='%23fff'><rect x='4.5' y='13' width='3.4' height='7' rx='1'/><rect x='10.3' y='9' width='3.4' height='11' rx='1'/><rect x='16.1' y='5' width='3.4' height='15' rx='1'/></g></svg>" alt="">
                     Cellular Data
-                    <label><input type="checkbox" checked><span></span></label>
+                    <label><input id="cellular-toggle" type="checkbox"><span></span></label>
                 </li>
             </ul>
         </section>
@@ -76,18 +76,38 @@
     <script>
       const SYSTEM_API = "http://localhost:8080";
       const airplaneToggle = document.getElementById("airplane-toggle");
+      const cellularToggle = document.getElementById("cellular-toggle");
 
       function setAirplaneMode(on) {
         fetch(`${SYSTEM_API}/setAirplanemode/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
         localStorage.setItem("airplanemode", on ? "1" : "0");
       }
 
-      if (localStorage.getItem("airplanemode") === "1") {
-        airplaneToggle.checked = true;
+      function setCellularData(on) {
+        fetch(`${SYSTEM_API}/setCellularDataStatus/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
+        localStorage.setItem("cellulardata", on ? "1" : "0");
       }
+
+      fetch(`${SYSTEM_API}/getAirplanemode`, { mode: "no-cors" })
+        .then((res) => res.text())
+        .then((text) => {
+          airplaneToggle.checked = text === "1";
+        })
+        .catch(() => {});
+
+      fetch(`${SYSTEM_API}/getCellularDataStatus`, { mode: "no-cors" })
+        .then((res) => res.text())
+        .then((text) => {
+          cellularToggle.checked = text === "1";
+        })
+        .catch(() => {});
 
       airplaneToggle.addEventListener("change", () => {
         setAirplaneMode(airplaneToggle.checked);
+      });
+
+      cellularToggle.addEventListener("change", () => {
+        setCellularData(cellularToggle.checked);
       });
     </script>
 </body>

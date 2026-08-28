@@ -98,6 +98,20 @@
     updateClock();
     setInterval(updateClock, 1000);
 
+    const SYSTEM_API = "http://localhost:8080";
+
+    function updateBatteryFromOS() {
+      fetch(`${SYSTEM_API}/getBatteryPercentage`, { mode: "no-cors" })
+        .then((res) => res.text())
+        .then((text) => {
+          if (text) batteryLabel.textContent = `${text}%`;
+        })
+        .catch(() => {});
+    }
+
+    updateBatteryFromOS();
+    setInterval(updateBatteryFromOS, 30000);
+
     if (navigator.getBattery) {
       navigator.getBattery().then((battery) => {
         function updateBattery() {
