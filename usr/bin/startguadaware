@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# startguadaware — GuadaWare desktop launcher.
+# Starts the system API, the GUI web server and the kiosk Wayland session.
+
+# Resolve the runtime library directory. Prefer a system install; when run
+# straight from this repository, fall back to the local usr/ tree.
+LIBDIR=/usr/lib/libguadaware
+if [ ! -d "$LIBDIR" ]; then
+    LIBDIR="$(CDPATH= cd -- "$(dirname -- "$0")/../lib" && pwd)/libguadaware"
+fi
+
+for tool in python3 cage; do
+    command -v "$tool" >/dev/null 2>&1 || {
+        echo "error: required command '$tool' not found" >&2
+        exit 1
+    }
+done
+[ -d "$LIBDIR" ] || {
+    echo "error: library directory not found: $LIBDIR" >&2
+    exit 1
+}
+
+# 1. GuadaWare System API (Bottle) on localhost:8080.
+(
+    cd "$LIBDIR" && exec python3 "$LIBDIR/guadawareSystemAPI.py"
+) &
+API_PID=$!
+
+# 2. Static GUI web server on localhost:8000.
+(
+    cd "$LIBDIR/guadawareGUI" && exec python3 -m http.server 8000
+) &
+WEB_PID=$!
+
+trap 'kill "$API_PID" "$WEB_PID" 2>/dev/null' INT TERM
+
+# 3. Desktop session (Cage + Chromium kiosk). Block until the session ends.
+"$LIBDIR/clientstart"
+status=$?
+
+kill "$API_PID" "$WEB_PID" 2>/dev/null
+exit "$status"

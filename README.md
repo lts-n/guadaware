@@ -4,11 +4,20 @@
 
 Guadaware is architected to be portable: although it is the native desktop of the Guadafón, it is designed so it can be ported to other mobile platforms based on **Android** or **Ubuntu Touch**.
 
+## Layout
+
+Guadaware follows the Filesystem Hierarchy Standard, so the whole system can be deployed simply by installing the `usr/` tree onto the root filesystem:
+
+| Path | Contents |
+| --- | --- |
+| `usr/bin/startguadaware` | Single launcher that starts the whole desktop |
+| `usr/lib/libguadaware/` | System API, startup scripts and GUI |
+
 ## Architecture
 
 The system is divided into three cooperating layers:
 
-### 1. GUI (`guadawareGUI/`)
+### 1. GUI (`usr/lib/libguadaware/guadawareGUI/`)
 
 The user interface is a collection of **static web apps** (HTML/CSS/JavaScript) served over HTTP. The shell (status bar, gesture bar, and control center) lives in `index.html`, and each app is its own folder under `apps/`.
 
@@ -18,7 +27,7 @@ The GUI is served by a tiny static server:
 
 - `guadawareGUI/guadawareGUIServer` — starts `python3 -m http.server 8000` (serves on port `8000`).
 
-### 2. System API (`guadawareSystemAPI.py`)
+### 2. System API (`usr/lib/libguadaware/guadawareSystemAPI.py`)
 
 A lightweight **Bottle (Python)** HTTP API on `localhost:8080` that exposes device functionality to the web UI as REST endpoints:
 
@@ -44,8 +53,8 @@ Networking and radio control is delegated to **NetworkManager** (`nmcli`).
 
 The GUI is displayed full-screen in a kiosk-mode web view managed by the Wayland compositor **Cage**:
 
-- `clientstart` — launches `cage` to provide the Wayland session.
-- `chromiumstart` — clears browser state and launches **Chromium** in `--kiosk` app mode pointing at `http://localhost:8000`.
+- `usr/lib/libguadaware/clientstart` — launches `cage` to provide the Wayland session.
+- `usr/lib/libguadaware/chromiumstart` — clears browser state and launches **Chromium** in `--kiosk` app mode pointing at `http://localhost:8000`.
 
 ## Dependencies
 
@@ -58,25 +67,46 @@ The GUI is displayed full-screen in a kiosk-mode web view managed by the Wayland
 
 ## Running
 
-Start the system API:
+### One-shot launcher
+
+The whole desktop — system API, GUI server and Cage session — is started with a single command.
+
+Run it straight from this repository:
 
 ```sh
+./usr/bin/startguadaware
+```
+
+Or install it system-wide first:
+
+```sh
+sudo cp -r usr/lib /usr/
+sudo install -m 755 usr/bin/startguadaware /usr/bin/
+/usr/bin/startguadaware
+```
+
+### Running the services individually
+
+For debugging, each layer can be started on its own:
+
+Start the system API (must run from `usr/lib/libguadaware/`, it uses relative paths):
+
+```sh
+cd usr/lib/libguadaware
 python3 guadawareSystemAPI.py
 ```
 
 Start the GUI server:
 
 ```sh
-./guadawareGUI/guadawareGUIServer
+./usr/lib/libguadaware/guadawareGUI/guadawareGUIServer
 ```
 
 Launch the desktop:
 
 ```sh
-./clientstart
+./usr/lib/libguadaware/clientstart
 ```
-
-
 
 ## License
 
