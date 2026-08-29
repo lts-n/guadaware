@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+.lock {
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: url("../../wallpaper.webp") center / cover no-repeat fixed;
+    overflow: hidden;
+}
+
+.lock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8vh 20px 6vh;
+}
+
+.unlock-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: auto;
+    margin-bottom: 12px;
+}
+
+.dots {
+    display: flex;
+    gap: 22px;
+    margin-top: 14px;
+}
+
+.dots i {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+}
+
+.dots i.filled {
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.dots.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-14px); }
+    40% { transform: translateX(14px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+}
+
+.keypad {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 6vh;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.row button {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border: none;
+    border-radius: 38px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(2px) saturate(120%);
+    -webkit-backdrop-filter: blur(2px) saturate(120%);
+    font-family: inherit;
+}
+
+.row button:active {
+    background: rgba(255, 255, 255, 0.34);
+}
+
+.row button b {
+    font-size: 36px;
+    font-weight: 200;
+}
+
+.row button em {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    font-size: 9px;
+    font-style: normal;
+    letter-spacing: 0.4px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.row button.alt {
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.row button#delete {
+    font-size: 26px;
+}

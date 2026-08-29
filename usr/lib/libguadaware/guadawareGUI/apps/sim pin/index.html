@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passcode</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="lock">
+        <div class="unlock-label" id="label">Enter SIM PIN</div>
+
+        <div class="dots" id="dots">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+
+        <div class="keypad">
+            <div class="row">
+                <button data-key="1"><b>1</b></button>
+                <button data-key="2"><b>2</b><em>ABC</em></button>
+                <button data-key="3"><b>3</b><em>DEF</em></button>
+            </div>
+            <div class="row">
+                <button data-key="4"><b>4</b><em>GHI</em></button>
+                <button data-key="5"><b>5</b><em>JKL</em></button>
+                <button data-key="6"><b>6</b><em>MNO</em></button>
+            </div>
+            <div class="row">
+                <button data-key="7"><b>7</b><em>PQRS</em></button>
+                <button data-key="8"><b>8</b><em>TUV</em></button>
+                <button data-key="9"><b>9</b><em>WXYZ</em></button>
+            </div>
+            <div class="row">
+                <button class="alt" id="emergency">Emergency</button>
+                <button data-key="0"><b>0</b></button>
+                <button class="alt" id="delete">&#9003;</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PIN_KEY = "guadawaresim.pin";
+        const CODE_LEN = 4;
+        const label = document.getElementById("label");
+        const dots = [...document.querySelectorAll("#dots i")];
+        const PIN = "1234";
+
+        let attempt = "";
+        let shaking = false;
+
+        function resetDots() {
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.toggle("filled", i < attempt.length);
+            }
+        }
+
+        function shake(cb) {
+            if (shaking) return;
+            shaking = true;
+            const holder = document.getElementById("dots");
+            holder.addEventListener("animationend", () => {
+                holder.classList.remove("shake");
+                attempt = "";
+                resetDots();
+                label.textContent = "Enter Passcode";
+                shaking = false;
+                if (cb) cb();
+            }, { once: true });
+            holder.classList.add("shake");
+        }
+
+        function submit() {
+            if (attempt.length !== CODE_LEN) return;
+            if (attempt === PIN) {
+                label.textContent = "Success";
+                dots.forEach((d) => d.classList.add("filled"));
+                setTimeout(() => { window.parent.location.href = "../lockscreen/"; }, 300);
+            } else {
+                label.textContent = "Wrong passcode";
+                shake();
+            }
+        }
+
+        function press(key) {
+            if (shaking) return;
+            if (attempt.length < CODE_LEN) {
+                attempt += key;
+                resetDots();
+            }
+            if (attempt.length === CODE_LEN) {
+                setTimeout(submit, 120);
+            }
+        }
+
+        document.querySelectorAll(".keypad button[data-key]").forEach((btn) => {
+            btn.addEventListener("click", () => press(btn.dataset.key));
+        });
+
+        document.getElementById("delete").addEventListener("click", () => {
+            if (shaking) return;
+            attempt = attempt.slice(0, -1);
+            resetDots();
+        });
+
+        document.getElementById("emergency").addEventListener("click", () => {
+            window.parent.location.href = "../lockscreen/";
+        });
+    </script>
+</body>
+</html>

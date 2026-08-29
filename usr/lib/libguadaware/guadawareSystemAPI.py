@@ -15,6 +15,11 @@ def safariProxy(url):
     result = subprocess.run(f"curl -A 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' {url}", shell=True, capture_output=True, text=True)
     return result.stdout
 
+@route("/postSIM-PIN/<pin>")
+def post_simpin(pin):
+    result = subprocess.run(f"nmcli -i 0 --pin={pin}", shell=True, capture_output=True, text=True)
+    return result.stdout
+
 @route("/getGuadawareBuild")
 def get_guadaware_build():
     result = subprocess.run("cat /etc/guadaware-build", shell=True, capture_output=True, text=True)
