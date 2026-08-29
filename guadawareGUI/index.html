@@ -77,14 +77,15 @@
       z-index: 50;
       display: flex;
       justify-content: center;
-      padding: 30px 16px 0;
+      align-items: flex-start;
+      padding: 24px 12px 0;
       visibility: hidden;
       opacity: 0;
       transform: translateY(-100%);
-      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(10px) saturate(180%);
-      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      transition: transform .32s cubic-bezier(.22,.61,.36,1), opacity .22s ease;
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
       touch-action: none;
     }
 
@@ -95,106 +96,132 @@
     }
 
     .cc-panel {
-      width: min(92vw, 420px);
-      height: fit-content;
-      max-height: 75vh;
+      width: min(100%, 430px);
+      max-height: calc(100vh - 38px);
       overflow-y: auto;
-      border-radius: 24px;
-      padding: 18px;
-      background: rgba(40, 44, 52, 0.55);
-      color: #fff;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(236,236,236,.88);
+      color: #111;
+      box-shadow: 0 18px 45px rgba(0,0,0,.28);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
+      scrollbar-width: none;
+    }
+
+    .cc-panel::-webkit-scrollbar {
+      display: none;
     }
 
     .cc-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 8px;
     }
 
     .cc-toggle {
-      aspect-ratio: 1;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.18);
+      min-height: 78px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      color: #111;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 7px;
       cursor: pointer;
-      transition: background 0.2s ease;
+      transition: transform .12s ease, background .15s ease;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    }
+
+    .cc-toggle:active {
+      transform: scale(.96);
     }
 
     .cc-toggle svg {
-      width: 26px;
-      height: 26px;
+      width: 27px;
+      height: 27px;
       fill: currentColor;
     }
 
     .cc-toggle h4 {
-      font-size: 11px;
+      font-size: 10px;
+      line-height: 1.1;
       font-weight: 500;
       text-align: center;
     }
 
     .cc-toggle.active {
-      background: rgba(10, 132, 255, 0.85);
+      background: #0a84ff;
+      color: #fff;
+      box-shadow: none;
     }
 
     .cc-slider {
-      display: flex;
+      display: grid;
+      grid-template-columns: 30px 1fr;
       align-items: center;
-      gap: 12px;
+      gap: 9px;
+      min-height: 52px;
+      padding: 0 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
     }
 
     .cc-slider svg {
-      width: 22px;
-      height: 22px;
-      fill: #fff;
-      flex-shrink: 0;
-      opacity: 0.9;
+      width: 21px;
+      height: 21px;
+      fill: #111;
+      opacity: .85;
     }
 
     .cc-slider input[type="range"] {
-      flex: 1;
+      width: 100%;
       accent-color: #0a84ff;
+      height: 4px;
     }
 
     .cc-music {
-      display: flex;
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
       align-items: center;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 14px;
-      padding: 10px;
+      gap: 11px;
+      min-height: 70px;
+      padding: 9px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.72);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
     }
 
     .cc-music .art {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      width: 48px;
+      height: 48px;
+      border-radius: 7px;
+      background: linear-gradient(135deg,#f5c27a,#e87979);
       flex-shrink: 0;
     }
 
     .cc-music .info {
-      flex: 1;
       min-width: 0;
     }
 
     .cc-music .info h4 {
       font-size: 13px;
+      font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .cc-music .info p {
+      margin-top: 3px;
       font-size: 11px;
-      opacity: 0.7;
+      opacity: .58;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -207,15 +234,30 @@
     }
 
     .cc-music .controls svg {
-      width: 20px;
-      height: 20px;
-      fill: #fff;
+      width: 19px;
+      height: 19px;
+      fill: #111;
       cursor: pointer;
     }
 
     .cc-music .controls svg.play {
-      width: 28px;
-      height: 28px;
+      width: 27px;
+      height: 27px;
+    }
+
+    @media (max-width: 360px) {
+      .cc-panel {
+        padding: 10px;
+        gap: 9px;
+      }
+
+      .cc-grid {
+        gap: 6px;
+      }
+
+      .cc-toggle {
+        min-height: 68px;
+      }
     }
   </style>
 </head>
@@ -233,32 +275,32 @@
   <section id="control-center" aria-hidden="true">
     <div class="cc-panel">
       <div class="cc-grid">
-        <div class="cc-toggle active" data-toggle="wifi">
+        <div class="cc-toggle active" data-toggle="wifi" aria-label="Wi-Fi">
           <svg viewBox="0 0 24 24"><path d="M12 21l6-7a8.48 8.48 0 00-12 0l6 7zm0-16a14.5 14.5 0 00-9.9 4l1.4 1.4A12.5 12.5 0 0112 7c3.2 0 6.2 1.2 8.5 3.4L21.9 9A14.5 14.5 0 0012 5zm0-4a18.5 18.5 0 00-12.5 5L1 7.4A16.5 16.5 0 0112 3c4.2 0 8.1 1.6 11 4.4L24.5 6A18.5 18.5 0 0012 1z"/></svg>
           <h4>Wi-Fi</h4>
         </div>
-        <div class="cc-toggle active" data-toggle="bluetooth">
-          <svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88zM4.41 17.59L2 20h4.2l-1.79-1.79zM20 20l-1.79-1.79L20 16.42V20z"/></svg>
+        <div class="cc-toggle active" data-toggle="bluetooth" aria-label="Bluetooth">
+          <svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"/></svg>
           <h4>Bluetooth</h4>
         </div>
-        <div class="cc-toggle" data-toggle="airplane">
-          <svg viewBox="0 0 24 24"><path d="M21.48 13.7L13.5 9V3.5A1.5 1.5 0 0012 2a1.5 1.5 0 00-1.5 1.5V9l-7.98 4.7a1 1 0 00-.02 1.74l4.5 2.6L9.5 21l2.5-1.25L14.5 21l1.5-3.96 4.5-2.6a1 1 0 00-.02-1.74z"/></svg>
-          <h4>Avión</h4>
+        <div class="cc-toggle" data-toggle="airplane" aria-label="Airplane Mode">
+          <svg viewBox="0 0 24 24"><path d="M9.8 2.7a2.2 2.2 0 014.4 0v5l6.8 4.1v2.4l-6.8-1.9v4.3l2 1.4v1.8L12 19l-4.2.8V18l2-1.4v-4.3L3 14.2v-2.4l6.8-4.1z"/></svg>
+          <h4>Airplane Mode</h4>
         </div>
-        <div class="cc-toggle active" data-toggle="cellular">
+        <div class="cc-toggle active" data-toggle="cellular" aria-label="Cellular Data">
           <svg viewBox="0 0 24 24"><path d="M4 14h3v6H4v-6zm5-4h3v10H9V10zm5-4h3v14h-3V6zM4 6h1v2H4z"/></svg>
-          <h4>Cellular data</h4>
+          <h4>Cellular Data</h4>
         </div>
       </div>
 
       <div class="cc-slider">
         <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
-        <input type="range" id="cc-brightness" min="0" max="100" value="70" aria-label="Brillo">
+        <input type="range" id="cc-brightness" min="0" max="100" value="0" aria-label="Brightness">
       </div>
 
       <div class="cc-slider">
         <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a6 6 0 010 13.4v2.1a8 8 0 000-17.6z"/></svg>
-        <input type="range" id="cc-volume" min="0" max="100" value="50" aria-label="Volumen">
+        <input type="range" id="cc-volume" min="0" max="100" value="0" aria-label="Volume">
       </div>
 
       <div class="cc-music">
@@ -268,9 +310,9 @@
           <p>Taylor Swift</p>
         </div>
         <div class="controls">
-          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-          <svg class="play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          <svg viewBox="0 0 24 24" aria-label="Previous"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          <svg class="play" viewBox="0 0 24 24" aria-label="Play"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" aria-label="Next"><path d="M16 6h2v12h-2zM6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
         </div>
       </div>
     </div>
