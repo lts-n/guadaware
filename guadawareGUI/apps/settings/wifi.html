@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><a href="index.html">Back</a></span>
+        <span><h1>Wi-Fi</h1></span>
+    </header>
+
+    <section>
+        <ul>
+            <li>
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><g fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'><path d='M3.5 9.8C8.4 5.4 15.6 5.4 20.5 9.8'/><path d='M6.3 13.2c3.2-2.9 8.2-2.9 11.4 0'/><path d='M9.2 16.5c1.6-1.4 4-1.4 5.6 0'/></g><circle cx='12' cy='19.6' r='1.7' fill='%23fff'/></svg>" alt="">
+                Wi-Fi
+                <label><input id="wifi-toggle" type="checkbox"><span></span></label>
+            </li>
+        </ul>
+    </section>
+
+    <h2>Networks</h2>
+    <section>
+        <ul id="network-list">
+            <li>Scanning…</li>
+        </ul>
+    </section>
+
+    <script>
+      const SYSTEM_API = "http://localhost:8080";
+      const wifiToggle = document.getElementById("wifi-toggle");
+      const networkList = document.getElementById("network-list");
+
+      let currentNetwork = null;
+
+      function sh(cmd) {
+        return fetch(`${SYSTEM_API}/sh/${encodeURIComponent(cmd)}`)
+          .then((res) => res.text())
+          .catch(() => "");
+      }
+
+      function setWiFi(on) {
+        sh(`nmcli radio wifi ${on ? "on" : "off"}`)
+          .then(() => {
+            localStorage.setItem("wifi", on ? "1" : "0");
+            if (on) scan();
+            else networkList.innerHTML = "<li>Not connected</li>";
+          });
+      }
+
+      async function loadState() {
+        const state = (await sh("nmcli radio wifi")).trim();
+        wifiToggle.checked = state.includes("enabled");
+        if (wifiToggle.checked) {
+          loadCurrent();
+          scan();
+        } else {
+          networkList.innerHTML = "<li>Wi-Fi is off</li>";
+        }
+      }
+
+      async function loadCurrent() {
+        const active = (await sh("nmcli -t -f ACTIVE,SSID dev wifi"))
+          .trim().split("\n").find((line) => line.startsWith("yes:"));
+        currentNetwork = active ? active.split(":")[1] : null;
+      }
+
+      async function scan() {
+        networkList.innerHTML = "<li>Scanning…</li>";
+        const raw = (await sh("nmcli -t -f IN-USE,SSID,SIGNAL,SECURITY dev wifi list"))
+          .trim().split("\n").filter((l) => l);
+        const rows = raw.map((line) => line.split(":"));
+        if (!rows.length) {
+          networkList.innerHTML = "<li>No networks found</li>";
+          return;
+        }
+        networkList.innerHTML = "";
+        rows.forEach(([inUse, ssid, signal, security]) => {
+          if (!ssid) return;
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23007aff'/><g fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'><path d='M3.5 9.8C8.4 5.4 15.6 5.4 20.5 9.8'/><path d='M6.3 13.2c3.2-2.9 8.2-2.9 11.4 0'/><path d='M9.2 16.5c1.6-1.4 4-1.4 5.6 0'/></g><circle cx='12' cy='19.6' r='1.7' fill='%23fff'/></svg>" alt="">
+            ${ssid}
+            <b>${inUse.startsWith("*") ? "Connected" : security === "" ? "Open" : "Secured"}</b>
+          `;
+          li.addEventListener("click", () => startConnect(ssid, security));
+          networkList.appendChild(li);
+        });
+      }
+
+      function startConnect(ssid, security) {
+        if (security !== "" && security !== "--") {
+          const password = prompt(`Password for ${ssid}:`);
+          if (password === null) return;
+          sh(`nmcli dev wifi connect "${ssid}" password "${password}"`).then(() => scan());
+        } else {
+          sh(`nmcli dev wifi connect "${ssid}"`).then(() => scan());
+        }
+      }
+
+      wifiToggle.addEventListener("change", () => {
+        setWiFi(wifiToggle.checked);
+      });
+
+      loadState();
+    </script>
+</body>
+</html>
