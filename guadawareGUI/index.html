@@ -70,6 +70,153 @@
       background: #fff;
       mix-blend-mode: difference;
     }
+
+    #control-center {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      padding: 30px 16px 0;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.25s ease;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      touch-action: none;
+    }
+
+    #control-center.open {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cc-panel {
+      width: min(92vw, 420px);
+      height: fit-content;
+      max-height: 75vh;
+      overflow-y: auto;
+      border-radius: 24px;
+      padding: 18px;
+      background: rgba(40, 44, 52, 0.55);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .cc-toggle {
+      aspect-ratio: 1;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+
+    .cc-toggle svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    .cc-toggle h4 {
+      font-size: 11px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .cc-toggle.active {
+      background: rgba(10, 132, 255, 0.85);
+    }
+
+    .cc-slider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cc-slider svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+
+    .cc-slider input[type="range"] {
+      flex: 1;
+      accent-color: #0a84ff;
+    }
+
+    .cc-music {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 10px;
+    }
+
+    .cc-music .art {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      flex-shrink: 0;
+    }
+
+    .cc-music .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cc-music .info h4 {
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cc-music .info p {
+      font-size: 11px;
+      opacity: 0.7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cc-music .controls {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .cc-music .controls svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+      cursor: pointer;
+    }
+
+    .cc-music .controls svg.play {
+      width: 28px;
+      height: 28px;
+    }
   </style>
 </head>
 <body>
@@ -82,6 +229,52 @@
     <iframe id="app-frame" src="apps/lockscreen/" title="app"></iframe>
     <footer id="gesture-bar"><span></span></footer>
   </main>
+
+  <section id="control-center" aria-hidden="true">
+    <div class="cc-panel">
+      <div class="cc-grid">
+        <div class="cc-toggle active" data-toggle="wifi">
+          <svg viewBox="0 0 24 24"><path d="M12 21l6-7a8.48 8.48 0 00-12 0l6 7zm0-16a14.5 14.5 0 00-9.9 4l1.4 1.4A12.5 12.5 0 0112 7c3.2 0 6.2 1.2 8.5 3.4L21.9 9A14.5 14.5 0 0012 5zm0-4a18.5 18.5 0 00-12.5 5L1 7.4A16.5 16.5 0 0112 3c4.2 0 8.1 1.6 11 4.4L24.5 6A18.5 18.5 0 0012 1z"/></svg>
+          <h4>Wi-Fi</h4>
+        </div>
+        <div class="cc-toggle active" data-toggle="bluetooth">
+          <svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88zM4.41 17.59L2 20h4.2l-1.79-1.79zM20 20l-1.79-1.79L20 16.42V20z"/></svg>
+          <h4>Bluetooth</h4>
+        </div>
+        <div class="cc-toggle" data-toggle="airplane">
+          <svg viewBox="0 0 24 24"><path d="M21.48 13.7L13.5 9V3.5A1.5 1.5 0 0012 2a1.5 1.5 0 00-1.5 1.5V9l-7.98 4.7a1 1 0 00-.02 1.74l4.5 2.6L9.5 21l2.5-1.25L14.5 21l1.5-3.96 4.5-2.6a1 1 0 00-.02-1.74z"/></svg>
+          <h4>Avión</h4>
+        </div>
+        <div class="cc-toggle active" data-toggle="cellular">
+          <svg viewBox="0 0 24 24"><path d="M4 14h3v6H4v-6zm5-4h3v10H9V10zm5-4h3v14h-3V6zM4 6h1v2H4z"/></svg>
+          <h4>Cellular data</h4>
+        </div>
+      </div>
+
+      <div class="cc-slider">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+        <input type="range" id="cc-brightness" min="0" max="100" value="70" aria-label="Brillo">
+      </div>
+
+      <div class="cc-slider">
+        <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a6 6 0 010 13.4v2.1a8 8 0 000-17.6z"/></svg>
+        <input type="range" id="cc-volume" min="0" max="100" value="50" aria-label="Volumen">
+      </div>
+
+      <div class="cc-music">
+        <div class="art"></div>
+        <div class="info">
+          <h4>Daylight</h4>
+          <p>Taylor Swift</p>
+        </div>
+        <div class="controls">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          <svg class="play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <script>
     const frame = document.getElementById("app-frame");
@@ -156,6 +349,48 @@
     gestureBar.addEventListener("pointercancel", () => {
       startY = null;
       startTime = null;
+    });
+
+    const controlCenter = document.getElementById("control-center");
+
+    function openControlCenter() {
+      controlCenter.classList.add("open");
+      controlCenter.setAttribute("aria-hidden", "false");
+    }
+
+    function closeControlCenter() {
+      controlCenter.classList.remove("open");
+      controlCenter.setAttribute("aria-hidden", "true");
+    }
+
+    document.querySelectorAll(".cc-toggle").forEach((el) => {
+      el.addEventListener("click", () => {
+        el.classList.toggle("active");
+      });
+    });
+
+    controlCenter.addEventListener("click", (event) => {
+      if (event.target === controlCenter) closeControlCenter();
+    });
+
+    const statusbar = document.getElementById("statusbar");
+    let nbStartY = null;
+
+    statusbar.addEventListener("pointerdown", (event) => {
+      statusbar.setPointerCapture(event.pointerId);
+      nbStartY = event.clientY;
+    });
+
+    statusbar.addEventListener("pointermove", (event) => {
+      if (nbStartY === null || controlCenter.classList.contains("open")) return;
+      if (event.clientY - nbStartY > 12) {
+        openControlCenter();
+        nbStartY = null;
+      }
+    });
+
+    statusbar.addEventListener("pointerup", () => {
+      nbStartY = null;
     });
   </script>
 </body>
