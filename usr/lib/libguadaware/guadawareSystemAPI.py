@@ -123,6 +123,7 @@ def set_airplanemode(switch):
         subprocess.run(["nmcli", "radio", "all", "on"])
     elif switch=="1":
         subprocess.run(["nmcli", "radio", "all", "off"])
+        subprocess.run(["nmcli", "radio", "wwan", "off"], capture_output=True)
 
 @route("/getRAMUsage")
 def get_ramusage():

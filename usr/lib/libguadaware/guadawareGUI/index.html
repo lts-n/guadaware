@@ -408,11 +408,48 @@
       controlCenter.setAttribute("aria-hidden", "true");
     }
 
+    const AIRPLANE_API = `${SYSTEM_API}`;
+    const airplaneCC = document.querySelector('.cc-toggle[data-toggle="airplane"]');
+    let airplaneCCOn = false;
+
+    function setAirplaneCC(on) {
+      airplaneCCOn = on;
+      airplaneCC.classList.toggle("active", on);
+      fetch(`${AIRPLANE_API}/setAirplanemode/${on ? 1 : 0}`, { mode: "no-cors" }).catch(() => {});
+      localStorage.setItem("airplanemode", on ? "1" : "0");
+      const radios = document.querySelectorAll('.cc-toggle[data-toggle="wifi"], .cc-toggle[data-toggle="bluetooth"], .cc-toggle[data-toggle="cellular"]');
+      radios.forEach((r) => {
+        r.classList.remove("active");
+      });
+      if (on) {
+        fetch(`${AIRPLANE_API}/setCellularDataStatus/0`, { mode: "no-cors" }).catch(() => {});
+      }
+    }
+
     document.querySelectorAll(".cc-toggle").forEach((el) => {
       el.addEventListener("click", () => {
+        const toggle = el.dataset.toggle;
+        if (toggle === "airplane") {
+          setAirplaneCC(!airplaneCCOn);
+          return;
+        }
+        if (airplaneCCOn) {
+          el.classList.remove("active");
+          return;
+        }
         el.classList.toggle("active");
       });
     });
+
+    (async () => {
+      try {
+        const res = await fetch(`${AIRPLANE_API}/getAirplanemode`, { mode: "no-cors" });
+        const text = await res.text();
+        setAirplaneCC(text === "1");
+      } catch (e) {
+        setAirplaneCC(localStorage.getItem("airplanemode") === "1");
+      }
+    })();
 
     controlCenter.addEventListener("click", (event) => {
       if (event.target === controlCenter) closeControlCenter();

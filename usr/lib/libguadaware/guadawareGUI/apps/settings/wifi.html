@@ -37,6 +37,15 @@
       const networkList = document.getElementById("network-list");
 
       let currentNetwork = null;
+      let airplaneOn = localStorage.getItem("airplanemode") === "1";
+
+      function renderWifiState() {
+        wifiToggle.disabled = airplaneOn;
+        if (airplaneOn) {
+          wifiToggle.checked = false;
+          networkList.innerHTML = `<li>${locale.t("wifi.off")}</li>`;
+        }
+      }
 
       function sh(cmd) {
         return fetch(`${SYSTEM_API}/sh/${encodeURIComponent(cmd)}`)
@@ -45,6 +54,10 @@
       }
 
       function setWiFi(on) {
+        if (airplaneOn) {
+          wifiToggle.checked = false;
+          return;
+        }
         sh(`nmcli radio wifi ${on ? "on" : "off"}`)
           .then(() => {
             localStorage.setItem("wifi", on ? "1" : "0");
@@ -54,6 +67,8 @@
       }
 
       async function loadState() {
+        renderWifiState();
+        if (airplaneOn) return;
         const state = (await sh("nmcli radio wifi")).trim();
         wifiToggle.checked = state.includes("enabled");
         if (wifiToggle.checked) {
