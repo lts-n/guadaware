@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluetooth</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><a href="index.html" data-locale="settings.back">Back</a></span>
+        <span><h1 data-locale="cc.bluetooth">Bluetooth</h1></span>
+    </header>
+
+    <section>
+        <ul>
+            <li>
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%233478f6'/><path d='M6.5 7.5 17 16.5 12 20.5V3.5l5 4-10.5 9' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linejoin='round' stroke-linecap='round'/></svg>" alt="">
+                <span data-locale="cc.bluetooth">Bluetooth</span>
+                <label><input id="bluetooth-toggle" type="checkbox"><span></span></label>
+            </li>
+        </ul>
+    </section>
+
+    <h2 data-locale="bluetooth.devices">Devices</h2>
+    <section>
+        <ul id="device-list">
+            <li>Scanning…</li>
+        </ul>
+    </section>
+
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      const locale = new Locale();
+      const SYSTEM_API = "http://localhost:8080";
+      const bluetoothToggle = document.getElementById("bluetooth-toggle");
+      const deviceList = document.getElementById("device-list");
+
+      let airplaneOn = localStorage.getItem("airplanemode") === "1";
+
+      function sh(cmd) {
+        return fetch(`${SYSTEM_API}/sh/${encodeURIComponent(cmd)}`)
+          .then((res) => res.text())
+          .catch(() => "");
+      }
+
+      function renderBtState() {
+        bluetoothToggle.disabled = airplaneOn;
+        if (airplaneOn) {
+          bluetoothToggle.checked = false;
+          deviceList.innerHTML = `<li>${locale.t("bluetooth.off")}</li>`;
+        }
+      }
+
+      async function setBluetooth(on) {
+        if (airplaneOn) {
+          bluetoothToggle.checked = false;
+          return;
+        }
+        if (on) {
+          await sh("bluetoothctl power on");
+          localStorage.setItem("bluetooth", "1");
+          await scan();
+        } else {
+          await sh("bluetoothctl power off");
+          localStorage.setItem("bluetooth", "0");
+          deviceList.innerHTML = `<li>${locale.t("bluetooth.off")}</li>`;
+        }
+      }
+
+      async function loadState() {
+        renderBtState();
+        if (airplaneOn) return;
+        const state = (await sh("bluetoothctl show | grep Powered")).includes("yes");
+        bluetoothToggle.checked = state;
+        if (state) {
+          loadDevices();
+        } else {
+          deviceList.innerHTML = `<li>${locale.t("bluetooth.off")}</li>`;
+        }
+      }
+
+      async function loadDevices() {
+        const raw = (await sh("bluetoothctl devices"))
+          .trim().split("\n").filter((l) => l);
+        const rows = raw.map((line) => line.split(" "));
+        deviceList.innerHTML = "";
+        rows.forEach(([, mac, ...nameParts]) => {
+          const name = nameParts.join(" ");
+          if (!name) return;
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%233478f6'/><path d='M6.5 7.5 17 16.5 12 20.5V3.5l5 4-10.5 9' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linejoin='round' stroke-linecap='round'/></svg>" alt="">
+            ${name}
+            <b>${locale.t("bluetooth.paired")}</b>
+          `;
+          li.addEventListener("click", () => connectDevice(mac));
+          deviceList.appendChild(li);
+        });
+        if (!rows.length) {
+          deviceList.innerHTML = `<li>${locale.t("bluetooth.nodevices")}</li>`;
+        }
+      }
+
+      async function scan() {
+        deviceList.innerHTML = `<li>${locale.t("bluetooth.scanning")}</li>`;
+        await sh("bluetoothctl scan on");
+        loadDevices();
+      }
+
+      async function connectDevice(mac) {
+        await sh(`bluetoothctl connect ${mac}`);
+        loadDevices();
+      }
+
+      bluetoothToggle.addEventListener("change", () => {
+        setBluetooth(bluetoothToggle.checked);
+      });
+
+      loadState();
+    </script>
+</body>
+</html>

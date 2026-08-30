@@ -47,6 +47,12 @@ wifi.connected,Connected,Conectado,Connectat
 wifi.open,Open,Abierta,Oberta
 wifi.secured,Secured,Asegurada,Protegida
 wifi.passwordfor,Password for,Contraseña de,Contrasenya de
+# Bluetooth settings
+bluetooth.devices,Devices,Dispositivos,Dispositius
+bluetooth.scanning,Scanning…,Buscando…,Buscant…
+bluetooth.off,Bluetooth is off,Bluetooth apagado,Bluetooth apagat
+bluetooth.nodevices,No devices found,No se encontraron dispositivos,No s'han trobat dispositius
+bluetooth.paired,Paired,Vinculado,Aparellat
 # About
 about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón
 about.ram,RAM,RAM,RAM
