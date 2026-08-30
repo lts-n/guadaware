@@ -4,20 +4,24 @@ function svgIcon(bg, body) {
   );
 }
 
-const APPS = [
-  [ "icons/settings-icon.png", "../settings/", "app.settings" ],
-  [ "icons/terminal-icon.png", "../terminal/", "app.terminal" ],
-  [ "icons/safari-icon.webp",   "../safari/",    "app.safari" ],
-  [ "icons/calculator-icon.png","../calculator/","app.calculator" ],
-  [ "icons/safari-icon.webp",   "../safari no proxy/", "app.safari.noproxy" ]
-];
-
 const grid = document.getElementById("grid");
+const manifest = new URL("../../apps.json", window.location.href);
+const manifestBase = new URL(".", manifest.href);
 
-function render() {
+function resolveFromManifest(path) {
+  return new URL(path, manifestBase).href;
+}
+
+async function render() {
   grid.innerHTML = "";
-  APPS.forEach(([icon, url, key]) => grid.appendChild(
-    new App(icon, url, locale.t(key)).render()
+  const res = await fetch(manifest);
+  const apps = await res.json();
+  apps.forEach((app) => grid.appendChild(
+    new App(
+      resolveFromManifest(app.icon),
+      resolveFromManifest(app.url),
+      locale.t(app.name)
+    ).render()
   ));
 }
 

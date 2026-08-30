@@ -1,0 +1,27 @@
+[
+  {
+    "icon": "apps/homescreen/icons/settings-icon.png",
+    "url": "apps/settings/",
+    "name": "app.settings"
+  },
+  {
+    "icon": "apps/homescreen/icons/terminal-icon.png",
+    "url": "apps/terminal/",
+    "name": "app.terminal"
+  },
+  {
+    "icon": "apps/homescreen/icons/safari-icon.webp",
+    "url": "apps/safari/",
+    "name": "app.safari"
+  },
+  {
+    "icon": "apps/homescreen/icons/calculator-icon.png",
+    "url": "apps/calculator/",
+    "name": "app.calculator"
+  },
+  {
+    "icon": "apps/homescreen/icons/safari-icon.webp",
+    "url": "apps/safari no proxy/",
+    "name": "app.safari.noproxy"
+  }
+]
