@@ -15,6 +15,7 @@ app.terminal,Terminal,Terminal,Terminal
 app.safari,Safari,Safari,Safari
 app.calculator,Calculator,Calculadora,Calculadora
 app.safari.noproxy,Safari (Without Proxy),Safari (Sin Proxy),Safari (Sense Proxy)
+app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions
 # Safari
 safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL
 safari.content,Web content,Contenido web,Contingut web

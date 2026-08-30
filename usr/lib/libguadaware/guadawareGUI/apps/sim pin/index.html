@@ -52,6 +52,10 @@
         let shaking = false;
         let verifying = false;
 
+        function goHome() {
+            window.parent.location.href = "../homescreen/";
+        }
+
         function setError(text) {
             label.textContent = text;
             shake();
@@ -67,11 +71,11 @@
                 .then((result) => {
                     result = result.trim();
                     if (result === "no-modem" || result === "no-sim") {
-                        setError(locale.t("simpin.nosim"));
+                        goHome();
                     } else if (result === "ok") {
                         label.textContent = locale.t("simpin.success");
                         dots.forEach((d) => d.classList.add("filled"));
-                        setTimeout(() => { window.parent.location.href = "../lockscreen/"; }, 300);
+                        setTimeout(goHome, 300);
                     } else {
                         label.textContent = locale.t("simpin.wrong");
                         setTimeout(() => shake(), 0);
@@ -79,7 +83,7 @@
                     verifying = false;
                 })
                 .catch(() => {
-                    setError(locale.t("simpin.error"));
+                    goHome();
                     verifying = false;
                 });
         }
@@ -126,21 +130,19 @@
             resetDots();
         });
 
-        document.getElementById("emergency").addEventListener("click", () => {
-            window.parent.location.href = "../lockscreen/";
-        });
+        document.getElementById("emergency").addEventListener("click", goHome);
 
         fetch(`${SYSTEM_API}/getSIMStatus`)
             .then((res) => res.text())
             .then((status) => {
                 status = status.trim();
                 if (status === "no-modem" || status === "no-sim") {
-                    window.parent.location.href = "../lockscreen/";
+                    goHome();
                 } else if (status === "enabled" || status === "registered") {
-                    window.parent.location.href = "../lockscreen/";
+                    goHome();
                 }
             })
-            .catch(() => {});
+            .catch(goHome);
     </script>
 </body>
 </html>
