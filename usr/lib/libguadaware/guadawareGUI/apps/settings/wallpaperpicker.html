@@ -8,12 +8,14 @@
 </head>
 <body>
     <header>
-        <span><a href="index.html">Back</a></span>
-        <span><h1>Wallpaper Picker</h1></span>
+        <span><a href="index.html" data-locale="settings.back">Back</a></span>
+        <span><h1 data-locale="settings.wallpaper">Wallpaper Picker</h1></span>
     </header>
     <section>
         <ul id="wallpaperpicker"></ul>
     </section>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>new Locale();</script>
     <script src="Wallpaper.js"></script>
     <script src="wallpapers.js"></script>
 </body>

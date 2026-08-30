@@ -9,16 +9,20 @@
 </head>
 <body>
     <header>
-        <h1>Terminal</h1>
+        <h1 data-locale="app.terminal">Terminal</h1>
     </header>
     <div id="terminal-screen">
         <iframe src="" id="terminal-iframe" frameborder="0"></iframe>
     </div>
     <form id="command-form" autocomplete="off">
         <span id="prompt">$</span>
-        <input type="text" id="command-input" placeholder="Enter command" spellcheck="false" autofocus>
-        <button id="execute-button" type="submit" aria-label="Run"></button>
+        <input type="text" id="command-input" data-locale-placeholder="terminal.command" placeholder="Enter command" spellcheck="false" autofocus>
+        <button id="execute-button" type="submit" data-locale-aria="terminal.run"></button>
     </form>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      new Locale();
+    </script>
     <script src="index.js"></script>
 </body>
 </html>

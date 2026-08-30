@@ -1,0 +1,61 @@
+key,eng,esp,cat
+# Control Center
+cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi
+cc.bluetooth,Bluetooth,Bluetooth,Bluetooth
+cc.airplane,Airplane Mode,Modo Avión,Mode Avió
+cc.cellular,Cellular Data,Datos Móviles,Dades Mòbils
+cc.brightness,Brightness,Brillo,Brillantor
+cc.volume,Volume,Volumen,Volum
+cc.prev,Previous,Anterior,Anterior
+cc.play,Play,Reproducir,Reprodueix
+cc.next,Next,Siguiente,Següent
+# Homescreen
+app.settings,Settings,Ajustes,Configuració
+app.terminal,Terminal,Terminal,Terminal
+app.safari,Safari,Safari,Safari
+app.calculator,Calculator,Calculadora,Calculadora
+app.safari.noproxy,Safari (Without Proxy),Safari (Sin Proxy),Safari (Sense Proxy)
+# Safari
+safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL
+safari.content,Web content,Contenido web,Contingut web
+safari.back,Back,Atrás,Enrere
+safari.forward,Forward,Adelante,Endavant
+safari.share,Share,Compartir,Compartir
+safari.bookmarks,Bookmarks,Marcadores,Adreces d'interès
+safari.newtab,New tab,Nueva pestaña,Nova pestanya
+# Terminal
+terminal.command,Enter command,Introducir comando,Introduïu la comanda
+terminal.run,Run,Ejecutar,Executa
+# Calculator
+calc.del,del,del,supr
+# SIM PIN
+simpin.enter,Enter SIM PIN,Introduzca el PIN de la SIM,Introduïu el PIN de la SIM
+simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi
+simpin.success,Success,Correcto,Correcte
+simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte
+simpin.emergency,Emergency,Emergencia,Emergència
+# Wi-Fi settings
+wifi.networks,Networks,Redes,Xarxes
+wifi.scanning,Scanning…,Buscando…,Buscant…
+wifi.notconnected,Not connected,No conectado,No connectat
+wifi.off,Wi-Fi is off,Wi-Fi apagado,Wi-Fi apagat
+wifi.nonetworks,No networks found,No se encontraron redes,No s'han trobat xarxes
+wifi.connected,Connected,Conectado,Connectat
+wifi.open,Open,Abierta,Oberta
+wifi.secured,Secured,Asegurada,Protegida
+wifi.passwordfor,Password for,Contraseña de,Contrasenya de
+# About
+about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón
+about.ram,RAM,RAM,RAM
+about.storage,Storage,Almacenamiento,Emmagatzematge
+about.cpu,CPU Model,Modelo de CPU,Model de CPU
+about.gpu,GPU Model,Modelo de GPU,Model de GPU
+about.unavailable,Unavailable,No disponible,No disponible
+# Settings
+settings.language,Language,Idioma,Llengua
+settings.langselect,Language selector,Seleccionador de idioma,Selector de llengua
+settings.back,Back,Atrás,Tornar
+settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla
+settings.sounds,Sounds,Sonidos,Sons
+settings.dnd,Do Not Disturb,No molestar,No molestar
+settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón

@@ -8,14 +8,14 @@
 </head>
 <body>
     <header>
-        <span><a href="index.html">Back</a></span>
+        <span><a href="index.html" data-locale="settings.back">Back</a></span>
         <span><h1>Guadaware 26 Beta</h1></span>
 
     </header>
     <section>
         <ul>
             <li>
-                Guadafón Model
+                <span data-locale="about.model">Guadafón Model</span>
                 <b id="pc-model">—</b>
             </li>
         </ul>
@@ -23,11 +23,11 @@
     <section>
         <ul>
             <li>
-                RAM
+                <span data-locale="about.ram">RAM</span>
                 <b id="ram-usage">—</b>
             </li>
             <li>
-                Storage
+                <span data-locale="about.storage">Storage</span>
                 <b id="disk-usage">—</b>
             </li>
         </ul>
@@ -35,17 +35,19 @@
     <section>
         <ul>
             <li>
-                CPU Model
+                <span data-locale="about.cpu">CPU Model</span>
                 <b id="cpu-model">—</b>
             </li>
             <li>
-                GPU Model
+                <span data-locale="about.gpu">GPU Model</span>
                 <b id="gpu-model">—</b>
             </li>
         </ul>
     </section>
 
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
     <script>
+      const locale = new Locale();
       const SYSTEM_API = "http://localhost:8080";
 
       async function fill(id, endpoint) {
@@ -54,7 +56,7 @@
           const res = await fetch(SYSTEM_API + endpoint);
           el.textContent = (await res.text()).trim() || "—";
         } catch {
-          el.textContent = "Unavailable";
+          el.textContent = locale.t("about.unavailable");
         }
       }
 

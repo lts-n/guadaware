@@ -10,7 +10,12 @@
     <header>
         <h1 id="time">12:34</h1>
         <h3 id="date">Friday, June 7th.</h3>
+        <script src="../../guadawareUniversalFramework/Locale.js"></script>
         <script>
+            const locale = new Locale();
+            const langMap = { eng: "en", esp: "es", cat: "ca" };
+            const dateLocale = langMap[locale.locale] || undefined;
+
             function updateTime() {
                 const now = new Date();
                 const hours = now.getHours().toString().padStart(2, '0');
@@ -19,7 +24,7 @@
                 document.getElementById('time').textContent = timeString;
 
                 const options = { weekday: 'long', month: 'long', day: 'numeric' };
-                const dateString = now.toLocaleDateString(undefined, options);
+                const dateString = now.toLocaleDateString(dateLocale, options);
                 document.getElementById('date').textContent = dateString;
             }
 

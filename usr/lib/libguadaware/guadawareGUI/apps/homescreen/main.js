@@ -5,32 +5,21 @@ function svgIcon(bg, body) {
 }
 
 const APPS = [
-  new App(
-    "icons/settings-icon.png",
-    "../settings/",
-    "Settings"
-  ),
-  new App(
-    "icons/terminal-icon.png",
-    "../terminal/",
-    "Terminal"
-  ),
-  new App(
-    "icons/safari-icon.webp",
-    "../safari/",
-    "Safari",
-  ),
-  new App(
-    "icons/calculator-icon.png",
-    "../calculator/",
-    "Calculator"
-  ),
-  new App(
-    "icons/safari-icon.webp",
-    "../safari no proxy/",
-    "Safari (Without Proxy)"
-  )
+  [ "icons/settings-icon.png", "../settings/", "app.settings" ],
+  [ "icons/terminal-icon.png", "../terminal/", "app.terminal" ],
+  [ "icons/safari-icon.webp",   "../safari/",    "app.safari" ],
+  [ "icons/calculator-icon.png","../calculator/","app.calculator" ],
+  [ "icons/safari-icon.webp",   "../safari no proxy/", "app.safari.noproxy" ]
 ];
 
 const grid = document.getElementById("grid");
-APPS.forEach((app) => app.addTo(grid));
+
+function render() {
+  grid.innerHTML = "";
+  APPS.forEach(([icon, url, key]) => grid.appendChild(
+    new App(icon, url, locale.t(key)).render()
+  ));
+}
+
+const locale = new Locale();
+locale.load().then(render);

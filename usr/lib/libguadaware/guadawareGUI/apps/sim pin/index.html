@@ -8,8 +8,7 @@
 </head>
 <body>
     <div class="lock">
-        <div class="unlock-label" id="label">Enter SIM PIN</div>
-
+        <div class="unlock-label" id="label" data-locale="simpin.enter">Enter SIM PIN</div>
         <div class="dots" id="dots">
             <i></i>
             <i></i>
@@ -34,14 +33,16 @@
                 <button data-key="9"><b>9</b><em>WXYZ</em></button>
             </div>
             <div class="row">
-                <button class="alt" id="emergency">Emergency</button>
+                <button class="alt" id="emergency" data-locale="simpin.emergency">Emergency</button>
                 <button data-key="0"><b>0</b></button>
                 <button class="alt" id="delete">&#9003;</button>
             </div>
         </div>
     </div>
 
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
     <script>
+        const locale = new Locale();
         const PIN_KEY = "guadawaresim.pin";
         const CODE_LEN = 4;
         const label = document.getElementById("label");
@@ -65,7 +66,7 @@
                 holder.classList.remove("shake");
                 attempt = "";
                 resetDots();
-                label.textContent = "Enter Passcode";
+                label.textContent = locale.t("simpin.enterpass");
                 shaking = false;
                 if (cb) cb();
             }, { once: true });
@@ -75,11 +76,11 @@
         function submit() {
             if (attempt.length !== CODE_LEN) return;
             if (attempt === PIN) {
-                label.textContent = "Success";
+                label.textContent = locale.t("simpin.success");
                 dots.forEach((d) => d.classList.add("filled"));
                 setTimeout(() => { window.parent.location.href = "../lockscreen/"; }, 300);
             } else {
-                label.textContent = "Wrong passcode";
+                label.textContent = locale.t("simpin.wrong");
                 shake();
             }
         }

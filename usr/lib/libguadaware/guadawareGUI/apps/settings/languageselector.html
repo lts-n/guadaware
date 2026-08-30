@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language selector</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><a href="index.html" data-locale="settings.back">Back</a></span>
+        <span><h1 data-locale="settings.langselect">Language selector</h1></span>
+    </header>
+    <main>
+        <section>
+            <ul>
+                <li data-locale-option="eng">
+                    <span class="lang-name">English</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="esp">
+                    <span class="lang-name">Español</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+                <li data-locale-option="cat">
+                    <span class="lang-name">Català</span>
+                    <label><input type="radio" name="lang"><span></span></label>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      const locale = new Locale();
+
+      document.querySelectorAll("[data-locale-option]").forEach((li) => {
+        const code = li.getAttribute("data-locale-option");
+        const radio = li.querySelector("input");
+        radio.checked = code === locale.locale;
+        li.addEventListener("click", () => {
+          locale.set(code);
+          radio.checked = true;
+        });
+      });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>guadaware</title>
+  <title>Guadaware</title>
   <style>
     * {
       margin: 0;
@@ -275,32 +275,32 @@
   <section id="control-center" aria-hidden="true">
     <div class="cc-panel">
       <div class="cc-grid">
-        <div class="cc-toggle active" data-toggle="wifi" aria-label="Wi-Fi">
+        <div class="cc-toggle active" data-toggle="wifi" data-locale-aria="cc.wifi">
           <svg viewBox="0 0 24 24"><path d="M12 21l6-7a8.48 8.48 0 00-12 0l6 7zm0-16a14.5 14.5 0 00-9.9 4l1.4 1.4A12.5 12.5 0 0112 7c3.2 0 6.2 1.2 8.5 3.4L21.9 9A14.5 14.5 0 0012 5zm0-4a18.5 18.5 0 00-12.5 5L1 7.4A16.5 16.5 0 0112 3c4.2 0 8.1 1.6 11 4.4L24.5 6A18.5 18.5 0 0012 1z"/></svg>
-          <h4>Wi-Fi</h4>
+          <h4 data-locale="cc.wifi">Wi-Fi</h4>
         </div>
-        <div class="cc-toggle active" data-toggle="bluetooth" aria-label="Bluetooth">
+        <div class="cc-toggle active" data-toggle="bluetooth" data-locale-aria="cc.bluetooth">
           <svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"/></svg>
-          <h4>Bluetooth</h4>
+          <h4 data-locale="cc.bluetooth">Bluetooth</h4>
         </div>
-        <div class="cc-toggle" data-toggle="airplane" aria-label="Airplane Mode">
+        <div class="cc-toggle" data-toggle="airplane" data-locale-aria="cc.airplane">
           <svg viewBox="0 0 24 24"><path d="M9.8 2.7a2.2 2.2 0 014.4 0v5l6.8 4.1v2.4l-6.8-1.9v4.3l2 1.4v1.8L12 19l-4.2.8V18l2-1.4v-4.3L3 14.2v-2.4l6.8-4.1z"/></svg>
-          <h4>Airplane Mode</h4>
+          <h4 data-locale="cc.airplane">Airplane Mode</h4>
         </div>
-        <div class="cc-toggle active" data-toggle="cellular" aria-label="Cellular Data">
+        <div class="cc-toggle active" data-toggle="cellular" data-locale-aria="cc.cellular">
           <svg viewBox="0 0 24 24"><path d="M4 14h3v6H4v-6zm5-4h3v10H9V10zm5-4h3v14h-3V6zM4 6h1v2H4z"/></svg>
-          <h4>Cellular Data</h4>
+          <h4 data-locale="cc.cellular">Cellular Data</h4>
         </div>
       </div>
 
       <div class="cc-slider">
         <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
-        <input type="range" id="cc-brightness" min="0" max="100" value="0" aria-label="Brightness">
+        <input type="range" id="cc-brightness" min="0" max="100" value="0" data-locale-aria="cc.brightness">
       </div>
 
       <div class="cc-slider">
         <svg viewBox="0 0 24 24"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4zM14 3.2v2.1a6 6 0 010 13.4v2.1a8 8 0 000-17.6z"/></svg>
-        <input type="range" id="cc-volume" min="0" max="100" value="0" aria-label="Volume">
+        <input type="range" id="cc-volume" min="0" max="100" value="0" data-locale-aria="cc.volume">
       </div>
 
       <div class="cc-music">
@@ -310,15 +310,18 @@
           <p>Taylor Swift</p>
         </div>
         <div class="controls">
-          <svg viewBox="0 0 24 24" aria-label="Previous"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-          <svg class="play" viewBox="0 0 24 24" aria-label="Play"><path d="M8 5v14l11-7z"/></svg>
-          <svg viewBox="0 0 24 24" aria-label="Next"><path d="M16 6h2v12h-2zM6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          <svg viewBox="0 0 24 24" data-locale-aria="cc.prev"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          <svg class="play" viewBox="0 0 24 24" data-locale-aria="cc.play"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" data-locale-aria="cc.next"><path d="M16 6h2v12h-2zM6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
         </div>
       </div>
     </div>
   </section>
 
+  <script src="guadawareUniversalFramework/Locale.js"></script>
   <script>
+    new Locale();
+
     const frame = document.getElementById("app-frame");
     const clock = document.getElementById("status-time");
     const batteryLabel = document.getElementById("status-battery");

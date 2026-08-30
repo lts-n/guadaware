@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calculator</title>
     <link rel="stylesheet" href="css/index.css" />
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+      new Locale();
+    </script>
     <script src="index.js"></script>
   </head>
 
@@ -38,7 +42,7 @@
       <div class="left-area">
         <button id="clear" class="left-btn">C</button>
         <button id="percent" class="left-btn">%</button>
-        <button id="del" class="left-btn">del</button>
+        <button id="del" class="left-btn" data-locale="calc.del">del</button>
         <button
           class="num left-btn"
           value="7"
