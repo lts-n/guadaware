@@ -34,6 +34,8 @@ simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi
 simpin.success,Success,Correcto,Correcte
 simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte
 simpin.emergency,Emergency,Emergencia,Emergència
+simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada
+simpin.error,Connection error,Error de conexión,Error de connexió
 # Wi-Fi settings
 wifi.networks,Networks,Redes,Xarxes
 wifi.scanning,Scanning…,Buscando…,Buscant…

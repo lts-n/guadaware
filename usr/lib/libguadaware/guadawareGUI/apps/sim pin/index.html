@@ -43,14 +43,46 @@
     <script src="../../guadawareUniversalFramework/Locale.js"></script>
     <script>
         const locale = new Locale();
-        const PIN_KEY = "guadawaresim.pin";
+        const SYSTEM_API = "http://localhost:8080";
         const CODE_LEN = 4;
         const label = document.getElementById("label");
         const dots = [...document.querySelectorAll("#dots i")];
-        const PIN = "1234";
 
         let attempt = "";
         let shaking = false;
+        let verifying = false;
+
+        function setError(text) {
+            label.textContent = text;
+            shake();
+        }
+
+        function submit() {
+            if (attempt.length !== CODE_LEN) return;
+            if (verifying) return;
+            verifying = true;
+
+            fetch(`${SYSTEM_API}/postSIM-PIN/${attempt}`)
+                .then((res) => res.text())
+                .then((result) => {
+                    result = result.trim();
+                    if (result === "no-modem" || result === "no-sim") {
+                        setError(locale.t("simpin.nosim"));
+                    } else if (result === "ok") {
+                        label.textContent = locale.t("simpin.success");
+                        dots.forEach((d) => d.classList.add("filled"));
+                        setTimeout(() => { window.parent.location.href = "../lockscreen/"; }, 300);
+                    } else {
+                        label.textContent = locale.t("simpin.wrong");
+                        setTimeout(() => shake(), 0);
+                    }
+                    verifying = false;
+                })
+                .catch(() => {
+                    setError(locale.t("simpin.error"));
+                    verifying = false;
+                });
+        }
 
         function resetDots() {
             for (let i = 0; i < dots.length; i++) {
@@ -71,18 +103,6 @@
                 if (cb) cb();
             }, { once: true });
             holder.classList.add("shake");
-        }
-
-        function submit() {
-            if (attempt.length !== CODE_LEN) return;
-            if (attempt === PIN) {
-                label.textContent = locale.t("simpin.success");
-                dots.forEach((d) => d.classList.add("filled"));
-                setTimeout(() => { window.parent.location.href = "../lockscreen/"; }, 300);
-            } else {
-                label.textContent = locale.t("simpin.wrong");
-                shake();
-            }
         }
 
         function press(key) {
@@ -109,6 +129,18 @@
         document.getElementById("emergency").addEventListener("click", () => {
             window.parent.location.href = "../lockscreen/";
         });
+
+        fetch(`${SYSTEM_API}/getSIMStatus`)
+            .then((res) => res.text())
+            .then((status) => {
+                status = status.trim();
+                if (status === "no-modem" || status === "no-sim") {
+                    window.parent.location.href = "../lockscreen/";
+                } else if (status === "enabled" || status === "registered") {
+                    window.parent.location.href = "../lockscreen/";
+                }
+            })
+            .catch(() => {});
     </script>
 </body>
 </html>

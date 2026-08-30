@@ -15,10 +15,61 @@ def safariProxy(url):
     result = subprocess.run(f"curl -A 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' {url}", shell=True, capture_output=True, text=True)
     return result.stdout
 
+def run_cmd(cmd, timeout=15):
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+    return result.stdout.strip(), result.stderr.strip(), result.returncode
+
+def get_modem_index():
+    stdout, _, _ = run_cmd("mmcli -L")
+    for line in stdout.splitlines():
+        if line.startswith("/org/freedesktop/ModemManager1/Modem/"):
+            return line.split("/")[-1]
+    return None
+
+def get_sim_index(modem=None):
+    if modem is None:
+        modem = get_modem_index()
+    if not modem:
+        return None
+    stdout, _, _ = run_cmd(f"mmcli -m {modem}")
+    for line in stdout.splitlines():
+        line = line.strip()
+        if "sim path:" in line:
+            sim_path = line.split("sim path:")[-1].strip().rstrip("]")
+            if sim_path.endswith("/"):
+                sim_path = sim_path.rstrip("/")
+            sim_idx = sim_path.split("/")[-1]
+            if sim_idx.isdigit():
+                return sim_idx
+    return None
+
+@route("/getSIMStatus")
+def get_sim_status():
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    stdout, _, _ = run_cmd(f"mmcli -m {modem}")
+    for line in stdout.splitlines():
+        line = line.strip()
+        if line.startswith("state:"):
+            state = line.split(":", 1)[1].strip().strip("()")
+            if " " in state:
+                state = state.split(" ", 1)[0]
+            return state
+    return "unknown"
+
 @route("/postSIM-PIN/<pin>")
 def post_simpin(pin):
-    result = subprocess.run(f"nmcli -i 0 --pin={pin}", shell=True, capture_output=True, text=True)
-    return result.stdout
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    sim = get_sim_index(modem)
+    if not sim:
+        return "no-sim"
+    _, stderr, code = run_cmd(f"mmcli -i {sim} --pin={pin}")
+    if code == 0 or "already unlocked" in stderr.lower() or "already unblocked" in stderr.lower():
+        return "ok"
+    return stderr or "failed"
 
 @route("/getGuadawareBuild")
 def get_guadaware_build():
