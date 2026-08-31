@@ -1,71 +1,73 @@
-key,eng,esp,cat
+```csv
+key,eng,esp,cat,chi
 # Control Center
-cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi
-cc.bluetooth,Bluetooth,Bluetooth,Bluetooth
-cc.airplane,Airplane Mode,Modo Avión,Mode Avió
-cc.cellular,Cellular Data,Datos Móviles,Dades Mòbils
-cc.brightness,Brightness,Brillo,Brillantor
-cc.volume,Volume,Volumen,Volum
-cc.prev,Previous,Anterior,Anterior
-cc.play,Play,Reproducir,Reprodueix
-cc.next,Next,Siguiente,Següent
+cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi
+cc.bluetooth,Bluetooth,Bluetooth,Bluetooth,蓝牙
+cc.airplane,Airplane Mode,Modo Avión,Mode Avió,飞行模式
+cc.cellular,Cellular Data,Datos Móviles,Dades Mòbils,蜂窝数据
+cc.brightness,Brightness,Brillo,Brillantor,亮度
+cc.volume,Volume,Volumen,Volum,音量
+cc.prev,Previous,Anterior,Anterior,上一曲
+cc.play,Play,Reproducir,Reprodueix,播放
+cc.next,Next,Siguiente,Següent,下一曲
 # Homescreen
-app.settings,Settings,Ajustes,Configuració
-app.terminal,Terminal,Terminal,Terminal
-app.safari,Safari,Safari,Safari
-app.calculator,Calculator,Calculadora,Calculadora
-app.safari.noproxy,Safari (Without Proxy),Safari (Sin Proxy),Safari (Sense Proxy)
-app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions
-app.music,Music,Música,Música
+app.settings,Settings,Ajustes,Configuració,设置
+app.terminal,Terminal,Terminal,Terminal,终端
+app.safari,Safari,Safari,Safari,Safari
+app.calculator,Calculator,Calculadora,Calculadora,计算器
+app.safari.noproxy,Safari (Without Proxy),Safari (Sin Proxy),Safari (Sense Proxy),Safari（无代理）
+app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions,App Store
+app.music,Music,Música,Música,音乐
 # Safari
-safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL
-safari.content,Web content,Contenido web,Contingut web
-safari.back,Back,Atrás,Enrere
-safari.forward,Forward,Adelante,Endavant
-safari.share,Share,Compartir,Compartir
-safari.bookmarks,Bookmarks,Marcadores,Adreces d'interès
-safari.newtab,New tab,Nueva pestaña,Nova pestanya
+safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL,搜索或输入网址
+safari.content,Web content,Contenido web,Contingut web,网页内容
+safari.back,Back,Atrás,Enrere,后退
+safari.forward,Forward,Adelante,Endavant,前进
+safari.share,Share,Compartir,Compartir,分享
+safari.bookmarks,Bookmarks,Marcadores,Adreces d'interès,书签
+safari.newtab,New tab,Nueva pestaña,Nova pestanya,新标签页
 # Terminal
-terminal.command,Enter command,Introducir comando,Introduïu la comanda
-terminal.run,Run,Ejecutar,Executa
+terminal.command,Enter command,Introducir comando,Introduïu la comanda,输入命令
+terminal.run,Run,Ejecutar,Executa,执行
 # Calculator
-calc.del,del,del,supr
+calc.del,del,del,supr,删除
 # SIM PIN
-simpin.enter,Enter SIM PIN,Introduzca el PIN de la SIM,Introduïu el PIN de la SIM
-simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi
-simpin.success,Success,Correcto,Correcte
-simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte
-simpin.emergency,Emergency,Emergencia,Emergència
-simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada
-simpin.error,Connection error,Error de conexión,Error de connexió
+simpin.enter,Enter SIM PIN,Introduzca el PIN de la SIM,Introduïu el PIN de la SIM,输入 SIM PIN
+simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi,输入密码
+simpin.success,Success,Correcto,Correcte,成功
+simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte,密码错误
+simpin.emergency,Emergency,Emergencia,Emergència,紧急呼叫
+simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada,未检测到 SIM 卡
+simpin.error,Connection error,Error de conexión,Error de connexió,连接错误
 # Wi-Fi settings
-wifi.networks,Networks,Redes,Xarxes
-wifi.scanning,Scanning…,Buscando…,Buscant…
-wifi.notconnected,Not connected,No conectado,No connectat
-wifi.off,Wi-Fi is off,Wi-Fi apagado,Wi-Fi apagat
-wifi.nonetworks,No networks found,No se encontraron redes,No s'han trobat xarxes
-wifi.connected,Connected,Conectado,Connectat
-wifi.open,Open,Abierta,Oberta
-wifi.secured,Secured,Asegurada,Protegida
-wifi.passwordfor,Password for,Contraseña de,Contrasenya de
+wifi.networks,Networks,Redes,Xarxes,网络
+wifi.scanning,Scanning…,Buscando…,Buscant…,正在搜索…
+wifi.notconnected,Not connected,No conectado,No connectat,未连接
+wifi.off,Wi-Fi is off,Wi-Fi apagado,Wi-Fi apagat,Wi-Fi 已关闭
+wifi.nonetworks,No networks found,No se encontraron redes,No s'han trobat xarxes,未找到网络
+wifi.connected,Connected,Conectado,Connectat,已连接
+wifi.open,Open,Abierta,Oberta,开放网络
+wifi.secured,Secured,Asegurada,Protegida,受保护
+wifi.passwordfor,Password for,Contraseña de,Contrasenya de,密码：
 # Bluetooth settings
-bluetooth.devices,Devices,Dispositivos,Dispositius
-bluetooth.scanning,Scanning…,Buscando…,Buscant…
-bluetooth.off,Bluetooth is off,Bluetooth apagado,Bluetooth apagat
-bluetooth.nodevices,No devices found,No se encontraron dispositivos,No s'han trobat dispositius
-bluetooth.paired,Paired,Vinculado,Aparellat
+bluetooth.devices,Devices,Dispositivos,Dispositius,设备
+bluetooth.scanning,Scanning…,Buscando…,Buscant…,正在搜索…
+bluetooth.off,Bluetooth is off,Bluetooth apagado,Bluetooth apagat,蓝牙已关闭
+bluetooth.nodevices,No devices found,No se encontraron dispositivos,No s'han trobat dispositius,未找到设备
+bluetooth.paired,Paired,Vinculado,Aparellat,已配对
 # About
-about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón
-about.ram,RAM,RAM,RAM
-about.storage,Storage,Almacenamiento,Emmagatzematge
-about.cpu,CPU Model,Modelo de CPU,Model de CPU
-about.gpu,GPU Model,Modelo de GPU,Model de GPU
-about.unavailable,Unavailable,No disponible,No disponible
+about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón,Guadafón 型号
+about.ram,RAM,RAM,RAM,RAM
+about.storage,Storage,Almacenamiento,Emmagatzematge,存储空间
+about.cpu,CPU Model,Modelo de CPU,Model de CPU,CPU 型号
+about.gpu,GPU Model,Modelo de GPU,Model de GPU,GPU 型号
+about.unavailable,Unavailable,No disponible,No disponible,不可用
 # Settings
-settings.language,Language,Idioma,Llengua
-settings.langselect,Language selector,Seleccionador de idioma,Selector de llengua
-settings.back,Back,Atrás,Tornar
-settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla
-settings.sounds,Sounds,Sonidos,Sons
-settings.dnd,Do Not Disturb,No molestar,No molestar
-settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón
+settings.language,Language,Idioma,Llengua,语言
+settings.langselect,Language selector,Seleccionador de idioma,Selector de llengua,语言选择器
+settings.back,Back,Atrás,Tornar,返回
+settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸
+settings.sounds,Sounds,Sonidos,Sons,声音
+settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式
+settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón,关于你的 Guadafón
+```
