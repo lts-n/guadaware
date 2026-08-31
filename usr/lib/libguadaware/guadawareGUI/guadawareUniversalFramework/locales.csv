@@ -1,4 +1,3 @@
-```csv
 key,eng,esp,cat,chi
 # Control Center
 cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi
@@ -70,4 +69,3 @@ settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸
 settings.sounds,Sounds,Sonidos,Sons,声音
 settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式
 settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón,关于你的 Guadafón
-```
