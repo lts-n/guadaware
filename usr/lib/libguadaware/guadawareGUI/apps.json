@@ -25,7 +25,7 @@
     "name": "app.safari.noproxy"
   },
   {
-    "icon": "apps/homescreen/icons/music-icon.jpeg",
+    "icon": "apps/homescreen/icons/music-icon.png",
     "url": "apps/music/",
     "name": "app.music"
   }
