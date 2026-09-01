@@ -69,3 +69,25 @@ settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸
 settings.sounds,Sounds,Sonidos,Sons,声音
 settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式
 settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón,关于你的 Guadafón
+# Music
+music.library,Library,Biblioteca,Biblioteca,资料库
+music.songs,Songs,Canciones,Cançons,歌曲
+music.song,Song,Canción,Cançó,歌曲
+music.albums,Albums,Álbumes,Àlbums,专辑
+music.artists,Artists,Artistas,Artistes,歌手
+music.nowplaying,Now Playing,Reproduciendo,En reproducció,正在播放
+music.recentlyadded,Recently Added,Recientes,Afegits recentment,最近添加
+music.playlists,Playlists,Listas de reproducción,Llistes de reproducció,播放列表
+music.play,Play,Reproducir,Reprodueix,播放
+music.pause,Pause,Pausa,Pausa,暂停
+music.next,Next,Siguiente,Següent,下一曲
+music.prev,Previous,Anterior,Anterior,上一曲
+music.shuffle,Shuffle,Aleatorio,Aleatori,随机播放
+music.repeat,Repeat,Repetir,Repeteix,重复
+music.search,Search,Buscar,Cerca,搜索
+music.empty,No music found in your Music folder,No se encontró música en tu carpeta de Música,No s'ha trobat música a la carpeta de Música,未在音乐文件夹中找到音乐
+music.unknowntrack,Unknown Track,Pista desconocida,Pista desconeguda,未知曲目
+music.unknownartist,Unknown Artist,Artista desconocido,Artista desconegut,未知歌手
+music.unknownalbum,Unknown Album,Álbum desconocido,Àlbum desconegut,未知专辑
+music.back,Back,Atrás,Enrere,返回
+music.down,Close,Cerrar,Tanca,关闭

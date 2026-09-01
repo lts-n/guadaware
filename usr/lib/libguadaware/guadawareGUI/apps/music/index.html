@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title data-locale="app.music">Music</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="screen" role="main"></main>
+
+    <div id="mini-player" class="hidden">
+        <button id="mini-art" type="button" aria-hidden="true"></button>
+        <div id="mini-info">
+            <p id="mini-title"></p>
+            <p id="mini-artist"></p>
+        </div>
+        <button id="mini-play" type="button" class="icon-btn" data-locale-aria="music.play"></button>
+        <button id="mini-next" type="button" class="icon-btn" data-locale-aria="music.next"></button>
+    </div>
+
+    <nav id="tabbar" aria-label="Menu">
+        <a href="#" data-view="library" class="active">
+            <svg viewBox="0 0 24 24"><path d="M4 3h7v13.4a3.4 3.4 0 1 0 2 3.1V8h7V3H4z"/></svg>
+            <span data-locale="music.library">Library</span>
+        </a>
+        <a href="#" data-view="songs">
+            <svg viewBox="0 0 24 24"><path d="M9 3v10.55a4 4 0 1 0 2 3.45V7h7V3H9z"/></svg>
+            <span data-locale="music.songs">Songs</span>
+        </a>
+        <a href="#" data-view="albums">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+            <span data-locale="music.albums">Albums</span>
+        </a>
+        <a href="#" data-view="artists">
+            <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2.24-8 5v2h16v-2c0-2.76-3.58-5-8-5z"/></svg>
+            <span data-locale="music.artists">Artists</span>
+        </a>
+    </nav>
+
+    <section id="now-playing" hidden>
+        <header id="np-header">
+            <button id="np-close" type="button" data-locale-aria="music.down"></button>
+            <h1 data-locale="music.nowplaying">Now Playing</h1>
+        </header>
+        <div id="np-stage">
+            <div id="np-art"></div>
+            <div id="np-info">
+                <p id="np-title"></p>
+                <p id="np-artist"></p>
+            </div>
+            <div id="np-seek">
+                <input type="range" id="np-progress" min="0" max="1000" value="0">
+                <div id="np-times">
+                    <time id="np-current"></time>
+                    <time id="np-duration"></time>
+                </div>
+            </div>
+            <div id="np-controls">
+                <button id="np-shuffle" type="button" data-locale-aria="music.shuffle">
+                    <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                </button>
+                <button id="np-prev" type="button" data-locale-aria="music.prev">
+                    <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5-6v12z"/></svg>
+                </button>
+                <button id="np-play" type="button" class="big" data-locale-aria="music.play">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button id="np-next" type="button" data-locale-aria="music.next">
+                    <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 6l9 6-9 6z"/></svg>
+                </button>
+                <button id="np-repeat" type="button" data-locale-aria="music.repeat">
+                    <span class="one">1</span>
+                    <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                </button>
+            </div>
+            <div id="np-volume">
+                <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a6 6 0 0 1 0 13.4v2.1a8 8 0 0 0 0-17.6z"/></svg>
+                <input type="range" id="np-volume-slider" min="0" max="100" value="80" data-locale-aria="cc.volume">
+            </div>
+        </div>
+    </section>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,11 +1,18 @@
 from bottle import run as runapi
-from bottle import route, response, hook
-from urllib.parse import unquote
+from bottle import route, response, request, hook
+from urllib.parse import unquote, quote
+import json
+import os
+import re
 import subprocess
+
+MUSIC_ROOT = os.path.expanduser("~/Music")
+AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
 
 @hook("after_request")
 def allow_cors():
     response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Accept-Ranges"] = "bytes"
 
 @route("/safariProxy/<url:path>")
 def safariProxy(url):
@@ -149,5 +156,110 @@ def get_cpu_model():
 def get_gpu_model():
     result = subprocess.run(r"lspci | grep -i 'vga\|3d\|2d' | awk -F: '{print $3}'", shell=True, capture_output=True, text=True)
     return result.stdout.strip()
+
+def audio_mime(path):
+    ext = os.path.splitext(path)[1].lower()
+    return {
+        ".mp3": "audio/mpeg",
+        ".flac": "audio/flac",
+        ".ogg": "audio/ogg",
+        ".oga": "audio/ogg",
+        ".opus": "audio/ogg",
+        ".wav": "audio/wav",
+        ".m4a": "audio/mp4",
+        ".aac": "audio/aac",
+        ".wma": "audio/x-ms-wma",
+    }.get(ext, "application/octet-stream")
+
+def clean_title(filename):
+    title = os.path.splitext(os.path.basename(filename))[0]
+    title = re.sub(r"^\s*\d{1,3}\s*[-._)\]]?\s*", "", title)
+    return title.strip()
+
+def guess_music_metadata(parent):
+    parts = [p for p in parent.split(os.sep) if p]
+    artist = ""
+    album = ""
+    if len(parts) >= 2:
+        artist, album = parts[-2], parts[-1]
+    elif len(parts) == 1:
+        album = parts[0]
+    return artist, album
+
+@route("/getMusicLibrary")
+def get_music_library():
+    root = os.path.realpath(MUSIC_ROOT)
+    songs = []
+    if os.path.isdir(root):
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = sorted(d for d in dirnames if not d.startswith("."))
+            for fname in sorted(filenames):
+                if fname.startswith(".") or not fname.lower().endswith(AUDIO_EXTS):
+                    continue
+                full = os.path.join(dirpath, fname)
+                rel = os.path.relpath(full, root)
+                parent = os.path.dirname(rel)
+                artist, album = guess_music_metadata(parent)
+                try:
+                    added = os.path.getmtime(full)
+                except OSError:
+                    added = 0
+                songs.append({
+                    "title": clean_title(fname),
+                    "artist": artist,
+                    "album": album,
+                    "path": rel,
+                    "url": "/music/" + quote(rel, safe="/ "),
+                    "added": added,
+                })
+    songs.sort(key=lambda s: (s["artist"].lower(), s["album"].lower(), s["title"].lower()))
+    response.content_type = "application/json"
+    return json.dumps(songs, ensure_ascii=False)
+
+@route("/music/<filepath:path>")
+def serve_music(filepath):
+    root = os.path.realpath(MUSIC_ROOT)
+    full = os.path.realpath(os.path.join(root, unquote(filepath)))
+    if not (full == root or full.startswith(root + os.sep)):
+        response.status = 403
+        return "forbidden"
+    if not os.path.isfile(full):
+        response.status = 404
+        return "not found"
+    size = os.path.getsize(full)
+    mime = audio_mime(full)
+    start, end, status = 0, size - 1, 200
+    header_range = request.get_header("Range")
+    if header_range:
+        match = re.match(r"bytes=(\d*)-(\d*)", header_range)
+        if match:
+            first, last = match.groups()
+            if first:
+                start = int(first)
+                if last:
+                    end = min(int(last), size - 1)
+            elif last:
+                start = max(0, size - int(last))
+        status = 206
+    if start >= size:
+        response.set_header("Content-Range", f"bytes */{size}")
+        response.status = 416
+        return ""
+    response.status = status
+    length = end - start + 1
+    response.add_header("Content-Range", f"bytes {start}-{end}/{size}")
+    response.content_type = mime
+    response.add_header("Content-Length", str(length))
+    def stream():
+        with open(full, "rb") as f:
+            f.seek(start)
+            remaining = length
+            while remaining > 0:
+                chunk = f.read(min(64 * 1024, remaining))
+                if not chunk:
+                    break
+                remaining -= len(chunk)
+                yield chunk
+    return stream()
 
 runapi(host="localhost", port=8080, debug=True)
