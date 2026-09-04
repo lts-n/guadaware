@@ -28,5 +28,15 @@
     "icon": "apps/homescreen/icons/music-icon.png",
     "url": "apps/music/",
     "name": "app.music"
+  },
+  {
+    "icon": "apps/homescreen/icons/phone-icon.png",
+    "url": "http://localhost:8080/sh/gnome-calls",
+    "name": "app.phone"
+  },
+  {
+    "icon": "apps/homescreen/icons/contacts-icon.png",
+    "url": "http://localhost:8080/sh/gnome-contacts",
+    "name": "app.contacts"
   }
 ]

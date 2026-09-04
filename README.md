@@ -63,6 +63,7 @@ The GUI is displayed full-screen in a kiosk-mode web view managed by the Wayland
 - **Chromium** — Web view engine
 - **NetworkManager** (`nmcli`) — Wi-Fi, cellular and airplane-mode control
 - **curl** — used by the Safari proxy
+- **gnome-calls** - used to make calls
 - Common CLI utilities: `poweroff`, `free`, `df`, `lscpu`, `lspci`
 
 ## Running
