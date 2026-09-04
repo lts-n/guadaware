@@ -22,18 +22,14 @@ done
 }
 
 # 1. GuadaWare System API (Bottle) on localhost:8080.
-(
-    cd "$LIBDIR" && exec python3 "$LIBDIR/guadawareSystemAPI.py"
-) &
+nohup sh -c 'cd "$1" && exec python3 "$1/guadawareSystemAPI.py"' _ "$LIBDIR" >/dev/null 2>&1 &
 API_PID=$!
 
 # 2. Static GUI web server on localhost:8000.
-(
-    cd "$LIBDIR/guadawareGUI" && exec python3 -m http.server 8000
-) &
+nohup sh -c 'cd "$1/guadawareGUI" && exec python3 -m http.server 8000' _ "$LIBDIR" >/dev/null 2>&1 &
 WEB_PID=$!
 
-trap 'kill "$API_PID" "$WEB_PID" 2>/dev/null' INT TERM
+trap 'kill "$API_PID" "$WEB_PID" 2>/dev/null' INT TERM HUP
 
 # 3. Desktop session (Cage + Chromium kiosk). Block until the session ends.
 "$LIBDIR/clientstart"
