@@ -46,8 +46,12 @@ The GUI is displayed full-screen in a kiosk-mode web view managed by the Wayland
 - **cage** — Wayland kiosk compositor
 - **Chromium** — Web view engine
 - **NetworkManager** (`nmcli`) — Wi-Fi, cellular and airplane-mode control
+- **ModemManager** (`mmcli`) — SIM status, PIN/PUK management, SMS and modem control
 - **curl** — used by the Safari proxy
 - **gnome-calls** - used to make calls
+- **gnome-contacts** - used to manage contacts
+- **Xorg** - used for the desktop mode
+- **Openbox** - also used for it
 - Common CLI utilities: `poweroff`, `free`, `df`, `lscpu`, `lspci`
 
 ## Running
