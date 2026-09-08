@@ -29,23 +29,7 @@ The GUI is served by a tiny static server:
 
 ### 2. System API (`usr/lib/libguadaware/guadawareSystemAPI.py`)
 
-A lightweight **Bottle (Python)** HTTP API on `localhost:8080` that exposes device functionality to the web UI as REST endpoints:
-
-| Endpoint | Purpose |
-| --- | --- |
-| `/safariProxy/<url:path>` | Proxy remote web content into the Safari app (via `curl`) |
-| `/getGuadawareBuild` | Read the build/version from `/etc/guadaware-build` |
-| `/setWallpaper/<number>` | Copy a wallpaper into place |
-| `/poweroff` | Power the device off |
-| `/sh/<cmd:path>` | Execute a shell command and return output |
-| `/getBatteryPercentage` | Read battery capacity from sysfs |
-| `/getCellularDataStatus`, `/setCellularDataStatus/<s>` | Query / toggle cellular data (`nmcli`) |
-| `/getAirplanemode`, `/setAirplanemode/<s>` | Query / toggle airplane mode (`nmcli`) |
-| `/getRAMUsage` | Report memory usage (`free`) |
-| `/getDiskUsage` | Report disk usage (`df`) |
-| `/getPCModel` | Report device model from DMI |
-| `/getCPUModel` | Report CPU model (`lscpu`) |
-| `/getGPUModel` | Report GPU model (`lspci`) |
+A lightweight **Bottle (Python)** HTTP API on `localhost:8080` that exposes device functionality to the web UI as REST endpoints.
 
 Networking and radio control is delegated to **NetworkManager** (`nmcli`).
 
