@@ -125,6 +125,25 @@
     updateBatteryFromOS();
     setInterval(updateBatteryFromOS, 30000);
 
+    let lastChargingState = null;
+    const chargeNotification = new Audio("apps/SMS/notification.mp3");
+
+    function checkChargingStatus() {
+      fetch(`${SYSTEM_API}/getBatteryStatus`)
+        .then((res) => res.text())
+        .then((status) => {
+          if (status && lastChargingState !== null && status === "Charging" && lastChargingState !== "Charging") {
+            chargeNotification.currentTime = 0;
+            chargeNotification.play().catch(() => {});
+          }
+          lastChargingState = status;
+        })
+        .catch(() => {});
+    }
+
+    checkChargingStatus();
+    setInterval(checkChargingStatus, 10000);
+
     if (navigator.getBattery) {
       navigator.getBattery().then((battery) => {
         function updateBattery() {

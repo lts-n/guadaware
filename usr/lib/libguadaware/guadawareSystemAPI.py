@@ -165,6 +165,11 @@ def get_battery_percentage():
     result = subprocess.run("cat /sys/class/power_supply/BAT0/capacity", shell=True, capture_output=True, text=True)
     return result.stdout.strip()
 
+@route("/getBatteryStatus")
+def get_battery_status():
+    result = subprocess.run("cat /sys/class/power_supply/BAT0/status", shell=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
 @route("/getCellularDataStatus")
 def get_cellular_data_status():
     result = subprocess.run("nmcli radio wwan", shell=True, capture_output=True, text=True)

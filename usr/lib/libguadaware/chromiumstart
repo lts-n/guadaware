@@ -16,4 +16,4 @@ for _dir in "$HOME/.config/chromium" "$HOME/.cache/chromium" "$HOME/snap/chromiu
     fi
 done
 
-exec chromium --disk-cache-size=0 --kiosk "--app=http://localhost:$WEB_PORT"
+exec chromium --disk-cache-size=0 --kiosk --autoplay-policy=no-user-gesture-required "--app=http://localhost:$WEB_PORT"
