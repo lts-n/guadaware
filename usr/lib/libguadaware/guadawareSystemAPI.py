@@ -9,9 +9,19 @@ import subprocess
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
 
+
 @hook("after_request")
 def allow_cors():
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    allowed_origins = {
+        "http://localhost:8000",
+        "http://localhost:8080"
+    }
+
+    origin = request.headers.get("Origin")
+
+    if origin in allowed_origins:
+        response.headers["Access-Control-Allow-Origin"] = origin
+
     response.headers["Accept-Ranges"] = "bytes"
 
 @route("/safariProxy/<url:path>")
