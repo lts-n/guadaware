@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passcode</title>
+    <title>SIM PIN</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,6 +14,10 @@
             <i></i>
             <i></i>
             <i></i>
+            <i class="puk-dot"></i>
+            <i class="puk-dot"></i>
+            <i class="puk-dot"></i>
+            <i class="puk-dot"></i>
         </div>
 
         <div class="keypad">
@@ -35,7 +39,7 @@
             <div class="row">
                 <button class="alt" id="emergency" data-locale="simpin.emergency">Emergency</button>
                 <button data-key="0"><b>0</b></button>
-                <button class="alt" id="delete">&#9003;</button>
+                <button class="alt" id="delete">&#x232B;</button>
             </div>
         </div>
     </div>
@@ -44,13 +48,19 @@
     <script>
         const locale = new Locale();
         const SYSTEM_API = "http://localhost:8080";
-        const CODE_LEN = 4;
+        const PIN_LEN = 4;
+        const PUK_LEN = 8;
         const label = document.getElementById("label");
         const dots = [...document.querySelectorAll("#dots i")];
 
+        let mode = "pin";
         let attempt = "";
         let shaking = false;
         let verifying = false;
+        let pukAttempts = 0;
+        let newPin = "";
+        let confirmPin = "";
+        let pinStep = "new";
 
         function goNext() {
             window.location.href = "../lockscreen/";
@@ -61,36 +71,144 @@
             shake();
         }
 
-        function submit() {
-            if (attempt.length !== CODE_LEN) return;
-            if (verifying) return;
-            verifying = true;
+        function getCodeLen() {
+            return mode === "pin" ? PIN_LEN : PUK_LEN;
+        }
 
-            fetch(`${SYSTEM_API}/postSIM-PIN/${attempt}`)
-                .then((res) => res.text())
-                .then((result) => {
-                    result = result.trim();
-                    if (result === "no-modem" || result === "no-sim") {
-                        goNext();
-                    } else if (result === "ok") {
-                        label.textContent = locale.t("simpin.success");
-                        dots.forEach((d) => d.classList.add("filled"));
-                        setTimeout(goNext, 300);
-                    } else {
-                        label.textContent = locale.t("simpin.wrong");
-                        setTimeout(() => shake(), 0);
-                    }
-                    verifying = false;
-                })
-                .catch(() => {
-                    goNext();
-                    verifying = false;
-                });
+        function updateDots() {
+            const filled = attempt.length;
+            const dotsContainer = document.getElementById("dots");
+            if (mode === "puk") {
+                dotsContainer.classList.add("puk-mode");
+            } else {
+                dotsContainer.classList.remove("puk-mode");
+            }
+            dots.forEach((d, i) => d.classList.toggle("filled", i < filled));
         }
 
         function resetDots() {
-            for (let i = 0; i < dots.length; i++) {
-                dots[i].classList.toggle("filled", i < attempt.length);
+            attempt = "";
+            updateDots();
+        }
+
+        function showPukBlocked() {
+            label.textContent = locale.t("simpin.pukblocked");
+            dots.forEach((d) => d.style.display = "none");
+            document.querySelectorAll(".keypad button").forEach((btn) => {
+                btn.disabled = true;
+                btn.style.opacity = "0.3";
+            });
+        }
+
+        function submit() {
+            if (verifying) return;
+            verifying = true;
+
+            if (mode === "pin") {
+                if (attempt.length !== PIN_LEN) {
+                    verifying = false;
+                    return;
+                }
+                fetch(`${SYSTEM_API}/postSIM-PIN/${attempt}`)
+                    .then((res) => res.text())
+                    .then((result) => {
+                        result = result.trim();
+                        if (result === "no-modem" || result === "no-sim") {
+                            goNext();
+                        } else if (result === "ok") {
+                            label.textContent = locale.t("simpin.success");
+                            dots.forEach((d) => d.classList.add("filled"));
+                            setTimeout(goNext, 300);
+                        } else if (result === "puk-required") {
+                            mode = "puk";
+                            attempt = "";
+                            pukAttempts = 0;
+                            label.textContent = locale.t("simpin.enterpuk");
+                            updateDots();
+                        } else {
+                            label.textContent = locale.t("simpin.wrong");
+                            setTimeout(() => shake(), 0);
+                        }
+                        verifying = false;
+                    })
+                    .catch(() => {
+                        goNext();
+                        verifying = false;
+                    });
+            } else if (mode === "puk") {
+                if (attempt.length !== PUK_LEN) {
+                    verifying = false;
+                    return;
+                }
+                window._lastPuk = attempt;
+                attempt = "";
+                mode = "puk-pin";
+                pinStep = "new";
+                label.textContent = locale.t("simpin.newpin");
+                updateDots();
+                verifying = false;
+            } else if (mode === "puk-pin") {
+                if (pinStep === "new") {
+                    if (attempt.length !== PIN_LEN) {
+                        verifying = false;
+                        return;
+                    }
+                    newPin = attempt;
+                    attempt = "";
+                    pinStep = "confirm";
+                    label.textContent = locale.t("simpin.confirmnewpin");
+                    updateDots();
+                    verifying = false;
+                } else if (pinStep === "confirm") {
+                    if (attempt.length !== PIN_LEN) {
+                        verifying = false;
+                        return;
+                    }
+                    confirmPin = attempt;
+                    if (newPin !== confirmPin) {
+                        label.textContent = locale.t("simpin.pinmismatch");
+                        newPin = "";
+                        confirmPin = "";
+                        attempt = "";
+                        pinStep = "new";
+                        label.textContent = locale.t("simpin.newpin");
+                        setTimeout(() => shake(), 0);
+                        verifying = false;
+                        return;
+                    }
+                    const lastPuk = window._lastPuk || "";
+                    fetch(`${SYSTEM_API}/postSIM-PUK/${lastPuk}/${newPin}`)
+                        .then((res) => res.text())
+                        .then((result) => {
+                            result = result.trim();
+                            if (result === "ok") {
+                                label.textContent = locale.t("simpin.success");
+                                dots.forEach((d) => d.classList.add("filled"));
+                                setTimeout(goNext, 300);
+                            } else if (result === "puk-wrong") {
+                                pukAttempts++;
+                                if (pukAttempts >= 3) {
+                                    showPukBlocked();
+                                } else {
+                                    const remaining = 3 - pukAttempts;
+                                    label.textContent = `${locale.t("simpin.pukwrong")} (${remaining} ${locale.t("simpin.pukremaining")})`;
+                                    mode = "puk";
+                                    attempt = "";
+                                    setTimeout(() => shake(), 0);
+                                }
+                            } else if (result === "puk-blocked") {
+                                showPukBlocked();
+                            } else {
+                                label.textContent = locale.t("simpin.wrong");
+                                setTimeout(() => shake(), 0);
+                            }
+                            verifying = false;
+                        })
+                        .catch(() => {
+                            goNext();
+                            verifying = false;
+                        });
+                }
             }
         }
 
@@ -101,8 +219,18 @@
             holder.addEventListener("animationend", () => {
                 holder.classList.remove("shake");
                 attempt = "";
-                resetDots();
-                label.textContent = locale.t("simpin.enterpass");
+                updateDots();
+                if (mode === "pin") {
+                    label.textContent = locale.t("simpin.enter");
+                } else if (mode === "puk") {
+                    label.textContent = locale.t("simpin.enterpuk");
+                } else if (mode === "puk-pin") {
+                    if (pinStep === "new") {
+                        label.textContent = locale.t("simpin.newpin");
+                    } else {
+                        label.textContent = locale.t("simpin.confirmnewpin");
+                    }
+                }
                 shaking = false;
                 if (cb) cb();
             }, { once: true });
@@ -111,11 +239,12 @@
 
         function press(key) {
             if (shaking) return;
-            if (attempt.length < CODE_LEN) {
+            const maxLen = getCodeLen();
+            if (attempt.length < maxLen) {
                 attempt += key;
-                resetDots();
+                updateDots();
             }
-            if (attempt.length === CODE_LEN) {
+            if (attempt.length === maxLen) {
                 setTimeout(submit, 120);
             }
         }
@@ -127,10 +256,12 @@
         document.getElementById("delete").addEventListener("click", () => {
             if (shaking) return;
             attempt = attempt.slice(0, -1);
-            resetDots();
+            updateDots();
         });
 
-        document.getElementById("emergency").addEventListener("click", goNext);
+        document.getElementById("emergency").addEventListener("click", () => {
+            fetch(`${SYSTEM_API}/makeCall/112`).catch(() => {});
+        });
 
         fetch(`${SYSTEM_API}/getSIMStatus`)
             .then((res) => res.text())
@@ -140,6 +271,26 @@
                     goNext();
                 } else if (status === "enabled" || status === "registered") {
                     goNext();
+                } else {
+                    return fetch(`${SYSTEM_API}/getSIMPinStatus`);
+                }
+            })
+            .then((res) => res ? res.text() : null)
+            .then((pinStatus) => {
+                if (!pinStatus) return;
+                pinStatus = pinStatus.trim();
+                if (pinStatus === "unlocked") {
+                    goNext();
+                } else if (pinStatus === "puk-blocked") {
+                    mode = "puk";
+                    label.textContent = locale.t("simpin.enterpuk");
+                    dots.forEach((d) => d.style.display = "");
+                    updateDots();
+                } else if (pinStatus === "pin-required") {
+                    mode = "pin";
+                    label.textContent = locale.t("simpin.enter");
+                    dots.forEach((d) => d.style.display = "");
+                    updateDots();
                 }
             })
             .catch(goNext);

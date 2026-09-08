@@ -43,6 +43,25 @@ simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte,密码错误
 simpin.emergency,Emergency,Emergencia,Emergència,紧急呼叫
 simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada,未检测到 SIM 卡
 simpin.error,Connection error,Error de conexión,Error de connexió,连接错误
+simpin.enterpuk,Enter PUK code,Introduzca el código PUK,Introduïu el codi PUK,输入 PUK 码
+simpin.puk,PUK,PUK,PUK,PUK
+simpin.newpin,Enter new PIN,Introduzca el nuevo PIN,Introduïu el nou PIN,输入新 PIN
+simpin.confirmnewpin,Confirm new PIN,Confirme el nuevo PIN,Confirmeu el nou PIN,确认新 PIN
+simpin.pukwrong,Wrong PUK code,Código PUK incorrecto,Codi PUK incorrecte,PUK 码错误
+simpin.pinmismatch,PINs do not match,Los PINs no coinciden,Els PINs no coincideixen,PIN 不匹配
+simpin.pukblocked,PUK blocked,PUK bloqueado,PUK bloquejat,PUK 已锁定
+simpin.pukremaining,attempts remaining, intentos restantes, intents restants,次尝试剩余
+# Messages
+messages.title,Messages,Mensajes,Missatges,信息
+messages.newmessage,New Message,Nuevo Mensaje,Nou Missatge,新消息
+messages.send,Send,Enviar,Envia,发送
+messages.typeplaceholder,Type a message...,Escribe un mensaje...,Escriu un missatge...,输入消息...
+messages.nonews,No new messages,No hay mensajes nuevos,No hi ha missatges nous,没有新消息
+messages.empty,No conversations,No hay conversaciones,No hi ha conversacions,没有对话
+messages.today,Hoy,Avui,Hoy,今天
+messages.yesterday,Ayer,Ahir,Ahir,昨天
+messages.delete,Delete,Eliminar,Elimina,删除
+messages.newnotification,New message from,Mensaje nuevo de,Nou missatge de,新消息来自
 # Wi-Fi settings
 wifi.networks,Networks,Redes,Xarxes,网络
 wifi.scanning,Scanning…,Buscando…,Buscant…,正在搜索…

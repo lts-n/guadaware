@@ -53,6 +53,14 @@ body {
     background: rgba(255, 255, 255, 0.92);
 }
 
+.dots i.puk-dot {
+    display: none;
+}
+
+.dots.puk-mode i.puk-dot {
+    display: block;
+}
+
 .dots.shake {
     animation: shake 0.4s;
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <button id="back-btn" data-locale="settings.back">Back</button>
+        <h1 data-locale="messages.title">Messages</h1>
+        <button id="new-btn">+</button>
+    </header>
+
+    <main id="conversations-view">
+        <section id="conversations-list"></section>
+        <p id="empty-state" data-locale="messages.empty" style="display:none;">No conversations</p>
+    </main>
+
+    <main id="chat-view" style="display:none;">
+        <div id="chat-messages"></div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" data-locale-placeholder="messages.typeplaceholder" placeholder="Type a message...">
+            <button id="send-btn" data-locale="messages.send">Send</button>
+        </div>
+    </main>
+
+    <main id="new-message-view" style="display:none;">
+        <section>
+            <li>
+                <input type="text" id="new-number-input" placeholder="Number" style="border:none;background:none;font-size:17px;width:100%;outline:none;">
+            </li>
+            <li>
+                <input type="text" id="new-message-input" data-locale-placeholder="messages.typeplaceholder" placeholder="Type a message..." style="border:none;background:none;font-size:17px;width:100%;outline:none;">
+            </li>
+        </section>
+        <div style="padding:16px;">
+            <button id="new-send-btn" data-locale="messages.send">Send</button>
+        </div>
+    </main>
+
+    <audio id="notification-sound" src="notification.mp3" preload="auto"></audio>
+
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

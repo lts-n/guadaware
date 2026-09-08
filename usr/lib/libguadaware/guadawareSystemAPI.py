@@ -60,6 +60,10 @@ def get_sim_index(modem=None):
                 return sim_idx
     return None
 
+@route("/installApp/<name>")
+def install_app(name):
+    pass
+
 @route("/getSIMStatus")
 def get_sim_status():
     modem = get_modem_index()
@@ -86,6 +90,56 @@ def post_simpin(pin):
     _, stderr, code = run_cmd(f"mmcli -i {sim} --pin={pin}")
     if code == 0 or "already unlocked" in stderr.lower() or "already unblocked" in stderr.lower():
         return "ok"
+    if "pin required" in stderr.lower() or "sim-pin" in stderr.lower():
+        return "pin-required"
+    if "puk" in stderr.lower():
+        return "puk-required"
+    return stderr or "failed"
+
+@route("/getSIMPinStatus")
+def get_sim_pin_status():
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    sim = get_sim_index(modem)
+    if not sim:
+        return "no-sim"
+    stdout, _, _ = run_cmd(f"mmcli -i {sim}")
+    for line in stdout.splitlines():
+        line = line.strip()
+        if "pin" in line.lower() and "puk" in line.lower():
+            if "blocked" in line.lower():
+                return "puk-blocked"
+            if "required" in line.lower():
+                return "pin-required"
+        if "sim pin" in line.lower() and "state" in line.lower():
+            if "blocked" in line.lower():
+                return "puk-blocked"
+            return "pin-required"
+    stdout_full, _, _ = run_cmd(f"mmcli -i {sim} --pin-status")
+    if "pin" in stdout_full.lower() and "required" in stdout_full.lower():
+        return "pin-required"
+    if "puk" in stdout_full.lower() and "blocked" in stdout_full.lower():
+        return "puk-blocked"
+    return "unlocked"
+
+@route("/postSIM-PUK/<puk>/<newpin>")
+def post_simpuk(puk, newpin):
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    sim = get_sim_index(modem)
+    if not sim:
+        return "no-sim"
+    _, stderr, code = run_cmd(f"mmcli -i {sim} --puk={puk} --pin={newpin}")
+    if code == 0 or "already unblocked" in stderr.lower():
+        return "ok"
+    if "incorrect" in stderr.lower() or "wrong" in stderr.lower():
+        if "puk" in stderr.lower():
+            return "puk-wrong"
+        return "failed"
+    if "blocked" in stderr.lower():
+        return "puk-blocked"
     return stderr or "failed"
 
 @route("/getGuadawareBuild")
@@ -166,6 +220,83 @@ def get_cpu_model():
 def get_gpu_model():
     result = subprocess.run(r"lspci | grep -i 'vga\|3d\|2d' | awk -F: '{print $3}'", shell=True, capture_output=True, text=True)
     return result.stdout.strip()
+
+@route("/makeCall/<number>")
+def make_call(number):
+    try:
+        subprocess.Popen(["gnome-calls", "-l", number], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return "ok"
+    except FileNotFoundError:
+        return "gnome-calls-not-found"
+    except Exception as e:
+        return f"error: {str(e)}"
+
+@route("/sendSMS/<number>/<msg>")
+def send_sms(number, msg):
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    msg_escaped = msg.replace("'", "'\\''")
+    stdout, stderr, code = run_cmd(f"mmcli -m {modem} --messaging-create-sms=\"number='{number}',text='{msg_escaped}'\"")
+    if code != 0:
+        return f"create-failed: {stderr}"
+    sms_path = None
+    for line in stdout.splitlines():
+        line = line.strip()
+        if "/org/freedesktop/ModemManager1/SMS/" in line:
+            sms_path = line.split("/org/freedesktop/ModemManager1/SMS/")[-1].split()[0]
+            break
+    if not sms_path:
+        return "sms-path-not-found"
+    _, stderr, code = run_cmd(f"mmcli -s {sms_path} --send")
+    if code == 0:
+        run_cmd(f"mmcli -m {modem} --messaging-delete-sms={sms_path}")
+        return "ok"
+    return f"send-failed: {stderr}"
+
+@route("/getSMSList")
+def get_sms_list():
+    modem = get_modem_index()
+    if not modem:
+        response.content_type = "application/json"
+        return json.dumps([])
+    stdout, _, _ = run_cmd(f"mmcli -m {modem} --messaging-list-sms")
+    messages = []
+    for line in stdout.splitlines():
+        line = line.strip()
+        if "/org/freedesktop/ModemManager1/SMS/" in line:
+            sms_idx = line.split("/org/freedesktop/ModemManager1/SMS/")[-1].split()[0]
+            state = line.split("(")[-1].rstrip(")") if "(" in line else "unknown"
+            sms_data = get_sms_data(sms_idx)
+            if sms_data:
+                sms_data["index"] = sms_idx
+                sms_data["state"] = state
+                messages.append(sms_data)
+    response.content_type = "application/json"
+    return json.dumps(messages, ensure_ascii=False)
+
+def get_sms_data(sms_idx):
+    stdout, _, _ = run_cmd(f"mmcli -s {sms_idx}")
+    data = {}
+    for line in stdout.splitlines():
+        line = line.strip()
+        if line.startswith("number:"):
+            data["number"] = line.split(":", 1)[1].strip()
+        elif line.startswith("text:"):
+            data["text"] = line.split(":", 1)[1].strip()
+        elif line.startswith("state:"):
+            data["state"] = line.split(":", 1)[1].strip()
+    return data if data else None
+
+@route("/deleteSMS/<sms_idx>")
+def delete_sms(sms_idx):
+    modem = get_modem_index()
+    if not modem:
+        return "no-modem"
+    _, stderr, code = run_cmd(f"mmcli -m {modem} --messaging-delete-sms={sms_idx}")
+    if code == 0:
+        return "ok"
+    return f"delete-failed: {stderr}"
 
 def audio_mime(path):
     ext = os.path.splitext(path)[1].lower()

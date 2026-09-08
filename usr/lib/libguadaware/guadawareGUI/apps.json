@@ -38,5 +38,15 @@
     "icon": "apps/homescreen/icons/contacts-icon.png",
     "url": "http://localhost:8080/sh/gnome-contacts",
     "name": "app.contacts"
+  },
+  {
+    "icon": "apps/homescreen/icons/msg-icon.svg",
+    "url": "apps/SMS/",
+    "name": "app.messages"
+  },
+  {
+    "icon": "apps/homescreen/icons/appstore-icon.webp",
+    "url": "apps/appstore/",
+    "name": "app.appstore"
   }
 ]
