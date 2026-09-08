@@ -1,4 +1,19 @@
 #!/bin/sh
-rm -rf ~/.config/chromium ~/.cache/chromium
-rm -rf ~/snap/chromium
-chromium --disk-cache-size=0 --kiosk --app=http://localhost:8000
+set -e
+
+command -v chromium >/dev/null 2>&1 || {
+    echo "error: required command 'chromium' not found" >&2
+    exit 1
+}
+
+WEB_PORT=8000
+
+# Safely remove Chromium data directories.
+# Only remove if they exist and are actual directories (not symlinks to /).
+for _dir in "$HOME/.config/chromium" "$HOME/.cache/chromium" "$HOME/snap/chromium"; do
+    if [ -d "$_dir" ] && [ ! -L "$_dir" ]; then
+        rm -rf "$_dir"
+    fi
+done
+
+exec chromium --disk-cache-size=0 --kiosk "--app=http://localhost:$WEB_PORT"

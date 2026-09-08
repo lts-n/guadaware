@@ -1,3 +1,10 @@
 #!/bin/sh
+set -e
+
+command -v cage >/dev/null 2>&1 || {
+    echo "error: required command 'cage' not found" >&2
+    exit 1
+}
+
 DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 exec cage "$DIR/chromiumstart"
