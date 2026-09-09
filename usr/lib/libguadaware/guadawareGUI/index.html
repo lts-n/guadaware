@@ -35,18 +35,23 @@
       color: black;
       font-size: 15px;
       font-weight: 600;
+      flex-shrink: 0;
     }
 
     #frame-wrap {
       position: relative;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
 
     #app-frame {
       display: block;
       width: 100%;
-      height: 100%;
+      flex: 1;
       border: none;
+      transition: flex 0.25s ease;
     }
 
     #gesture-bar {
@@ -71,6 +76,148 @@
       mix-blend-mode: difference;
     }
 
+    /* On-Screen Keyboard */
+    #onscreen-keyboard {
+      display: none;
+      flex-direction: column;
+      background: #d1d3d9;
+      flex-shrink: 0;
+      z-index: 20;
+    }
+
+    #onscreen-keyboard.active {
+      display: flex;
+    }
+
+    #kb-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 36px;
+      padding: 0 6px;
+      background: #c8c9ce;
+      border-top: 0.5px solid #b0b1b6;
+    }
+
+    #kb-toolbar span {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      color: #6d6d72;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 8px;
+    }
+
+    #kb-close-btn {
+      width: 64px;
+      height: 28px;
+      border: none;
+      border-radius: 5px;
+      background: #adb0b8;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    #kb-close-btn:active {
+      background: #8e919a;
+    }
+
+    #kb-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 3px 6px;
+    }
+
+    .kb-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .kb-key {
+      height: 42px;
+      min-width: 30px;
+      flex: 1;
+      max-width: 36px;
+      border: none;
+      border-radius: 5px;
+      background: #fff;
+      color: #000;
+      font-size: 22px;
+      font-weight: 400;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+
+    .kb-key:active {
+      background: #adb1ba;
+    }
+
+    .kb-key.wide {
+      min-width: 42px;
+      max-width: 44px;
+      font-size: 16px;
+      background: #adb1ba;
+      color: #000;
+    }
+
+    .kb-key.wide:active {
+      background: #8e919a;
+    }
+
+    .kb-key.space {
+      flex: 4;
+      max-width: none;
+      font-size: 16px;
+    }
+
+    .kb-key.shift-key {
+      min-width: 42px;
+      max-width: 44px;
+      font-size: 16px;
+      background: #adb1ba;
+      color: #000;
+    }
+
+    .kb-key.shift-key.active {
+      background: #fff;
+      color: #000;
+    }
+
+    .kb-key.shift-key:active {
+      background: #8e919a;
+    }
+
+    .kb-key.backspace-key {
+      min-width: 42px;
+      max-width: 44px;
+      font-size: 16px;
+      background: #adb1ba;
+      color: #000;
+    }
+
+    .kb-key.backspace-key:active {
+      background: #8e919a;
+    }
+
+    .kb-row-bottom {
+      padding-bottom: 4px;
+    }
+
   </style>
 </head>
 <body>
@@ -83,6 +230,68 @@
     <iframe id="app-frame" src="apps/sim pin/" title="app"></iframe>
     <footer id="gesture-bar"><span></span></footer>
   </main>
+
+  <div id="onscreen-keyboard">
+    <div id="kb-toolbar">
+      <span id="kb-field-label"></span>
+      <button id="kb-close-btn" data-locale="keyboard.done">Done</button>
+    </div>
+    <div id="kb-rows">
+      <div class="kb-row">
+        <button class="kb-key" data-key="1">1</button>
+        <button class="kb-key" data-key="2">2</button>
+        <button class="kb-key" data-key="3">3</button>
+        <button class="kb-key" data-key="4">4</button>
+        <button class="kb-key" data-key="5">5</button>
+        <button class="kb-key" data-key="6">6</button>
+        <button class="kb-key" data-key="7">7</button>
+        <button class="kb-key" data-key="8">8</button>
+        <button class="kb-key" data-key="9">9</button>
+        <button class="kb-key" data-key="0">0</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key" data-key="q">q</button>
+        <button class="kb-key" data-key="w">w</button>
+        <button class="kb-key" data-key="e">e</button>
+        <button class="kb-key" data-key="r">r</button>
+        <button class="kb-key" data-key="t">t</button>
+        <button class="kb-key" data-key="y">y</button>
+        <button class="kb-key" data-key="u">u</button>
+        <button class="kb-key" data-key="i">i</button>
+        <button class="kb-key" data-key="o">o</button>
+        <button class="kb-key" data-key="p">p</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key" data-key="a">a</button>
+        <button class="kb-key" data-key="s">s</button>
+        <button class="kb-key" data-key="d">d</button>
+        <button class="kb-key" data-key="f">f</button>
+        <button class="kb-key" data-key="g">g</button>
+        <button class="kb-key" data-key="h">h</button>
+        <button class="kb-key" data-key="j">j</button>
+        <button class="kb-key" data-key="k">k</button>
+        <button class="kb-key" data-key="l">l</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key shift-key" data-action="shift">&#8679;</button>
+        <button class="kb-key" data-key="z">z</button>
+        <button class="kb-key" data-key="x">x</button>
+        <button class="kb-key" data-key="c">c</button>
+        <button class="kb-key" data-key="v">v</button>
+        <button class="kb-key" data-key="b">b</button>
+        <button class="kb-key" data-key="n">n</button>
+        <button class="kb-key" data-key="m">m</button>
+        <button class="kb-key backspace-key" data-action="backspace">&#9003;</button>
+      </div>
+      <div class="kb-row kb-row-bottom">
+        <button class="kb-key wide" data-action="symbols">123</button>
+        <button class="kb-key" data-key=",">,</button>
+        <button class="kb-key space" data-key=" ">space</button>
+        <button class="kb-key" data-key=".">.</button>
+        <button class="kb-key wide" data-action="enter">&#9166;</button>
+      </div>
+    </div>
+  </div>
 
   <script src="guadawareUniversalFramework/Locale.js"></script>
   <script>
@@ -180,6 +389,244 @@
       startY = null;
       startTime = null;
     });
+
+    /* ── On-Screen Keyboard ── */
+    const keyboard = document.getElementById("onscreen-keyboard");
+    const kbFieldLabel = document.getElementById("kb-field-label");
+    const kbCloseBtn = document.getElementById("kb-close-btn");
+    let activeInput = null;
+    let shiftActive = false;
+    let kbInteracting = false;
+
+    const SYMBOLS_ROW = {
+      "1": ["1","2","3","4","5","6","7","8","9","0"],
+      "2": ["-","/",":",";","(",")","$","&","@","\""],
+      "3": [".",",","?","!","'","#','%","*","+","="],
+      "4": ["_","\\","|","~","<",">","^","{","}","`"]
+    };
+    const LETTER_ROWS = [
+      ["q","w","e","r","t","y","u","i","o","p"],
+      ["a","s","d","f","g","h","j","k","l"],
+      ["z","x","c","v","b","n","m"]
+    ];
+    let symbolsMode = false;
+
+    function buildLetterKeyboard() {
+      const rows = document.querySelectorAll("#kb-rows .kb-row");
+      rows[0].innerHTML = "1234567890".split("").map(c =>
+        `<button class="kb-key" data-key="${c}">${c}</button>`
+      ).join("");
+      rows[1].innerHTML = LETTER_ROWS[0].map(c =>
+        `<button class="kb-key" data-key="${c}">${c}</button>`
+      ).join("");
+      rows[2].innerHTML = LETTER_ROWS[1].map(c =>
+        `<button class="kb-key" data-key="${c}">${c}</button>`
+      ).join("");
+      rows[3].innerHTML =
+        `<button class="kb-key shift-key" data-action="shift">&#8679;</button>` +
+        LETTER_ROWS[2].map(c =>
+          `<button class="kb-key" data-key="${c}">${c}</button>`
+        ).join("") +
+        `<button class="kb-key backspace-key" data-action="backspace">&#9003;</button>`;
+      rows[4].innerHTML =
+        `<button class="kb-key wide" data-action="symbols">123</button>` +
+        `<button class="kb-key" data-key=",">,</button>` +
+        `<button class="kb-key space" data-key=" ">space</button>` +
+        `<button class="kb-key" data-key=".">.</button>` +
+        `<button class="kb-key wide" data-action="enter">&#9166;</button>`;
+      symbolsMode = false;
+      applyShiftState();
+      rebindKeys();
+    }
+
+    function buildSymbolsKeyboard() {
+      const rows = document.querySelectorAll("#kb-rows .kb-row");
+      Object.values(SYMBOLS_ROW).forEach((chars, i) => {
+        rows[i].innerHTML = chars.map(c =>
+          `<button class="kb-key" data-key="${c}">${c}</button>`
+        ).join("");
+      });
+      rows[3].innerHTML = "";
+      rows[4].innerHTML =
+        `<button class="kb-key wide" data-action="letters">ABC</button>` +
+        `<button class="kb-key" data-key=",">,</button>` +
+        `<button class="kb-key space" data-key=" ">space</button>` +
+        `<button class="kb-key" data-key=".">.</button>` +
+        `<button class="kb-key wide" data-action="enter">&#9166;</button>`;
+      symbolsMode = true;
+      rebindKeys();
+    }
+
+    function applyShiftState() {
+      const keys = keyboard.querySelectorAll(".kb-key[data-key]");
+      keys.forEach(k => {
+        if (/^[a-z]$/.test(k.dataset.key)) {
+          const ch = shiftActive ? k.dataset.key.toUpperCase() : k.dataset.key;
+          k.textContent = ch;
+          k.dataset.key = ch;
+        }
+      });
+      const shiftBtn = keyboard.querySelector(".shift-key");
+      if (shiftBtn) shiftBtn.classList.toggle("active", shiftActive);
+    }
+
+    function showKeyboard() {
+      keyboard.classList.add("active");
+      frame.style.flex = "0 0 55%";
+    }
+
+    function hideKeyboard() {
+      keyboard.classList.remove("active");
+      frame.style.flex = "1";
+      activeInput = null;
+      shiftActive = false;
+      if (symbolsMode) buildLetterKeyboard();
+    }
+
+    function sendKeyToInput(char) {
+      if (!activeInput) return;
+      try {
+        const input = activeInput;
+        input.focus();
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const val = input.value;
+        input.value = val.substring(0, start) + char + val.substring(end);
+        const newPos = start + char.length;
+        input.setSelectionRange(newPos, newPos);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      } catch (e) {}
+    }
+
+    function sendBackspace() {
+      if (!activeInput) return;
+      try {
+        const input = activeInput;
+        input.focus();
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const val = input.value;
+        if (start !== end) {
+          input.value = val.substring(0, start) + val.substring(end);
+          input.setSelectionRange(start, start);
+        } else if (start > 0) {
+          input.value = val.substring(0, start - 1) + val.substring(start);
+          input.setSelectionRange(start - 1, start - 1);
+        }
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      } catch (e) {}
+    }
+
+    function sendEnter() {
+      if (!activeInput) return;
+      try {
+        const input = activeInput;
+        input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
+        input.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
+      } catch (e) {}
+    }
+
+    function refocusActiveInput() {
+      if (!activeInput) return;
+      try {
+        frame.contentWindow.focus();
+        activeInput.focus();
+      } catch (err) {}
+    }
+
+    function rebindKeys() {
+      keyboard.querySelectorAll(".kb-key").forEach(btn => {
+        btn.addEventListener("pointerdown", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          kbInteracting = true;
+
+          refocusActiveInput();
+
+          const action = btn.dataset.action;
+          const key = btn.dataset.key;
+
+          if (action === "shift") {
+            shiftActive = !shiftActive;
+            applyShiftState();
+          } else if (action === "backspace") {
+            sendBackspace();
+          } else if (action === "symbols") {
+            buildSymbolsKeyboard();
+          } else if (action === "letters") {
+            buildLetterKeyboard();
+          } else if (action === "enter") {
+            sendEnter();
+          } else if (key) {
+            sendKeyToInput(key);
+            if (shiftActive && /^[A-Z]$/.test(key)) {
+              shiftActive = false;
+              applyShiftState();
+            }
+          }
+
+          setTimeout(() => { kbInteracting = false; }, 300);
+        });
+      });
+    }
+
+    kbCloseBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      hideKeyboard();
+    });
+
+    function attachInputListeners(doc) {
+      if (!doc || !doc.addEventListener) return;
+      const handler = (e) => {
+        const t = e.target;
+        if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA") &&
+            t.type !== "hidden" && t.type !== "checkbox" && t.type !== "radio" && t.type !== "range") {
+          activeInput = t;
+          const placeholder = t.getAttribute("placeholder") || t.getAttribute("data-locale-placeholder") || "";
+          kbFieldLabel.textContent = placeholder;
+          showKeyboard();
+        }
+      };
+      doc.addEventListener("focusin", handler, true);
+      doc.addEventListener("focus", handler, true);
+    }
+
+    function tryAttach() {
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        if (doc) attachInputListeners(doc);
+      } catch (e) {}
+    }
+
+    frame.addEventListener("load", () => {
+      setTimeout(tryAttach, 100);
+      try {
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        if (doc) {
+          const inputs = doc.querySelectorAll("input, textarea");
+          inputs.forEach(inp => {
+            if (inp.tagName === "INPUT" && ["hidden","checkbox","radio","range","submit","button","file","image","reset","number","email","tel","url","date","time","datetime-local","month","week","color"].includes(inp.type)) return;
+            inp.addEventListener("focus", () => {
+              activeInput = inp;
+              const placeholder = inp.getAttribute("placeholder") || inp.getAttribute("data-locale-placeholder") || "";
+              kbFieldLabel.textContent = placeholder;
+              showKeyboard();
+            });
+            inp.addEventListener("blur", () => {
+              setTimeout(() => {
+                if (kbInteracting) return;
+                if (!keyboard.contains(document.activeElement)) {
+                  hideKeyboard();
+                }
+              }, 150);
+            });
+          });
+        }
+      } catch (e) {}
+    });
+
+    tryAttach();
+    rebindKeys();
 
   </script>
 </body>
