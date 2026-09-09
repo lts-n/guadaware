@@ -20,9 +20,9 @@
     "name": "app.calculator"
   },
   {
-    "icon": "apps/homescreen/icons/safari-icon.webp",
-    "url": "apps/safari no proxy/",
-    "name": "app.safari.noproxy"
+    "icon": "apps/homescreen/icons/chromium-icon.webp",
+    "url": "apps/chromium/",
+    "name": "app.chromium"
   },
   {
     "icon": "apps/homescreen/icons/music-icon.png",
@@ -45,8 +45,8 @@
     "name": "app.messages"
   },
   {
-    "icon": "apps/homescreen/icons/appstore-icon.webp",
-    "url": "apps/appstore/",
-    "name": "app.appstore"
+    "icon": "apps/homescreen/icons/musicstore-icon.webp",
+    "url": "https://guadaware-ms.rf.gd/",
+    "name": "app.musicstore"
   }
 ]

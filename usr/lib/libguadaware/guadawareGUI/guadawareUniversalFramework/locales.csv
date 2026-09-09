@@ -14,7 +14,7 @@ app.settings,Settings,Ajustes,Configuració,设置
 app.terminal,Terminal,Terminal,Terminal,终端
 app.safari,Safari,Safari,Safari,Safari
 app.calculator,Calculator,Calculadora,Calculadora,计算器
-app.safari.noproxy,Safari (Without Proxy),Safari (Sin Proxy),Safari (Sense Proxy),Safari（无代理）
+app.chromium,Chromium,Chromium,Chromium,Chromium
 app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions,App Store
 app.music,Music,Música,Música,音乐
 app.phone,Phone,Teléfono,Telèfon,电话
@@ -22,6 +22,7 @@ app.contacts,Contacts,Contactos,Contactes,联系人
 app.messages,Messages,Mensajes,Missatges,信息
 app.camera,Camera,Cámara,Càmera,相机
 app.photos,Photos,Fotos,Fotos,照片
+app.musicstore,Music Store,Tienda de música,Botiga de música,音乐商店
 # Safari
 safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL,搜索或输入网址
 safari.content,Web content,Contenido web,Contingut web,网页内容
