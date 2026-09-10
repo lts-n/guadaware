@@ -323,7 +323,7 @@
     const SYSTEM_API = "http://localhost:8080";
 
     function updateBatteryFromOS() {
-      fetch(`${SYSTEM_API}/getBatteryPercentage`)
+      fetch(`http://localhost:8081/getBatteryPercentage`)
         .then((res) => res.text())
         .then((text) => {
           if (text) batteryLabel.textContent = `${text}%`;
@@ -338,7 +338,7 @@
     const chargeNotification = new Audio("apps/SMS/notification.mp3");
 
     function checkChargingStatus() {
-      fetch(`${SYSTEM_API}/getBatteryStatus`)
+      fetch(`http://localhost:8081/getBatteryStatus`)
         .then((res) => res.text())
         .then((status) => {
           if (status && lastChargingState !== null && status === "Charging" && lastChargingState !== "Charging") {
