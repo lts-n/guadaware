@@ -46,7 +46,7 @@
   },
   {
     "icon": "apps/homescreen/icons/musicstore-icon.webp",
-    "url": "https://guadaware-ms.rf.gd/",
+    "url": "http://localhost:8080/safariProxy/http://guadaware-ms.rf.gd/",
     "name": "app.musicstore"
   }
 ]

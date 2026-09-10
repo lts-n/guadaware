@@ -1,10 +1,12 @@
 from bottle import run as runapi
-from bottle import route, response, request, hook
-from urllib.parse import unquote, quote
+from bottle import route, response, request, hook, HTTPResponse
+from urllib.parse import unquote, quote, urlsplit, urljoin
 import json
 import os
 import re
 import subprocess
+import gzip
+import http.client
 
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
@@ -24,13 +26,131 @@ def allow_cors():
 
     response.headers["Accept-Ranges"] = "bytes"
 
-@route("/safariProxy/<url:path>")
+def _rewrite_proxy_cookie(cookie_header):
+    parts = [p.strip() for p in cookie_header.split(";")]
+    kept = [parts[0]]
+    for part in parts[1:]:
+        key = part.split("=", 1)[0].strip().lower()
+        if key in ("domain", "secure", "samesite", "sameparty"):
+            continue
+        kept.append(part)
+    return "; ".join(kept)
+
+def _rewrite_proxy_body(body, netloc, upstream_base, proxy_base):
+    text = body.decode("utf-8", "replace")
+    netloc_esc = re.escape(netloc)
+    text = re.sub(
+        r"https?://" + netloc_esc + r"|//" + netloc_esc,
+        proxy_base,
+        text,
+    )
+    text = re.sub(
+        r'\b((?:href|src|action|formaction|post|cite|data|poster)\s*=\s*)(["\'`]?)/',
+        lambda m: m.group(1) + m.group(2) + proxy_base + "/",
+        text,
+    )
+    text = re.sub(
+        r'\b((?:location|location\.href|window\.location|window\.location\.href)\s*=\s*)(["\'`]?)/',
+        lambda m: m.group(1) + m.group(2) + proxy_base + "/",
+        text,
+    )
+    text = re.sub(
+        r'url\(\s*(["\']?)/',
+        lambda m: "url(" + m.group(1) + proxy_base + "/",
+        text,
+    )
+    return text.encode("utf-8")
+
+@route("/safariProxy/<url:path>", method=["GET","HEAD","POST","PUT","PATCH","DELETE","OPTIONS"])
 def safariProxy(url):
-    url = unquote(url)
-    if not url:
-        return "no URL", 400
-    result = subprocess.run(f"curl -A 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' {url}", shell=True, capture_output=True, text=True)
-    return result.stdout
+    url = unquote(url) if url else "https://guadaware-ms.rf.gd/"
+    if not url.startswith(("http://", "https://")):
+        url = "http://" + url
+    parsed = urlsplit(url)
+    if not parsed.hostname:
+        return HTTPResponse("no URL", status=400)
+    scheme = parsed.scheme.lower()
+    hostname = parsed.hostname
+    port = parsed.port or (443 if scheme == "https" else 80)
+    upstream_base = f"{scheme}://{parsed.netloc}"
+    proxy_base = f"http://localhost:8080/safariProxy/{upstream_base}"
+    target_path = parsed.path or "/"
+    target_path = quote(target_path, safe="/:@%!$&'()*+,;=-._~")
+    if request.query_string:
+        target_path += "?" + request.query_string
+
+    conn_cls = http.client.HTTPSConnection if scheme == "https" else http.client.HTTPConnection
+    headers = {}
+    for key, value in request.headers.items():
+        lkey = key.lower()
+        if lkey in ("host", "connection", "content-length", "accept-encoding", "cookie", "referer"):
+            continue
+        headers[key] = value
+    headers["Host"] = parsed.netloc
+    headers["Accept-Encoding"] = "identity"
+    headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+    headers["Accept"] = headers.get("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+    cookie = request.get_header("Cookie")
+    if cookie:
+        headers["Cookie"] = cookie
+    body = None
+    if request.method in ("POST", "PUT", "PATCH"):
+        body = request.body.read()
+        if body:
+            headers["Content-Length"] = str(len(body))
+
+    try:
+        conn = conn_cls(hostname, port, timeout=60)
+        conn.request(request.method, target_path, body=body, headers=headers)
+        resp = conn.getresponse()
+        status = resp.status
+        resp_headers = resp.getheaders()
+        data = resp.read()
+    except Exception as exc:
+        from bottle import HTTPResponse
+        return HTTPResponse(f"proxy error: {exc}", status=502)
+    finally:
+        conn.close()
+
+    content_type = ""
+    for key, value in resp_headers:
+        if key.lower() == "content-type":
+            content_type = value
+            break
+
+    response.status = status
+    for key, value in resp_headers:
+        lkey = key.lower()
+        if lkey in ("connection", "transfer-encoding", "content-length", "content-encoding", "set-cookie", "location", "x-frame-options"):
+            continue
+        response.add_header(key, value)
+
+    location = next((v for k, v in resp_headers if k.lower() == "location"), None)
+    if location:
+        if location.startswith("/"):
+            location = proxy_base + location
+        elif location.startswith(upstream_base):
+            location = location.replace(upstream_base, proxy_base, 1)
+        else:
+            location = proxy_base + "/" + location
+        response.add_header("Location", location)
+
+    for key, value in resp_headers:
+        if key.lower() == "set-cookie":
+            response.add_header("Set-Cookie", _rewrite_proxy_cookie(value))
+
+    if (
+        request.method != "HEAD"
+        and status not in (204, 304)
+        and content_type
+        and any(mime in content_type.lower() for mime in ("html", "javascript", "css", "text/"))
+    ):
+        data = _rewrite_proxy_body(data, parsed.netloc, upstream_base, proxy_base)
+
+    response.add_header("Content-Length", str(len(data)))
+    if request.method == "HEAD":
+        return ""
+    return data
 
 def run_cmd(cmd, timeout=15):
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)

@@ -227,7 +227,7 @@
   </header>
 
   <main id="frame-wrap">
-    <iframe id="app-frame" src="apps/sim pin/" title="app"></iframe>
+    <iframe id="app-frame" src="apps/sim pin/" title="app" allow="storage-access; cookies"></iframe>
     <footer id="gesture-bar"><span></span></footer>
   </main>
 
@@ -472,12 +472,10 @@
 
     function showKeyboard() {
       keyboard.classList.add("active");
-      frame.style.flex = "0 0 55%";
     }
 
     function hideKeyboard() {
       keyboard.classList.remove("active");
-      frame.style.flex = "1";
       activeInput = null;
       shiftActive = false;
       if (symbolsMode) buildLetterKeyboard();
