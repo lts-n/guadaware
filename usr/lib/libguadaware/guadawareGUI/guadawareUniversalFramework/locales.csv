@@ -139,5 +139,21 @@ gallery.delete,Delete,Eliminar,Elimina,删除
 gallery.photosaved,Photo deleted,Foto eliminada,Foto eliminada,照片已删除
 gallery.faileddelete,Failed to delete,Error al eliminar,Error al eliminar,删除失败
 gallery.select,Select,Seleccionar,Selecciona,选择
+# Contacts
+contacts.title,Contacts,Contactos,Contactes,联系人
+contacts.search,Search,Buscar,Cerca,搜索
+contacts.empty,No contacts yet,No hay contactos aún,Encara no hi ha contactes,暂无联系人
+contacts.newcontact,New Contact,Nuevo Contacto,Nou Contacte,新建联系人
+contacts.editcontact,Edit Contact,Editar Contacto,Edita Contacte,编辑联系人
+contacts.name,Name,Nombre,Nom,姓名
+contacts.phone,Phone,Teléfono,Telèfon,电话
+contacts.email,Email,Correo electrónic,Correu electrònic,电子邮件
+contacts.notes,Notes,Notas,Notes,备注
+contacts.save,Save,Guardar,Desa,保存
+contacts.cancel,Cancel,Cancelar,Cancel·la,取消
+contacts.delete,Delete,Eliminar,Elimina,删除
+contacts.call,Call,Llamar,Trucar,呼叫
+contacts.message,Message,Mensaje,Missatge,消息
+contacts.edit,Edit,Editar,Edita,编辑
 # Keyboard
 keyboard.done,Done,Hecho,Fet,完成

@@ -10,6 +10,8 @@ import http.client
 import base64
 import time
 import uuid
+import sqlite3
+from datetime import datetime
 
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
@@ -17,6 +19,9 @@ AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", 
 PHOTOS_ROOT = os.path.expanduser("~/Pictures/Guadaware")
 PHOTO_EXTS = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp")
 VIDEO_EXTS = (".mp4", ".webm", ".ogg", ".mov")
+
+CONTACTS_ROOT = os.path.expanduser("~/Contacts")
+EDS_DB = os.path.expanduser("~/.local/share/evolution/addressbook/system/contacts.db")
 
 
 @hook("after_request")
@@ -642,5 +647,109 @@ def delete_photo(filename):
         return json.dumps({"ok": True})
     response.status = 404
     return json.dumps({"error": "not found"})
+
+
+def get_eds_db():
+    conn = sqlite3.connect(EDS_DB)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@route("/getContactList")
+def get_contact_list():
+    try:
+        conn = get_eds_db()
+        cursor = conn.execute("SELECT uid, full_name, file_as, vcard FROM folder_id")
+        contacts = []
+        for row in cursor:
+            contacts.append({
+                "uid": row["uid"],
+                "name": row["full_name"] or row["file_as"] or "",
+                "vcard": row["vcard"] or ""
+            })
+        conn.close()
+        response.content_type = "application/json"
+        return json.dumps(contacts, ensure_ascii=False)
+    except Exception as e:
+        response.content_type = "application/json"
+        return json.dumps([])
+
+@route("/saveContact", method=["POST"])
+def save_contact():
+    try:
+        data = request.json
+        if not data or "vcard" not in data:
+            return json.dumps({"error": "missing vcard"})
+        
+        vcard = data["vcard"]
+        uid = data.get("uid", "")
+        
+        now = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+        
+        name = ""
+        phone = ""
+        email = ""
+        for line in vcard.split("\r\n"):
+            if line.startswith("FN:"):
+                name = line[3:]
+            elif line.startswith("TEL"):
+                match = re.search(r":([^:]+)$", line)
+                if match:
+                    phone = match.group(1)
+            elif line.startswith("EMAIL"):
+                match = re.search(r":([^:]+)$", line)
+                if match:
+                    email = match.group(1)
+        
+        conn = get_eds_db()
+        
+        if uid:
+            conn.execute("""
+                UPDATE folder_id SET 
+                    full_name = ?,
+                    file_as = ?,
+                    vcard = ?,
+                    Rev = ?
+                WHERE uid = ?
+            """, (name, name, vcard, now, uid))
+            
+            conn.execute("DELETE FROM folder_id_phone_list WHERE uid = ?", (uid,))
+            conn.execute("DELETE FROM folder_id_email_list WHERE uid = ?", (uid,))
+        else:
+            uid = "guadaware-" + str(int(time.time() * 1000)) + "-" + uuid.uuid4().hex[:8]
+            vcard_uid = f"BEGIN:VCARD\nVERSION:3.0\nUID:{uid}\n" + vcard.split("BEGIN:VCARD\nVERSION:3.0\n", 1)[-1] if "BEGIN:VCARD" in vcard else vcard
+            
+            conn.execute("""
+                INSERT INTO folder_id (uid, Rev, file_as, full_name, vcard, is_list, list_show_addresses, wants_html, x509Cert, pgpCert)
+                VALUES (?, ?, ?, ?, ?, 0, 0, 0, 0, 0)
+            """, (uid, now, name, name, vcard_uid))
+        
+        if phone:
+            conn.execute("INSERT INTO folder_id_phone_list (uid, value) VALUES (?, ?)", (uid, phone))
+        if email:
+            conn.execute("INSERT INTO folder_id_email_list (uid, value) VALUES (?, ?)", (uid, email))
+        
+        conn.commit()
+        conn.close()
+        
+        response.content_type = "application/json"
+        return json.dumps({"ok": True, "uid": uid})
+    except Exception as e:
+        response.content_type = "application/json"
+        return json.dumps({"error": str(e)})
+
+@route("/deleteContact/<uid:path>", method=["DELETE"])
+def delete_contact(uid):
+    try:
+        conn = get_eds_db()
+        conn.execute("DELETE FROM folder_id_phone_list WHERE uid = ?", (uid,))
+        conn.execute("DELETE FROM folder_id_email_list WHERE uid = ?", (uid,))
+        conn.execute("DELETE FROM folder_id WHERE uid = ?", (uid,))
+        conn.commit()
+        conn.close()
+        response.content_type = "application/json"
+        return json.dumps({"ok": True})
+    except Exception as e:
+        response.status = 500
+        return json.dumps({"error": str(e)})
 
 runapi(host="localhost", port=8080, debug=True)

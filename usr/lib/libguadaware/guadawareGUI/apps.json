@@ -36,7 +36,7 @@
   },
   {
     "icon": "apps/homescreen/icons/contacts-icon.png",
-    "url": "http://localhost:8080/sh/gnome-contacts",
+    "url": "apps/contacts/",
     "name": "app.contacts"
   },
   {

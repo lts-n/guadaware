@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Contacts</title>
+  <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="contacts-header">
+    <h1 id="contacts-title" data-locale="contacts.title">Contacts</h1>
+    <button id="btn-add" aria-label="Add Contact">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </button>
+  </header>
+
+  <div id="search-bar">
+    <input type="text" id="search-input" data-locale-placeholder="contacts.search" placeholder="Search">
+  </div>
+
+  <main id="contacts-content">
+    <div id="contacts-list"></div>
+    <div id="contacts-empty">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <p data-locale="contacts.empty">No contacts yet</p>
+    </div>
+  </main>
+
+  <div id="contact-form" class="hidden">
+    <header id="form-header">
+      <button id="btn-cancel" data-locale="contacts.cancel">Cancel</button>
+      <h2 id="form-title" data-locale="contacts.newcontact">New Contact</h2>
+      <button id="btn-save" data-locale="contacts.save">Save</button>
+    </header>
+    <div id="form-avatar">
+      <div id="avatar-circle"></div>
+    </div>
+    <div id="form-fields">
+      <input type="text" id="field-name" data-locale-placeholder="contacts.name" placeholder="Name">
+      <input type="tel" id="field-phone" data-locale-placeholder="contacts.phone" placeholder="Phone">
+      <input type="email" id="field-email" data-locale-placeholder="contacts.email" placeholder="Email">
+      <textarea id="field-notes" data-locale-placeholder="contacts.notes" placeholder="Notes" rows="3"></textarea>
+    </div>
+  </div>
+
+  <div id="contact-detail" class="hidden">
+    <header id="detail-header">
+      <button id="btn-back-list">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button id="btn-delete" data-locale="contacts.delete">Delete</button>
+    </header>
+    <div id="detail-content">
+      <div id="detail-avatar"></div>
+      <h2 id="detail-name"></h2>
+      <div id="detail-actions">
+        <button id="btn-call" class="action-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span data-locale="contacts.call">Call</span>
+        </button>
+        <button id="btn-sms" class="action-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span data-locale="contacts.message">Message</span>
+        </button>
+        <button id="btn-edit" class="action-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          <span data-locale="contacts.edit">Edit</span>
+        </button>
+      </div>
+      <div id="detail-info">
+        <div class="info-section">
+          <label data-locale="contacts.phone">Phone</label>
+          <p id="detail-phone"></p>
+        </div>
+        <div class="info-section">
+          <label data-locale="contacts.email">Email</label>
+          <p id="detail-email"></p>
+        </div>
+        <div class="info-section">
+          <label data-locale="contacts.notes">Notes</label>
+          <p id="detail-notes"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../guadawareUniversalFramework/Locale.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
