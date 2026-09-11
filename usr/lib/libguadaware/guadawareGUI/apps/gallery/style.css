@@ -87,7 +87,29 @@ body {
 }
 
 #btn-back {
-  color: white;
+  color: #0a84ff;
+}
+
+/* Override framework header button styles that conflict */
+#gallery-header button:first-child {
+  position: static;
+  left: auto;
+}
+
+#gallery-header button:last-child {
+  position: static;
+  right: auto;
+}
+
+#gallery-header h1 {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+}
+
+#gallery-header {
+  border-bottom: none;
 }
 
 #gallery-empty p {

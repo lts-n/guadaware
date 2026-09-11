@@ -25,6 +25,7 @@ app.messages,Messages,Mensajes,Missatges,信息
 app.camera,Camera,Cámara,Càmera,相机
 app.photos,Photos,Fotos,Fotos,照片
 app.musicstore,Music Store,Tienda de música,Botiga de música,音乐商店
+app.notes,Notes,Notas,Notes,笔记
 # Safari
 safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL,搜索或输入网址
 safari.content,Web content,Contenido web,Contingut web,网页内容
@@ -94,6 +95,7 @@ settings.langselect,Language selector,Seleccionador de idioma,Selector de llengu
 settings.back,Back,Atrás,Tornar,返回
 settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸
 settings.sounds,Sounds,Sonidos,Sons,声音
+settings.mute,Mute,Silenciar,Silenci,静音
 settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式
 settings.about,About your Guadafón,Acerca de tu Guadafón,Sobre el teu Guadafón,关于你的 Guadafón
 # Music
@@ -155,5 +157,15 @@ contacts.delete,Delete,Eliminar,Elimina,删除
 contacts.call,Call,Llamar,Trucar,呼叫
 contacts.message,Message,Mensaje,Missatge,消息
 contacts.edit,Edit,Editar,Edita,编辑
+# Notes
+notes.title,Notes,Notas,Notes,笔记
+notes.empty,No notes yet,No hay notas aún,Encara no hi ha notes,暂无笔记
+notes.newnote,New Note,Nueva Nota,Nota Nova,新建笔记
+notes.notetitle,Title,Título,Títol,标题
+notes.notecontent,Write something...,Escribe algo...,Escriu algo...,写点什么...
+notes.save,Save,Guardar,Desa,保存
+notes.cancel,Cancel,Cancelar,Cancel·la,取消
+notes.edit,Edit,Editar,Edita,编辑
+notes.delete,Delete,Eliminar,Elimina,删除
 # Keyboard
 keyboard.done,Done,Hecho,Fet,完成

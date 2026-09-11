@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sounds</title>
+    <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+</head>
+<body>
+    <header>
+        <span><button><a href="index.html" data-locale="settings.back">Back</a></button></span>
+        <span><h1 data-locale="settings.sounds">Sounds</h1></span>
+    </header>
+
+    <section>
+        <ul>
+            <li>
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23ff2d55'/><path d='M4 9.3v5.4h3.4L12 18.4V5.6L7.4 9.3H4z' fill='%23fff'/><path d='M15 9.2a4 4 0 0 1 0 5.6M17.4 7a7 7 0 0 1 0 10' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linecap='round'/></svg>" alt="">
+                <span data-locale="cc.volume">Volume</span>
+                <input type="range" id="volume-slider" min="0" max="100" value="50">
+            </li>
+            <li>
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%23ff9500'/><path d='M4 9.3v5.4h3.4L12 18.4V5.6L7.4 9.3H4z' fill='%23fff'/><line x1='16' y1='9' x2='22' y2='15' stroke='%23fff' stroke-width='2' stroke-linecap='round'/><line x1='22' y1='9' x2='16' y2='15' stroke='%23fff' stroke-width='2' stroke-linecap='round'/></svg>" alt="">
+                <span data-locale="settings.mute">Mute</span>
+                <label><input id="mute-toggle" type="checkbox"><span></span></label>
+            </li>
+        </ul>
+    </section>
+
+    <script src="../../guadawareUniversalFramework/Locale.js"></script>
+    <script>
+        const locale = new Locale();
+        const SYSTEM_API = "http://localhost:8080";
+        const volumeSlider = document.getElementById("volume-slider");
+        const muteToggle = document.getElementById("mute-toggle");
+
+        function sh(cmd) {
+            return fetch(`${SYSTEM_API}/sh/${encodeURIComponent(cmd)}`)
+                .then((res) => res.text())
+                .catch(() => "");
+        }
+
+        function loadVolume() {
+            fetch(`${SYSTEM_API}/getVolume`)
+                .then((res) => res.text())
+                .then((text) => {
+                    if (text && text !== "unknown") {
+                        volumeSlider.value = parseInt(text, 10);
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function loadMute() {
+            sh("pactl get-sink-mute @DEFAULT_SINK@")
+                .then((output) => {
+                    muteToggle.checked = output.trim() === "Mute: yes";
+                })
+                .catch(() => {});
+        }
+
+        volumeSlider.addEventListener("input", () => {
+            const level = volumeSlider.value;
+            fetch(`${SYSTEM_API}/setVolume/${level}`, { mode: "no-cors" }).catch(() => {});
+        });
+
+        muteToggle.addEventListener("change", () => {
+            const state = muteToggle.checked ? "on" : "off";
+            sh(`pactl set-sink-mute @DEFAULT_SINK@ ${state}`).catch(() => {});
+        });
+
+        loadVolume();
+        loadMute();
+    </script>
+</body>
+</html>

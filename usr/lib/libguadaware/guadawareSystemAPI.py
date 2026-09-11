@@ -752,4 +752,21 @@ def delete_contact(uid):
         response.status = 500
         return json.dumps({"error": str(e)})
 
+@route("/setVolume/<level>")
+def set_volume(level):
+    if level.isdigit():
+        
+        level_int = int(level)
+        if 0 <= level_int <= 100:
+            subprocess.run(["pactl", "set-sink-volume", "@DEFAULT_SINK@", f"{level_int}%"])
+            return "ok"
+
+@route("/getVolume")
+def get_volume():
+    result = subprocess.run(["pactl", "get-sink-volume", "@DEFAULT_SINK@"], capture_output=True, text=True)
+    match = re.search(r"Volume: front-left: \d+ / (\d+)%", result.stdout)
+    if match:
+        return match.group(1)
+    return "unknown"
+
 runapi(host="localhost", port=int(os.environ.get("GUADAWARE_API_PORT", "8080")), debug=True)

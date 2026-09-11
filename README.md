@@ -4,6 +4,8 @@
 
 Guadaware is architected to be portable: although it is the native desktop of the Guadafón, it is designed so it can be ported to other mobile platforms based on **Android** or **Ubuntu Touch**.
 
+![Guadaware 26 Beta M2 screenshot](screenshot.png)
+
 ## Layout
 
 Guadaware follows the Filesystem Hierarchy Standard, so the whole system can be deployed simply by installing the `usr/` tree onto the root filesystem:
@@ -50,8 +52,6 @@ The GUI is displayed full-screen in a kiosk-mode web view managed by the Wayland
 - **curl** — used by the Safari proxy
 - **gnome-calls** - used to make calls
 - **gnome-contacts** - used to manage contacts
-- **Xorg** - used for the desktop mode
-- **Openbox** - also used for it
 - Common CLI utilities: `poweroff`, `free`, `df`, `lscpu`, `lspci`
 
 ## Running

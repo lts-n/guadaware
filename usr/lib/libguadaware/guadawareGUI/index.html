@@ -399,6 +399,7 @@
     let activeInput = null;
     let shiftActive = false;
     let kbInteracting = false;
+    let usePostMessage = false;
 
     const SYMBOLS_ROW = {
       "1": ["1","2","3","4","5","6","7","8","9","0"],
@@ -485,6 +486,10 @@
 
     function sendKeyToInput(char) {
       if (!activeInput) return;
+      if (usePostMessage) {
+        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-input", char: char }, "*"); } catch (e) {}
+        return;
+      }
       try {
         const input = activeInput;
         input.focus();
@@ -500,6 +505,10 @@
 
     function sendBackspace() {
       if (!activeInput) return;
+      if (usePostMessage) {
+        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-backspace" }, "*"); } catch (e) {}
+        return;
+      }
       try {
         const input = activeInput;
         input.focus();
@@ -519,6 +528,10 @@
 
     function sendEnter() {
       if (!activeInput) return;
+      if (usePostMessage) {
+        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-enter" }, "*"); } catch (e) {}
+        return;
+      }
       try {
         const input = activeInput;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
@@ -528,6 +541,7 @@
 
     function refocusActiveInput() {
       if (!activeInput) return;
+      if (usePostMessage) return;
       try {
         frame.contentWindow.focus();
         activeInput.focus();
@@ -582,6 +596,7 @@
         if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA") &&
             t.type !== "hidden" && t.type !== "checkbox" && t.type !== "radio" && t.type !== "range") {
           activeInput = t;
+          usePostMessage = false;
           const placeholder = t.getAttribute("placeholder") || t.getAttribute("data-locale-placeholder") || "";
           kbFieldLabel.textContent = placeholder;
           showKeyboard();
@@ -594,9 +609,31 @@
     function tryAttach() {
       try {
         const doc = frame.contentDocument || frame.contentWindow.document;
-        if (doc) attachInputListeners(doc);
-      } catch (e) {}
+        if (doc) {
+          attachInputListeners(doc);
+          usePostMessage = false;
+        }
+      } catch (e) {
+        usePostMessage = true;
+      }
     }
+
+    window.addEventListener("message", (e) => {
+      if (!e.data || typeof e.data.type !== "string") return;
+      if (e.data.type === "guadaware:input-focus") {
+        activeInput = { _proxy: true };
+        usePostMessage = true;
+        kbFieldLabel.textContent = e.data.placeholder || "";
+        showKeyboard();
+      } else if (e.data.type === "guadaware:input-blur") {
+        setTimeout(() => {
+          if (kbInteracting) return;
+          if (!keyboard.contains(document.activeElement)) {
+            hideKeyboard();
+          }
+        }, 150);
+      }
+    });
 
     frame.addEventListener("load", () => {
       setTimeout(tryAttach, 100);
@@ -608,6 +645,7 @@
             if (inp.tagName === "INPUT" && ["hidden","checkbox","radio","range","submit","button","file","image","reset","number","email","tel","url","date","time","datetime-local","month","week","color"].includes(inp.type)) return;
             inp.addEventListener("focus", () => {
               activeInput = inp;
+              usePostMessage = false;
               const placeholder = inp.getAttribute("placeholder") || inp.getAttribute("data-locale-placeholder") || "";
               kbFieldLabel.textContent = placeholder;
               showKeyboard();
@@ -622,7 +660,9 @@
             });
           });
         }
-      } catch (e) {}
+      } catch (e) {
+        usePostMessage = true;
+      }
     });
 
     tryAttach();

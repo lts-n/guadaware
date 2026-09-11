@@ -12,18 +12,22 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 API_DIR = PROJECT_ROOT / "usr" / "lib" / "libguadaware"
+NOTES_DIR = API_DIR / "guadawareGUI" / "apps" / "notes"
 API_PORT = 18080
 BATTERY_PORT = 18081
+NOTES_PORT = 18082
 BASE_URL = f"http://localhost:{API_PORT}"
 BATTERY_URL = f"http://localhost:{BATTERY_PORT}"
+NOTES_URL = f"http://localhost:{NOTES_PORT}"
 TIMEOUT = 5
 
 
 class APIServer:
-    def __init__(self, script_path, port, env_var):
+    def __init__(self, script_path, port, env_var, cwd=None):
         self.script_path = script_path
         self.port = port
         self.env_var = env_var
+        self.cwd = cwd or API_DIR
         self.process = None
 
     def start(self):
@@ -32,7 +36,7 @@ class APIServer:
         env[self.env_var] = str(self.port)
         self.process = subprocess.Popen(
             [sys.executable, str(self.script_path)],
-            cwd=str(API_DIR),
+            cwd=str(self.cwd),
             env=env,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
@@ -75,6 +79,14 @@ def battery_server():
     server.stop()
 
 
+@pytest.fixture(scope="session")
+def notes_server():
+    server = APIServer(NOTES_DIR / "app.py", NOTES_PORT, "GUADAWARE_NOTES_PORT", cwd=NOTES_DIR)
+    server.start()
+    yield server
+    server.stop()
+
+
 class APIClient:
     def __init__(self, base_url):
         self.base_url = base_url
@@ -98,3 +110,8 @@ def api(api_server):
 @pytest.fixture(scope="session")
 def battery(battery_server):
     return APIClient(BATTERY_URL)
+
+
+@pytest.fixture(scope="session")
+def notes(notes_server):
+    return APIClient(NOTES_URL)
