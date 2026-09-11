@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="../../guadawareUniversalFramework/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="gallery-header">
+    <button id="btn-back" aria-label="Back">
+      
+    </button>
+    <h1 id="gallery-title" data-locale="gallery.title">Gallery</h1>
+    <button id="btn-select" aria-label="Select">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+    </button>
+  </header>
+
+  <main id="gallery-content">
+    <div id="gallery-grid" class="hidden"></div>
+    <div id="gallery-empty">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <p id="empty-text" data-locale="gallery.empty">No photos yet</p>
+      <button id="btn-open-camera" data-locale="gallery.openCamera">Open Camera</button>
+    </div>
+  </main>
+
+  <div id="lightbox" class="hidden">
+    <header id="lightbox-header">
+      <button id="lb-close" aria-label="Close">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <span id="lb-counter"></span>
+      <button id="lb-delete" aria-label="Delete">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+        </svg>
+      </button>
+    </header>
+    <div id="lightbox-viewport">
+      <button id="lb-prev" class="lb-nav" aria-label="Previous">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <img id="lb-image" alt="Photo">
+      <button id="lb-next" class="lb-nav" aria-label="Next">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="gallery-toast" class="hidden"></div>
+
+  <script src="../../guadawareUniversalFramework/Locale.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

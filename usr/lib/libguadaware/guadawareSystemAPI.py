@@ -7,9 +7,16 @@ import re
 import subprocess
 import gzip
 import http.client
+import base64
+import time
+import uuid
 
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
+
+PHOTOS_ROOT = os.path.expanduser("~/Pictures/Guadaware")
+PHOTO_EXTS = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp")
+VIDEO_EXTS = (".mp4", ".webm", ".ogg", ".mov")
 
 
 @hook("after_request")
@@ -518,5 +525,122 @@ def serve_music(filepath):
                 remaining -= len(chunk)
                 yield chunk
     return stream()
+
+@hook("before_request")
+def ensure_photos_dir():
+    os.makedirs(PHOTOS_ROOT, exist_ok=True)
+
+@route("/savePhoto", method=["POST"])
+def save_photo():
+    try:
+        data = request.json
+        if not data or "image" not in data:
+            return json.dumps({"error": "no image data"})
+        
+        image_data = data["image"]
+        filename = data.get("filename", f"{int(time.time()*1000)}_{uuid.uuid4().hex[:8]}.jpg")
+        
+        if not filename.endswith(('.jpg', '.jpeg', '.png', '.webp')):
+            filename += '.jpg'
+        
+        filepath = os.path.join(PHOTOS_ROOT, filename)
+        
+        if image_data.startswith("data:"):
+            image_data = image_data.split(",", 1)[1]
+        
+        with open(filepath, "wb") as f:
+            f.write(base64.b64decode(image_data))
+        
+        response.content_type = "application/json"
+        return json.dumps({"ok": True, "filename": filename, "path": filepath})
+    except Exception as e:
+        response.content_type = "application/json"
+        return json.dumps({"error": str(e)})
+
+@route("/getPhotoList")
+def get_photo_list():
+    photos = []
+    if os.path.isdir(PHOTOS_ROOT):
+        for fname in sorted(os.listdir(PHOTOS_ROOT), reverse=True):
+            ext = os.path.splitext(fname)[1].lower()
+            if ext in PHOTO_EXTS or ext in VIDEO_EXTS:
+                filepath = os.path.join(PHOTOS_ROOT, fname)
+                stat = os.stat(filepath)
+                photos.append({
+                    "filename": fname,
+                    "url": f"/photo/{quote(fname)}",
+                    "size": stat.st_size,
+                    "modified": stat.st_mtime,
+                    "is_video": ext in VIDEO_EXTS
+                })
+    response.content_type = "application/json"
+    return json.dumps(photos)
+
+@route("/photo/<filename:path>")
+def serve_photo(filename):
+    filepath = os.path.realpath(os.path.join(PHOTOS_ROOT, unquote(filename)))
+    if not filepath.startswith(os.path.realpath(PHOTOS_ROOT)):
+        response.status = 403
+        return "forbidden"
+    if not os.path.isfile(filepath):
+        response.status = 404
+        return "not found"
+    
+    ext = os.path.splitext(filepath)[1].lower()
+    mime_map = {
+        ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+        ".png": "image/png", ".webp": "image/webp",
+        ".gif": "image/gif", ".bmp": "image/bmp",
+        ".mp4": "video/mp4", ".webm": "video/webm",
+        ".ogg": "video/ogg", ".mov": "video/quicktime"
+    }
+    response.content_type = mime_map.get(ext, "application/octet-stream")
+    
+    size = os.path.getsize(filepath)
+    start, end, status = 0, size - 1, 200
+    header_range = request.get_header("Range")
+    if header_range:
+        match = re.match(r"bytes=(\d*)-(\d*)", header_range)
+        if match:
+            first, last = match.groups()
+            if first:
+                start = int(first)
+                if last:
+                    end = min(int(last), size - 1)
+            elif last:
+                start = max(0, size - int(last))
+        status = 206
+    if start >= size:
+        response.set_header("Content-Range", f"bytes */{size}")
+        response.status = 416
+        return ""
+    response.status = status
+    length = end - start + 1
+    response.add_header("Content-Range", f"bytes {start}-{end}/{size}")
+    response.add_header("Content-Length", str(length))
+    def stream():
+        with open(filepath, "rb") as f:
+            f.seek(start)
+            remaining = length
+            while remaining > 0:
+                chunk = f.read(min(64 * 1024, remaining))
+                if not chunk:
+                    break
+                remaining -= len(chunk)
+                yield chunk
+    return stream()
+
+@route("/deletePhoto/<filename:path>", method=["DELETE"])
+def delete_photo(filename):
+    filepath = os.path.realpath(os.path.join(PHOTOS_ROOT, unquote(filename)))
+    if not filepath.startswith(os.path.realpath(PHOTOS_ROOT)):
+        response.status = 403
+        return "forbidden"
+    if os.path.isfile(filepath):
+        os.remove(filepath)
+        response.content_type = "application/json"
+        return json.dumps({"ok": True})
+    response.status = 404
+    return json.dumps({"error": "not found"})
 
 runapi(host="localhost", port=8080, debug=True)

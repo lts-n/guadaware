@@ -10,6 +10,8 @@ cc.prev,Previous,Anterior,Anterior,上一曲
 cc.play,Play,Reproducir,Reprodueix,播放
 cc.next,Next,Siguiente,Següent,下一曲
 # Homescreen
+app.camera,Camera,Cámara,Càmera,相机
+app.gallery,Gallery,Galería,Galeria,图库
 app.settings,Settings,Ajustes,Configuració,设置
 app.terminal,Terminal,Terminal,Terminal,终端
 app.safari,Safari,Safari,Safari,Safari
@@ -116,5 +118,26 @@ music.unknownartist,Unknown Artist,Artista desconocido,Artista desconegut,未知
 music.unknownalbum,Unknown Album,Álbum desconocido,Àlbum desconegut,未知专辑
 music.back,Back,Atrás,Enrere,返回
 music.down,Close,Cerrar,Tanca,关闭
+# Camera
+camera.title,Camera,Cámara,Càmera,相机
+camera.photo,Photo,Foto,Foto,照片
+camera.video,Video,Vídeo,Vídeo,视频
+camera.flip,Flip Camera,Girar cámara,Girar càmera,翻转摄像头
+camera.switch,Switch Camera,Cambiar cámara,Canviar càmera,切换摄像头
+camera.gallery,Gallery,Galería,Galeria,图库
+camera.saved,Photo saved,Foto guardada,Foto guardada,照片已保存
+camera.videosaved,Video saved,Vídeo guardado,Vídeo guardat,视频已保存
+camera.notavailable,Camera not available,Cámara no disponible,Càmera no disponible,相机不可用
+camera.failedsave,Failed to save photo,Error al guardar la foto,Error al guardar la foto,保存照片失败
+# Gallery
+gallery.title,Gallery,Galería,Galeria,图库
+gallery.empty,No photos yet,Aún no hay fotos,Encara no hi ha fotos,暂无照片
+gallery.openCamera,Open Camera,Abrir cámara,Obre la càmera,打开相机
+gallery.today,Hoy,Avui,Avui,今天
+gallery.yesterday,Ayer,Ahir,Ahir,昨天
+gallery.delete,Delete,Eliminar,Elimina,删除
+gallery.photosaved,Photo deleted,Foto eliminada,Foto eliminada,照片已删除
+gallery.faileddelete,Failed to delete,Error al eliminar,Error al eliminar,删除失败
+gallery.select,Select,Seleccionar,Selecciona,选择
 # Keyboard
 keyboard.done,Done,Hecho,Fet,完成

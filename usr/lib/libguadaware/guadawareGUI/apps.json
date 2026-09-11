@@ -48,5 +48,20 @@
     "icon": "apps/homescreen/icons/musicstore-icon.webp",
     "url": "http://localhost:8080/safariProxy/http://guadaware-ms.rf.gd/",
     "name": "app.musicstore"
+  },
+  {
+    "icon": "apps/homescreen/icons/camera-icon.png",
+    "url": "apps/camera/",
+    "name": "app.camera"
+  },
+  {
+    "icon": "apps/homescreen/icons/gallery-icon.webp",
+    "url": "apps/gallery/",
+    "name": "app.gallery"
+  },
+  {
+    "icon": "apps/homescreen/icons/googlemaps-icon.png",
+    "url": "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d48139256.63747525!2d18.293949366223348!3d42.572552123996076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1789122924146!5m2!1ses!2ses",
+    "name": "Google Maps"
   }
 ]
