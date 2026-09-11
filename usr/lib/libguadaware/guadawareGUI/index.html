@@ -334,7 +334,7 @@
     }
 
     updateBatteryFromOS();
-    setInterval(updateBatteryFromOS, 30000);
+    setInterval(updateBatteryFromOS, 5000);
 
     let lastChargingState = null;
     const chargeNotification = new Audio("apps/SMS/notification.mp3");
@@ -353,7 +353,7 @@
     }
 
     checkChargingStatus();
-    setInterval(checkChargingStatus, 10000);
+    setInterval(checkChargingStatus, 5000);
 
     if (navigator.getBattery) {
       navigator.getBattery().then((battery) => {
@@ -667,7 +667,8 @@
 
     tryAttach();
     rebindKeys();
-
+    chargeNotification.currentTime = 0;
+    chargeNotification.play().catch(() => {});
   </script>
 </body>
 </html>
