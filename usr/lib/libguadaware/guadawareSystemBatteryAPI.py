@@ -18,4 +18,4 @@ def get_battery_status():
     result = subprocess.run("cat /sys/class/power_supply/BAT0/status", shell=True, capture_output=True, text=True)
     return result.stdout.strip()
 
-runapi(host="localhost", port=8081, debug=True)
+runapi(host="localhost", port=int(os.environ.get("GUADAWARE_BATTERY_PORT", "8081")), debug=True)

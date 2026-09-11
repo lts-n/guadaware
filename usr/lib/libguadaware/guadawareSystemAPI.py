@@ -752,4 +752,4 @@ def delete_contact(uid):
         response.status = 500
         return json.dumps({"error": str(e)})
 
-runapi(host="localhost", port=8080, debug=True)
+runapi(host="localhost", port=int(os.environ.get("GUADAWARE_API_PORT", "8080")), debug=True)
