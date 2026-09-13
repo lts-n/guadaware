@@ -488,6 +488,9 @@ time {
 }
 
 dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
   width: 270px;
   border: none;
   border-radius: 14px;

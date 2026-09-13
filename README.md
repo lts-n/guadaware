@@ -15,6 +15,7 @@ Guadaware is architected to be portable. The idea is to build a chroot environme
 - **curl** — used by the Safari proxy
 - **gnome-calls** - used to make calls
 - **gnome-contacts** - used to manage contacts
+- **flatpak** - for the Flatpak app
 - Common CLI utilities: `poweroff`, `free`, `df`, `lscpu`, `lspci`
 
 ## Running

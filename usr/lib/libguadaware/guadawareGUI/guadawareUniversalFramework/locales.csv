@@ -16,7 +16,7 @@ app.settings,Settings,Ajustes,Configuració,设置
 app.terminal,Terminal,Terminal,Terminal,终端
 app.safari,Safari,Safari,Safari,Safari
 app.calculator,Calculator,Calculadora,Calculadora,计算器
-app.chromium,Chromium,Chromium,Chromium,Chromium
+app.chromium,Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware)
 app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions,App Store
 app.music,Music,Música,Música,音乐
 app.phone,Phone,Teléfono,Telèfon,电话
@@ -169,3 +169,22 @@ notes.edit,Edit,Editar,Edita,编辑
 notes.delete,Delete,Eliminar,Elimina,删除
 # Keyboard
 keyboard.done,Done,Hecho,Fet,完成
+# Flatpak Environment
+app.flatpakenv,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境
+flatpakenv.title,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境
+flatpakenv.installed,Installed Apps,Apps instaladas,Apps instalades,已安装应用
+flatpakenv.search,Search Flathub,Buscar en Flathub,Cerca a Flathub,搜索 Flathub
+flatpakenv.open,Open,Abrir,Obre,打开
+flatpakenv.remove,Remove,Eliminar,Elimina,移除
+flatpakenv.cancel,Cancel,Cancelar,Cancel·la,取消
+flatpakenv.install,Install,Instalar,Instal·la,安装
+flatpakenv.installing,Installing…,Instalando…,Instalant…,正在安装…
+flatpakenv.removing,Removing…,Eliminando…,Eliminant…,正在移除…
+flatpakenv.noinstalled,No apps installed,No hay apps instaladas,No hi ha apps instalades,没有已安装应用
+flatpakenv.noresults,No results found,No se encontraron resultados,No s'han trobat resultats,未找到结果
+flatpakenv.searchapps,Search for apps,Buscar aplicaciones,Cerca aplicacions,搜索应用
+flatpakenv.appinstalled,App installed successfully,App instalada correctamente,App instalada correctament,应用安装成功
+flatpakenv.appremoved,App removed successfully,App eliminada correctamente,App eliminada correctament,应用移除成功
+flatpakenv.confirmremove,Are you sure you want to remove this app?,¿Seguro que quieres eliminar esta app?,Segur que vols eliminar aquesta app?,确定要移除这个应用吗？
+flatpakenv.ok,OK,OK,OK,好
+flatpakenv.loading,Loading…,Cargando…,Carregant…,加载中…

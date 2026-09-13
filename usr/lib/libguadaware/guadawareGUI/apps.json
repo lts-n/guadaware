@@ -68,5 +68,10 @@
     "icon": "apps/homescreen/icons/notes-icon.png",
     "url": "http://localhost:8082/",
     "name": "app.notes"
+  },
+  {
+    "icon": "apps/homescreen/icons/flatpak-icon.png",
+    "url": "apps/flatpakenv/",
+    "name": "app.flatpakenv"
   }
 ]
