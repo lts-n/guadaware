@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
-
+export XDG_RUNTIME_DIR=/tmp/runtime-root
+mkdir -p "$XDG_RUNTIME_DIR"
+chmod 700 "$XDG_RUNTIME_DIR"
 command -v chromium >/dev/null 2>&1 || {
     echo "error: required command 'chromium' not found" >&2
     exit 1
