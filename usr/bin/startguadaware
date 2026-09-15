@@ -4,6 +4,11 @@ set -e
 # startguadaware — GuadaWare desktop launcher.
 # Starts the system API, the GUI web server and the kiosk Wayland session.
 
+# Set XDG_RUNTIME_DIR to a temporary directory if it is not already set.
+export XDG_RUNTIME_DIR=/tmp/xdgrd
+mkdir -p "$XDG_RUNTIME_DIR"
+chmod 700 "$XDG_RUNTIME_DIR"
+
 # Resolve the runtime library directory. Prefer a system install; when run
 # straight from this repository, fall back to the local usr/ tree.
 LIBDIR=/usr/lib/libguadaware
