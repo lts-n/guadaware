@@ -18,6 +18,11 @@ Guadaware is architected to be portable. The idea is to build a chroot environme
 - **flatpak** - for the Flatpak app
 - Common CLI utilities: `poweroff`, `free`, `df`, `lscpu`, `lspci`
 
+```sh
+sudo apt install flatpak gnome-calls gnome-contacts curl modemmanager network-manager chromium cage python3 python3-pip sudo
+pip3 install bottle --break-system-packages
+```
+
 ## Running
 
 ### One-shot launcher
