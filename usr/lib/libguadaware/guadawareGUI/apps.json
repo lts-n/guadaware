@@ -4,11 +4,7 @@
     "url": "apps/settings/",
     "name": "app.settings"
   },
-  {
-    "icon": "apps/homescreen/icons/terminal-icon.png",
-    "url": "apps/terminal/",
-    "name": "app.terminal"
-  },
+
   {
     "icon": "apps/homescreen/icons/safari-icon.webp",
     "url": "apps/safari/",
@@ -20,19 +16,9 @@
     "name": "app.calculator"
   },
   {
-    "icon": "apps/homescreen/icons/chromium-icon.webp",
-    "url": "apps/chromium/",
-    "name": "app.chromium"
-  },
-  {
     "icon": "apps/homescreen/icons/music-icon.png",
     "url": "apps/music/",
     "name": "app.music"
-  },
-  {
-    "icon": "apps/homescreen/icons/phone-icon.png",
-    "url": "http://localhost:8080/sh/gnome-calls",
-    "name": "app.phone"
   },
   {
     "icon": "apps/homescreen/icons/contacts-icon.png",
@@ -40,19 +26,9 @@
     "name": "app.contacts"
   },
   {
-    "icon": "apps/homescreen/icons/msg-icon.svg",
-    "url": "apps/SMS/",
-    "name": "app.messages"
-  },
-  {
     "icon": "apps/homescreen/icons/musicstore-icon.webp",
     "url": "http://localhost:8080/safariProxy/http://guadaware-ms.rf.gd/",
     "name": "app.musicstore"
-  },
-  {
-    "icon": "apps/homescreen/icons/camera-icon.png",
-    "url": "apps/camera/",
-    "name": "app.camera"
   },
   {
     "icon": "apps/homescreen/icons/gallery-icon.webp",
@@ -69,9 +45,5 @@
     "url": "http://localhost:8082/",
     "name": "app.notes"
   },
-  {
-    "icon": "apps/homescreen/icons/flatpak-icon.png",
-    "url": "apps/flatpakenv/",
-    "name": "app.flatpakenv"
-  }
+
 ]
