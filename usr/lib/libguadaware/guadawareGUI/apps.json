@@ -28,7 +28,7 @@
   {
     "icon": "apps/homescreen/icons/musicstore-icon.webp",
     "url": "http://localhost:8080/safariProxy/http://guadaware-ms.rf.gd/",
-    "name": "app.musicstore"
+    "name": "audio9 Store"
   },
   {
     "icon": "apps/homescreen/icons/gallery-icon.webp",
@@ -44,6 +44,6 @@
     "icon": "apps/homescreen/icons/notes-icon.png",
     "url": "http://localhost:8082/",
     "name": "app.notes"
-  },
+  }
 
 ]

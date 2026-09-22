@@ -76,6 +76,8 @@ wifi.connected,Connected,Conectado,Connectat,已连接
 wifi.open,Open,Abierta,Oberta,开放网络
 wifi.secured,Secured,Asegurada,Protegida,受保护
 wifi.passwordfor,Password for,Contraseña de,Contrasenya de,密码：
+wifi.connect,Connect,Conectar,Connecta,连接
+wifi.cancel,Cancel,Cancelar,Cancel·la,取消
 # Bluetooth settings
 bluetooth.devices,Devices,Dispositivos,Dispositius,设备
 bluetooth.scanning,Scanning…,Buscando…,Buscant…,正在搜索…
