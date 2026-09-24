@@ -185,31 +185,6 @@ body {
   display: none;
 }
 
-#form-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  padding: 0 8px;
-  border-bottom: 0.5px solid rgba(0,0,0,0.1);
-  flex-shrink: 0;
-}
-
-#form-header button {
-  border: none;
-  background: transparent;
-  color: #0a84ff;
-  font-size: 16px;
-  font-weight: 400;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-#form-title {
-  font-size: 17px;
-  font-weight: 600;
-}
-
 #form-avatar {
   display: flex;
   justify-content: center;
