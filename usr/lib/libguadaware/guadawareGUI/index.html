@@ -305,7 +305,7 @@
 
     function updateClock() {
       const now = new Date();
-      const hours = now.getHours() % 12 || 12;
+      const hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, "0");
       clock.textContent = `${hours}:${minutes}`;
       checkBatterySafety();
