@@ -227,7 +227,7 @@
   </header>
 
   <main id="frame-wrap">
-    <iframe id="app-frame" src="apps/sim pin/" title="app" allow="storage-access; cookies"
+    <iframe id="app-frame" src="apps/homescreen/" title="app" allow="storage-access; cookies"
       sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
       referrerpolicy="same-origin"></iframe>
     <footer id="gesture-bar"><span></span></footer>
@@ -305,7 +305,7 @@
 
     function updateClock() {
       const now = new Date();
-      const hours = now.getHours() % 12 || 12;
+      const hours = now.getHours();
       const minutes = String(now.getMinutes()).padStart(2, "0");
       clock.textContent = `${hours}:${minutes}`;
       checkBatterySafety();

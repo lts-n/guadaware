@@ -1,11 +1,10 @@
 from bottle import run as runapi
-from bottle import route, response, request, hook, HTTPResponse
-from urllib.parse import unquote, quote, urlsplit, urljoin
+from bottle import route, response, request, hook
+from urllib.parse import unquote, quote, urlsplit
 import json
 import os
 import re
 import subprocess
-import gzip
 import http.client
 import base64
 import time
@@ -16,7 +15,7 @@ from datetime import datetime
 MUSIC_ROOT = os.path.expanduser("~/Music")
 AUDIO_EXTS = (".mp3", ".flac", ".ogg", ".oga", ".opus", ".wav", ".m4a", ".aac", ".wma")
 
-PHOTOS_ROOT = os.path.expanduser("~/Pictures/Guadaware")
+PHOTOS_ROOT = os.path.expanduser("~/Downloads/")
 PHOTO_EXTS = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp")
 VIDEO_EXTS = (".mp4", ".webm", ".ogg", ".mov")
 

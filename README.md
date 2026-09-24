@@ -1,6 +1,6 @@
-# Guadaware
+# 9OS (DE)
 
-**Guadaware** is the desktop environment for **Guadafón**, an open mobile device project made in Andalusia. It provides a touch-first, graphical shell with a lock screen, home screen and a growing collection of built-in applications — all running on top of standard Linux tools.
+**9OS (DE)** is the desktop environment for **audio9**, an open media player project made in Andalusia. It provides a touch-first, graphical shell with a lock screen, home screen and a growing collection of built-in applications — all running on top of standard Linux tools.
 
 Guadaware is architected to be portable. The idea is to build a chroot environment for Guadaware that interrupts the boot of Android to load Guadaware.
 ![Guadaware 26 Beta M2 screenshot](screenshot.png)
