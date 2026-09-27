@@ -90,6 +90,7 @@ about.ram,RAM,RAM,RAM,RAM
 about.storage,Storage,Almacenamiento,Emmagatzematge,存储空间
 about.cpu,CPU Model,Modelo de CPU,Model de CPU,CPU 型号
 about.gpu,GPU Model,Modelo de GPU,Model de GPU,GPU 型号
+about.poweroff,Power Off,Apagar,Apagar,关机
 about.unavailable,Unavailable,No disponible,No disponible,不可用
 # Settings
 settings.language,Language,Idioma,Llengua,语言
