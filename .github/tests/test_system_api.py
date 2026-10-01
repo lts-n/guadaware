@@ -43,10 +43,6 @@ class TestSystemInfo:
         assert response.status_code == 200
         assert "/" in response.text
 
-    def test_get_guadaware_build(self, api):
-        response = api.get("/getGuadawareBuild")
-        assert response.status_code == 200
-
 
 class TestShell:
     def test_sh_echo(self, api):

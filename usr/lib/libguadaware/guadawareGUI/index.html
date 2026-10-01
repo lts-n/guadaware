@@ -54,6 +54,18 @@
       transition: flex 0.25s ease;
     }
 
+    /* Frames parked out of sight stay rendered so their media keeps playing. */
+    .offscreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
     #gesture-bar {
       position: absolute;
       bottom: 0;
@@ -369,6 +381,27 @@
     let startY = null;
     let startTime = null;
 
+    /* Route music links to the persistent frame so playback survives leaving. */
+    function interceptMusicLink(doc) {
+      if (!doc || !doc.addEventListener) return;
+      doc.addEventListener("click", (e) => {
+        const link = e.target && e.target.closest && e.target.closest("a[href]");
+        if (!link) return;
+        const href = link.getAttribute("href") || "";
+        if (!href || href.startsWith("#")) return;
+        let url;
+        try {
+          url = new URL(href, doc.baseURI);
+        } catch (err) {
+          return;
+        }
+        if (url.origin !== window.location.origin) return;
+        if (!url.pathname.replace(/\/+$/, "").endsWith("/apps/music")) return;
+        e.preventDefault();
+        showMusicFrame();
+      }, true);
+    }
+
     gestureBar.addEventListener("pointerdown", (event) => {
       gestureBar.setPointerCapture(event.pointerId);
       startY = event.clientY;
@@ -381,6 +414,7 @@
       const dt = performance.now() - startTime;
       const speed = dy / dt;
       if (dy < -40 && speed < -0.4) {
+        hideMusicFrame();
         frame.src = "apps/homescreen/";
       }
       startY = null;
@@ -391,6 +425,53 @@
       startY = null;
       startTime = null;
     });
+
+    /* ── Persistent audio frame ──
+       Music keeps playing after leaving the app by living in a hidden frame
+       that is never unloaded. The visible frame is swapped in front of it. */
+    const MUSIC_URL = "apps/music/";
+    let musicFrame = null;
+    let foreground = frame;
+
+    function createMusicFrame() {
+      const f = document.createElement("iframe");
+      f.id = "music-frame";
+      f.title = "music";
+      f.src = MUSIC_URL;
+      f.className = "offscreen";
+      f.setAttribute("allow", "storage-access; cookies");
+      f.setAttribute("sandbox",
+        "allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox");
+      f.setAttribute("referrerpolicy", "same-origin");
+      f.addEventListener("load", () => setTimeout(() => tryAttach(f), 100));
+      document.getElementById("frame-wrap").appendChild(f);
+      return f;
+    }
+
+    function showMusicFrame() {
+      if (!musicFrame) musicFrame = createMusicFrame();
+      foreground.classList.add("offscreen");
+      musicFrame.classList.remove("offscreen");
+      foreground = musicFrame;
+    }
+
+    function hideMusicFrame() {
+      if (!musicFrame) return;
+      musicFrame.classList.add("offscreen");
+      frame.classList.remove("offscreen");
+      foreground = frame;
+    }
+
+    function isMusicPlaying() {
+      if (!musicFrame) return false;
+      try {
+        const doc = musicFrame.contentDocument;
+        const a = doc && doc.getElementById("audio");
+        return !!(a && !a.paused && !a.ended);
+      } catch (e) {
+        return false;
+      }
+    }
 
     /* ── On-Screen Keyboard ── */
     const keyboard = document.getElementById("onscreen-keyboard");
@@ -487,7 +568,7 @@
     function sendKeyToInput(char) {
       if (!activeInput) return;
       if (usePostMessage) {
-        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-input", char: char }, "*"); } catch (e) {}
+        try { foreground.contentWindow.postMessage({ type: "guadaware:keyboard-input", char: char }, "*"); } catch (e) {}
         return;
       }
       try {
@@ -506,7 +587,7 @@
     function sendBackspace() {
       if (!activeInput) return;
       if (usePostMessage) {
-        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-backspace" }, "*"); } catch (e) {}
+        try { foreground.contentWindow.postMessage({ type: "guadaware:keyboard-backspace" }, "*"); } catch (e) {}
         return;
       }
       try {
@@ -529,7 +610,7 @@
     function sendEnter() {
       if (!activeInput) return;
       if (usePostMessage) {
-        try { frame.contentWindow.postMessage({ type: "guadaware:keyboard-enter" }, "*"); } catch (e) {}
+        try { foreground.contentWindow.postMessage({ type: "guadaware:keyboard-enter" }, "*"); } catch (e) {}
         return;
       }
       try {
@@ -543,7 +624,7 @@
       if (!activeInput) return;
       if (usePostMessage) return;
       try {
-        frame.contentWindow.focus();
+        foreground.contentWindow.focus();
         activeInput.focus();
       } catch (err) {}
     }
@@ -606,15 +687,17 @@
       doc.addEventListener("focus", handler, true);
     }
 
-    function tryAttach() {
+    function tryAttach(target) {
+      const f = target || foreground;
       try {
-        const doc = frame.contentDocument || frame.contentWindow.document;
+        const doc = f.contentDocument || f.contentWindow.document;
         if (doc) {
           attachInputListeners(doc);
-          usePostMessage = false;
+          interceptMusicLink(doc);
+          if (f === foreground) usePostMessage = false;
         }
       } catch (e) {
-        usePostMessage = true;
+        if (f === foreground) usePostMessage = true;
       }
     }
 
@@ -636,7 +719,7 @@
     });
 
     frame.addEventListener("load", () => {
-      setTimeout(tryAttach, 100);
+      setTimeout(() => tryAttach(frame), 100);
       try {
         const doc = frame.contentDocument || frame.contentWindow.document;
         if (doc) {
