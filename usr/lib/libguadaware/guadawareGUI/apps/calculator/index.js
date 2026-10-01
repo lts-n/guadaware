@@ -23,7 +23,7 @@ function displayAnswer(ans) {
   if (!isNaN(ans)) {
     document.getElementById("answer").innerHTML = ans;
   } else {
-    document.getElementById("answer").innerHTML = "Incorrect Expression";
+    document.getElementById("answer").innerHTML = locale.t("calc.incorrect");
     document.querySelector("#answer").style.fontSize = ".6em"; // getElementById also works
     document.querySelector("#answer").style.fontWeight = "bold"; // getElementById also works
   }

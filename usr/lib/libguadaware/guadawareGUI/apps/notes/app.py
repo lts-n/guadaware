@@ -6,12 +6,30 @@ import os
 
 app = Bottle()
 
+FRAMEWORK = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "guadawareUniversalFramework")
+)
+
 
 @hook("after_request")
 def allow_cors():
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+
+
+@app.route("/Locale.js", method=["GET"])
+def locale_js():
+    response.content_type = "text/javascript; charset=utf-8"
+    with open(os.path.join(FRAMEWORK, "Locale.js"), encoding="utf-8") as f:
+        return f.read()
+
+
+@app.route("/locales.csv", method=["GET"])
+def locales_csv():
+    response.content_type = "text/csv; charset=utf-8"
+    with open(os.path.join(FRAMEWORK, "locales.csv"), encoding="utf-8") as f:
+        return f.read()
 
 
 def load_notes():

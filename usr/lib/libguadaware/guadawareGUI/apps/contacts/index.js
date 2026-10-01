@@ -6,6 +6,8 @@
   const STORE_NAME = "contacts";
   const API = "http://localhost:8080";
 
+  const locale = new Locale();
+
   const contactsList = document.getElementById("contacts-list");
   const contactsEmpty = document.getElementById("contacts-empty");
   const contactForm = document.getElementById("contact-form");
@@ -276,7 +278,7 @@
 
   function showForm(contact) {
     editingId = contact ? contact.id : null;
-    formTitle.textContent = contact ? "Edit Contact" : "New Contact";
+    formTitle.textContent = locale.t(contact ? "contacts.editcontact" : "contacts.newcontact");
     fieldName.value = contact ? contact.name : "";
     fieldPhone.value = contact ? contact.phone || "" : "";
     fieldEmail.value = contact ? contact.email || "" : "";
@@ -374,8 +376,8 @@
   btnSave.addEventListener("click", handleSave);
   btnBackList.addEventListener("click", showList);
   btnDelete.addEventListener("click", handleDelete);
-  btnCall.addEventListener("click", handleCall);
-  btnSms.addEventListener("click", handleSms);
+  if (btnCall) btnCall.addEventListener("click", handleCall);
+  if (btnSms) btnSms.addEventListener("click", handleSms);
   btnEdit.addEventListener("click", handleEdit);
 
   searchInput.addEventListener("input", (e) => {
@@ -392,6 +394,8 @@
   });
 
   async function init() {
+    await locale.load();
+    locale.apply();
     await openDB();
     await syncFromServer();
     contacts = await getAllContacts();

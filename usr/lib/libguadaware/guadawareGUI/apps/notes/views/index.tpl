@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="http://localhost:8000/guadawareUniversalFramework/style.css">
-    <title>Notes</title>
+    <title data-locale="notes.title">Notes</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; background: #f2f2f7; }
@@ -91,14 +91,14 @@
 </head>
 <body>
     <header>
-        <button id="btn-edit-toggle" aria-label="Edit">
+        <button id="btn-edit-toggle" data-locale-aria="notes.edit">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
             </svg>
         </button>
         <h1 data-locale="notes.title">Notes</h1>
-        <button id="btn-add" aria-label="New Note">
+        <button id="btn-add" data-locale-aria="notes.newnote">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
@@ -128,10 +128,11 @@
     </div>
 
     <script id="notes-data" type="application/json" data-notes='{{notes_json}}'></script>
-    <script src="http://localhost:8000/guadawareUniversalFramework/Locale.js"></script>
+    <script src="/Locale.js"></script>
     <script>
     (function() {
         var API = "http://localhost:8082";
+        var locale = new Locale();
         var notesEl = document.getElementById("notes-data");
         var notes = JSON.parse(notesEl.getAttribute("data-notes"));
         var editMode = false;
@@ -218,7 +219,10 @@
             });
         });
 
-        render();
+        locale.load().then(function() {
+            locale.apply();
+            render();
+        });
     })();
     </script>
 </body>

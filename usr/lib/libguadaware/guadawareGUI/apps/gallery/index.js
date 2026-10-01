@@ -5,6 +5,17 @@
   const DB_VERSION = 1;
   const STORE_NAME = "photos";
 
+  const locale = new Locale();
+  const DATE_TAGS = {
+    en: "en-US",
+    es: "es-ES",
+    ca: "ca-ES",
+    eu: "eu-ES",
+    gl: "gl-ES",
+    pt: "pt-PT",
+    zh: "zh-CN",
+  };
+
   const grid = document.getElementById("gallery-grid");
   const emptyState = document.getElementById("gallery-empty");
   const lightbox = document.getElementById("lightbox");
@@ -110,11 +121,11 @@
     const diff = now - date;
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (days === 0) return "Today";
-    if (days === 1) return "Yesterday";
-    if (days < 7) return `${days} days ago`;
+    if (days === 0) return locale.t("gallery.today");
+    if (days === 1) return locale.t("gallery.yesterday");
+    if (days < 7) return locale.t("gallery.daysago").replace("{n}", days);
 
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString(DATE_TAGS[locale.locale] || DATE_TAGS.en, {
       month: "short",
       day: "numeric",
       year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined
@@ -293,9 +304,9 @@
         currentIndex = photos.length - 1;
       }
       updateLightbox();
-      showToast("Photo deleted");
+      showToast(locale.t("gallery.photosaved"));
     } catch (err) {
-      showToast("Failed to delete");
+      showToast(locale.t("gallery.faileddelete"));
     }
   }
 
@@ -326,7 +337,7 @@
   lbDelete.addEventListener("click", deleteCurrentPhoto);
   btnBack.addEventListener("click", goBack);
   btnSelect.addEventListener("click", toggleSelectMode);
-  btnOpenCamera.addEventListener("click", openCamera);
+  if (btnOpenCamera) btnOpenCamera.addEventListener("click", openCamera);
 
   let touchStartX = 0;
   lightbox.addEventListener("touchstart", (e) => {
@@ -342,6 +353,8 @@
   });
 
   async function init() {
+    await locale.load();
+    locale.apply();
     await openDB();
     await renderGrid();
   }

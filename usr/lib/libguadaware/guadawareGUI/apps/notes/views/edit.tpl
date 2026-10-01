@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="http://localhost:8000/guadawareUniversalFramework/style.css">
-    <title>Edit Note</title>
+    <title data-locale="notes.edit">Edit Note</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; background: #fff; }
@@ -51,7 +51,7 @@
 </head>
 <body>
     <header>
-        <button id="btn-back" aria-label="Back">
+        <button id="btn-back" data-locale-aria="notes.back">
         </button>
         <h1 data-locale="notes.edit">Edit</h1>
         <button id="btn-save" data-locale="notes.save">Save</button>
@@ -62,10 +62,11 @@
         <textarea id="field-content" data-locale-placeholder="notes.notecontent" placeholder="Write something..."></textarea>
     </main>
 
-    <script src="http://localhost:8000/guadawareUniversalFramework/Locale.js"></script>
+    <script src="/Locale.js"></script>
     <script>
     (function() {
         var API = "http://localhost:8082";
+        var locale = new Locale();
         var fieldTitle = document.getElementById("field-title");
         var fieldContent = document.getElementById("field-content");
         var btnBack = document.getElementById("btn-back");
@@ -77,6 +78,10 @@
 
         fieldTitle.value = oldTitle;
         fieldContent.value = oldContent;
+
+        locale.load().then(function() {
+            locale.apply();
+        });
 
         btnBack.addEventListener("click", function() {
             window.location.href = "/";

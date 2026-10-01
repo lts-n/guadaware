@@ -1,24 +1,34 @@
 class Locale {
   static STORAGE_KEY = "guadaware-locale";
+  static DEFAULT = "en";
+
+  // Codes used before the switch to ISO 639-1, so localStorage values written
+  // by an older install keep resolving to the right column.
+  static LEGACY = { eng: "en", esp: "es", cat: "ca", chi: "zh" };
 
   constructor(locale) {
-    this.locale = locale || this.saved() || "eng";
+    this.locale = Locale.normalize(locale || this.saved()) || Locale.DEFAULT;
     this.db = {};
     this.load().then(() => this.apply());
   }
 
+  static normalize(code) {
+    if (!code) return null;
+    return Locale.LEGACY[code] || code;
+  }
+
   saved() {
     try {
-      return localStorage.getItem(Locale.STORAGE_KEY);
+      return Locale.normalize(localStorage.getItem(Locale.STORAGE_KEY));
     } catch (e) {
       return null;
     }
   }
 
   set(locale) {
-    this.locale = locale;
+    this.locale = Locale.normalize(locale) || Locale.DEFAULT;
     try {
-      localStorage.setItem(Locale.STORAGE_KEY, locale);
+      localStorage.setItem(Locale.STORAGE_KEY, this.locale);
     } catch (e) {}
     this.apply();
   }
@@ -34,7 +44,12 @@ class Locale {
   parse(texto) {
     const filas = texto.trim().split("\n");
     const cabecera = filas[0].split(",");
-    const idx = cabecera.indexOf(this.locale);
+    let idx = cabecera.indexOf(this.locale);
+
+    if (idx < 0) {
+      idx = cabecera.indexOf(Locale.DEFAULT);
+      if (idx >= 0) this.locale = Locale.DEFAULT;
+    }
 
     for (let i = 1; i < filas.length; i++) {
       const cols = filas[i].split(",");

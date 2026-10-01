@@ -1,193 +1,204 @@
-key,eng,esp,cat,chi
+key,en,es,ca,zh,eu,gl,pt
 # Control Center
-cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi
-cc.bluetooth,Bluetooth,Bluetooth,Bluetooth,蓝牙
-cc.airplane,Airplane Mode,Modo Avión,Mode Avió,飞行模式
-cc.cellular,Cellular Data,Datos Móviles,Dades Mòbils,蜂窝数据
-cc.brightness,Brightness,Brillo,Brillantor,亮度
-cc.volume,Volume,Volumen,Volum,音量
-cc.prev,Previous,Anterior,Anterior,上一曲
-cc.play,Play,Reproducir,Reprodueix,播放
-cc.next,Next,Siguiente,Següent,下一曲
+cc.wifi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi,Wi-Fi
+cc.bluetooth,Bluetooth,Bluetooth,Bluetooth,蓝牙,Bluetooth,Bluetooth,Bluetooth
+cc.airplane,Airplane Mode,Modo Avión,Mode Avió,飞行模式,Hegaldi modua,Modo avión,Modo de avião
+cc.cellular,Cellular Data,Datos Móviles,Dades Mòbils,蜂窝数据,Datu mugikorrak,Datos móbiles,Dados móveis
+cc.brightness,Brightness,Brillo,Brillantor,亮度,Argitasuna,Brilo,Brilho
+cc.volume,Volume,Volumen,Volum,音量,Bolumena,Volume,Volume
+cc.prev,Previous,Anterior,Anterior,上一曲,Aurrekoa,Anterior,Anterior
+cc.play,Play,Reproducir,Reprodueix,播放,Erreproduzitu,Reproducir,Reproduzir
+cc.next,Next,Siguiente,Següent,下一曲,Hurrengoa,Seguinte,Seguinte
 # Homescreen
-app.camera,Camera,Cámara,Càmera,相机
-app.gallery,Gallery,Galería,Galeria,图库
-app.settings,Settings,Ajustes,Configuració,设置
-app.terminal,Terminal,Terminal,Terminal,终端
-app.safari,Safari,Safari,Safari,Safari
-app.calculator,Calculator,Calculadora,Calculadora,计算器
-app.chromium,Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware)
-app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions,App Store
-app.music,Music,Música,Música,音乐
-app.phone,Phone,Teléfono,Telèfon,电话
-app.contacts,Contacts,Contactos,Contactes,联系人
-app.messages,Messages,Mensajes,Missatges,信息
-app.camera,Camera,Cámara,Càmera,相机
-app.photos,Photos,Fotos,Fotos,照片
-app.musicstore,Music Store,Tienda de música,Botiga de música,音乐商店
-app.notes,Notes,Notas,Notes,笔记
+app.camera,Camera,Cámara,Càmera,相机,Kamera,Cámara,Câmara
+app.gallery,Gallery,Galería,Galeria,图库,Galeria,Galería,Galeria
+app.settings,Settings,Ajustes,Configuració,设置,Ezarpenak,Axustes,Definições
+app.terminal,Terminal,Terminal,Terminal,终端,Terminalea,Terminal,Terminal
+app.safari,Safari,Safari,Safari,Safari,Safari,Safari,Safari
+app.calculator,Calculator,Calculadora,Calculadora,计算器,Kalkulagailua,Calculadora,Calculadora
+app.chromium,Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware),Chromium (Guadaware)
+app.appstore,App Store,Tienda de aplicaciones,Botiga d'aplicacions,App Store,Aplikazioen dendak,Tenda de aplicacións,Loja de aplicações
+app.music,Music,Música,Música,音乐,Musika,Música,Música
+app.phone,Phone,Teléfono,Telèfon,电话,Telefonoa,Teléfono,Telefone
+app.contacts,Contacts,Contactos,Contactes,联系人,Kontaktuak,Contactos,Contactos
+app.messages,Messages,Mensajes,Missatges,信息,Mezuak,Mensaxes,Mensagens
+app.camera,Camera,Cámara,Càmera,相机,Kamera,Cámara,Câmara
+app.photos,Photos,Fotos,Fotos,照片,Argazkiak,Fotos,Fotos
+app.musicstore,Music Store,Tienda de música,Botiga de música,音乐商店,Musika-denda,Tenda de música,Loja de música
+app.notes,Notes,Notas,Notes,笔记,Oharrak,Notas,Notas
 # Safari
-safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL,搜索或输入网址
-safari.content,Web content,Contenido web,Contingut web,网页内容
-safari.back,Back,Atrás,Enrere,后退
-safari.forward,Forward,Adelante,Endavant,前进
-safari.share,Share,Compartir,Compartir,分享
-safari.bookmarks,Bookmarks,Marcadores,Adreces d'interès,书签
-safari.newtab,New tab,Nueva pestaña,Nova pestanya,新标签页
+safari.searchbar,Search or enter URL,Buscar o escribir URL,Cerca o escriu URL,搜索或输入网址,Bilatu edo idatzi URLa,Busca ou escribe o URL,Pesquisar ou escrever URL
+safari.content,Web content,Contenido web,Contingut web,网页内容,Web edukia,Contido web,Conteúdo da web
+safari.back,Back,Atrás,Enrere,后退,Atzera,Atrás,Voltar
+safari.forward,Forward,Adelante,Endavant,前进,Aurrera,Adiante,Avançar
+safari.share,Share,Compartir,Compartir,分享,Partekatu,Compartir,Partilhar
+safari.bookmarks,Bookmarks,Marcadores,Adreces d'interès,书签,Laster-markak,Marcadores,Marcadores
+safari.newtab,New tab,Nueva pestaña,Nova pestanya,新标签页,Fitxa berria,Separador novo,Novo separador
 # Terminal
-terminal.command,Enter command,Introducir comando,Introduïu la comanda,输入命令
-terminal.run,Run,Ejecutar,Executa,执行
+terminal.command,Enter command,Introducir comando,Introduïu la comanda,输入命令,Sartu komandoa,Introduce o comando,Introduza o comando
+terminal.run,Run,Ejecutar,Executa,执行,Exekutatu,Executar,Executar
 # Calculator
-calc.del,del,del,supr,删除
+calc.del,del,del,supr,删除,ez,supr,del
+calc.incorrect,Incorrect Expression,Expresión incorrecta,Expressió incorrecta,表达式错误,Adierazle okerra,Expresión incorrecta,Expressão incorreta
 # SIM PIN
-simpin.enter,Enter SIM PIN,Introduzca el PIN de la SIM,Introduïu el PIN de la SIM,输入 SIM PIN
-simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi,输入密码
-simpin.success,Success,Correcto,Correcte,成功
-simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte,密码错误
-simpin.emergency,Emergency,Emergencia,Emergència,紧急呼叫
-simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada,未检测到 SIM 卡
-simpin.error,Connection error,Error de conexión,Error de connexió,连接错误
-simpin.enterpuk,Enter PUK code,Introduzca el código PUK,Introduïu el codi PUK,输入 PUK 码
-simpin.puk,PUK,PUK,PUK,PUK
-simpin.newpin,Enter new PIN,Introduzca el nuevo PIN,Introduïu el nou PIN,输入新 PIN
-simpin.confirmnewpin,Confirm new PIN,Confirme el nuevo PIN,Confirmeu el nou PIN,确认新 PIN
-simpin.pukwrong,Wrong PUK code,Código PUK incorrecto,Codi PUK incorrecte,PUK 码错误
-simpin.pinmismatch,PINs do not match,Los PINs no coinciden,Els PINs no coincideixen,PIN 不匹配
-simpin.pukblocked,PUK blocked,PUK bloqueado,PUK bloquejat,PUK 已锁定
-simpin.pukremaining,attempts remaining, intentos restantes, intents restants,次尝试剩余
+simpin.enter,Enter SIM PIN,Introduzca el PIN de la SIM,Introduïu el PIN de la SIM,输入 SIM PIN,Sartu SIMaren PINa,Introduce o PIN da SIM,Introduza o PIN do SIM
+simpin.enterpass,Enter Passcode,Introduzca el código,Introduïu el codi,输入密码,Sartu kodea,Introduce o código,Introduza o código
+simpin.success,Success,Correcto,Correcte,成功,Arrakasta,Correcto,Sucesso
+simpin.wrong,Wrong passcode,Código incorrecto,Codi incorrecte,密码错误,Kode okerra,Código incorrecto,Código incorreto
+simpin.emergency,Emergency,Emergencia,Emergència,紧急呼叫,Larrialdia,Emerxencia,Emergência
+simpin.nosim,No SIM detected,Sin SIM detectada,Sense SIM detectada,未检测到 SIM 卡,SIMa ez da detektatu,Non se detectou ningunha SIM,Nenhum SIM detetado
+simpin.error,Connection error,Error de conexión,Error de connexió,连接错误,Konexio errorea,Erro de conexión,Erro de ligação
+simpin.enterpuk,Enter PUK code,Introduzca el código PUK,Introduïu el codi PUK,输入 PUK 码,Sartu PUK kodea,Introduce o código PUK,Introduza o código PUK
+simpin.puk,PUK,PUK,PUK,PUK,PUK,PUK,PUK
+simpin.newpin,Enter new PIN,Introduzca el nuevo PIN,Introduïu el nou PIN,输入新 PIN,Sartu PIN berria,Introduce o novo PIN,Introduza o novo PIN
+simpin.confirmnewpin,Confirm new PIN,Confirme el nuevo PIN,Confirmeu el nou PIN,确认新 PIN,Berretsi PIN berria,Confirme o novo PIN,Confirme o novo PIN
+simpin.pukwrong,Wrong PUK code,Código PUK incorrecto,Codi PUK incorrecte,PUK 码错误,PUK kodea okerra,Código PUK incorrecto,Código PUK incorreto
+simpin.pinmismatch,PINs do not match,Los PINs no coinciden,Els PINs no coincideixen,PIN 不匹配,PINak ez bat datozan,Os PIN non coinciden,Os PIN não coincidem
+simpin.pukblocked,PUK blocked,PUK bloqueado,PUK bloquejat,PUK 已锁定,PUK blokeatua,PUK bloqueado,PUK bloqueado
+simpin.pukremaining,attempts remaining, intentos restantes, intents restants,次尝试剩余,saiaketa hau ere baten,intentos restantes,tentativas restantes
 # Messages
-messages.title,Messages,Mensajes,Missatges,信息
-messages.newmessage,New Message,Nuevo Mensaje,Nou Missatge,新消息
-messages.send,Send,Enviar,Envia,发送
-messages.typeplaceholder,Type a message...,Escribe un mensaje...,Escriu un missatge...,输入消息...
-messages.nonews,No new messages,No hay mensajes nuevos,No hi ha missatges nous,没有新消息
-messages.empty,No conversations,No hay conversaciones,No hi ha conversacions,没有对话
-messages.today,Hoy,Avui,Hoy,今天
-messages.yesterday,Ayer,Ahir,Ahir,昨天
-messages.delete,Delete,Eliminar,Elimina,删除
-messages.newnotification,New message from,Mensaje nuevo de,Nou missatge de,新消息来自
+messages.title,Messages,Mensajes,Missatges,信息,Mezuak,Mensaxes,Mensagens
+messages.newmessage,New Message,Nuevo Mensaje,Nou Missatge,新消息,Mezu berria,Mensaxe nova,Nova mensagem
+messages.send,Send,Enviar,Envia,发送,Bidali,Enviar,Enviar
+messages.typeplaceholder,Type a message...,Escribe un mensaje...,Escriu un missatge...,输入消息...,Idatzi mezu bat...,Escribe unha mensaxe...,Escreva uma mensagem...
+messages.nonews,No new messages,No hay mensajes nuevos,No hi ha missatges nous,没有新消息,Mezu berriak ez daude,Non hai mensaxes novas,Não há mensagens novas
+messages.empty,No conversations,No hay conversaciones,No hi ha conversacions,没有对话,Ez da elkarrizketarik,Non hai ningunha conversa,Não há conversas
+messages.today,Hoy,Avui,Hoy,今天,Gaur,Hoxe,Hoje
+messages.yesterday,Ayer,Ahir,Ahir,昨天,Atzo,Onte,Ontem
+messages.delete,Delete,Eliminar,Elimina,删除,Ezabatu,Eliminar,Eliminar
+messages.newnotification,New message from,Mensaje nuevo de,Nou missatge de,新消息来自,Mezu berria bidaldu duena,Nova mensaxe de,Nova mensagem de
 # Wi-Fi settings
-wifi.networks,Networks,Redes,Xarxes,网络
-wifi.scanning,Scanning…,Buscando…,Buscant…,正在搜索…
-wifi.notconnected,Not connected,No conectado,No connectat,未连接
-wifi.off,Wi-Fi is off,Wi-Fi apagado,Wi-Fi apagat,Wi-Fi 已关闭
-wifi.nonetworks,No networks found,No se encontraron redes,No s'han trobat xarxes,未找到网络
-wifi.connected,Connected,Conectado,Connectat,已连接
-wifi.open,Open,Abierta,Oberta,开放网络
-wifi.secured,Secured,Asegurada,Protegida,受保护
-wifi.passwordfor,Password for,Contraseña de,Contrasenya de,密码：
-wifi.connect,Connect,Conectar,Connecta,连接
-wifi.cancel,Cancel,Cancelar,Cancel·la,取消
+wifi.networks,Networks,Redes,Xarxes,网络,Sareak,Redes,Redes
+wifi.scanning,Scanning…,Buscando…,Buscant…,正在搜索…,Bilatzen...,Buscando...,A pesquisar…
+wifi.notconnected,Not connected,No conectado,No connectat,未连接,Ez konektatua,Non conectado,Não ligado
+wifi.off,Wi-Fi is off,Wi-Fi apagado,Wi-Fi apagat,Wi-Fi 已关闭,Wi-Fi itzalita dago,O Wi-Fi está apagado,O Wi-Fi está desligado
+wifi.nonetworks,No networks found,No se encontraron redes,No s'han trobat xarxes,未找到网络,Ez da sare bat aurkitu,Non se atoparon redes,Nenhuma rede encontrada
+wifi.connected,Connected,Conectado,Connectat,已连接,Konektatuta,Conectado,Ligado
+wifi.open,Open,Abierta,Oberta,开放网络,Irekia,Aberta,Aberta
+wifi.secured,Secured,Asegurada,Protegida,受保护,Babestuta,Protegida,Protegida
+wifi.passwordfor,Password for,Contraseña de,Contrasenya de,密码：,Pasahitzaren,Contrasinal de,Palavra-passe de
+wifi.connect,Connect,Conectar,Connecta,连接,Konektatu,Conectar,Conectar
+wifi.cancel,Cancel,Cancelar,Cancel·la,取消,Utzi,Cancelar,Cancelar
 # Bluetooth settings
-bluetooth.devices,Devices,Dispositivos,Dispositius,设备
-bluetooth.scanning,Scanning…,Buscando…,Buscant…,正在搜索…
-bluetooth.off,Bluetooth is off,Bluetooth apagado,Bluetooth apagat,蓝牙已关闭
-bluetooth.nodevices,No devices found,No se encontraron dispositivos,No s'han trobat dispositius,未找到设备
-bluetooth.paired,Paired,Vinculado,Aparellat,已配对
+bluetooth.devices,Devices,Dispositivos,Dispositius,设备,Gailuak,Dispositivos,Dispositivos
+bluetooth.scanning,Scanning…,Buscando…,Buscant…,正在搜索…,Bilatzen...,Buscando...,A pesquisar…
+bluetooth.off,Bluetooth is off,Bluetooth apagado,Bluetooth apagat,蓝牙已关闭,Bluetooth itzalita dago,O Bluetooth está apagado,O Bluetooth está desligado
+bluetooth.nodevices,No devices found,No se encontraron dispositivos,No s'han trobat dispositius,未找到设备,Ez da gailu bat aurkitu,Non se atoparon dispositivos,Nenhum dispositivo encontrado
+bluetooth.paired,Paired,Vinculado,Aparellat,已配对,Lotuta,Emparellado,Emparelhado
 # About
-about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón,Guadafón 型号
-about.ram,RAM,RAM,RAM,RAM
-about.storage,Storage,Almacenamiento,Emmagatzematge,存储空间
-about.cpu,CPU Model,Modelo de CPU,Model de CPU,CPU 型号
-about.gpu,GPU Model,Modelo de GPU,Model de GPU,GPU 型号
-about.poweroff,Power Off,Apagar,Apagar,关机
-about.unavailable,Unavailable,No disponible,No disponible,不可用
+about.model,Guadafón Model,Modelo de Guadafón,Model de Guadafón,Guadafón 型号,Guadafón modeloa,Modelo Guadafón,Modelo Guadafón
+about.ram,RAM,RAM,RAM,RAM,RAM,RAM,RAM
+about.storage,Storage,Almacenamiento,Emmagatzematge,存储空间,Biltegunea,Almacenamento,Armazenamento
+about.cpu,CPU Model,Modelo de CPU,Model de CPU,CPU 型号,CPU modeloa,Modelo da CPU,Modelo da CPU
+about.gpu,GPU Model,Modelo de GPU,Model de GPU,GPU 型号,GPU modeloa,Modelo da GPU,Modelo da GPU
+about.poweroff,Power Off,Apagar,Apagar,关机,Itzali,Apagar,Desligar
+about.unavailable,Unavailable,No disponible,No disponible,不可用,Ez dago eskuragarri,Non dispoñible,Indisponível
 # Settings
-settings.language,Language,Idioma,Llengua,语言
-settings.langselect,Language selector,Seleccionador de idioma,Selector de llengua,语言选择器
-settings.back,Back,Atrás,Tornar,返回
-settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸
-settings.sounds,Sounds,Sonidos,Sons,声音
-settings.mute,Mute,Silenciar,Silenci,静音
-settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式
-settings.about,About your audio9,Acerca de tu audio9,Sobre el teu audio9,关于你的 audio9
+settings.language,Language,Idioma,Llengua,语言,Hizkuntza,Idioma,Idioma
+settings.langselect,Language selector,Seleccionador de idioma,Selector de llengua,语言选择器,Hizkuntza hautzailea,Selector de idioma,Seletor de idioma
+settings.back,Back,Atrás,Tornar,返回,Atzera,Atrás,Voltar
+settings.wallpaper,Wallpaper,Fondos de pantalla,Fons de pantalla,壁纸,Paper tapizaria,Fondo de pantalla,Fundo do ecrã
+settings.sounds,Sounds,Sonidos,Sons,声音,Soinuak,Sons,Sons
+settings.mute,Mute,Silenciar,Silenci,静音,Isilarazi,Silenciar,Silenciar
+settings.dnd,Do Not Disturb,No molestar,No molestar,勿扰模式,Ez pertzurbatu,Non molestar,Não perturbe
+settings.about,About your audio9,Acerca de tu audio9,Sobre el teu audio9,关于你的 audio9,Zure audio9 hobespenari buruz,Sobre o teu audio9,Sobre o seu audio9
 # Music
-music.library,Library,Biblioteca,Biblioteca,资料库
-music.songs,Songs,Canciones,Cançons,歌曲
-music.song,Song,Canción,Cançó,歌曲
-music.albums,Albums,Álbumes,Àlbums,专辑
-music.artists,Artists,Artistas,Artistes,歌手
-music.nowplaying,Now Playing,Reproduciendo,En reproducció,正在播放
-music.recentlyadded,Recently Added,Recientes,Afegits recentment,最近添加
-music.playlists,Playlists,Listas de reproducción,Llistes de reproducció,播放列表
-music.play,Play,Reproducir,Reprodueix,播放
-music.pause,Pause,Pausa,Pausa,暂停
-music.next,Next,Siguiente,Següent,下一曲
-music.prev,Previous,Anterior,Anterior,上一曲
-music.shuffle,Shuffle,Aleatorio,Aleatori,随机播放
-music.repeat,Repeat,Repetir,Repeteix,重复
-music.search,Search,Buscar,Cerca,搜索
-music.empty,No music found in your Music folder,No se encontró música en tu carpeta de Música,No s'ha trobat música a la carpeta de Música,未在音乐文件夹中找到音乐
-music.unknowntrack,Unknown Track,Pista desconocida,Pista desconeguda,未知曲目
-music.unknownartist,Unknown Artist,Artista desconocido,Artista desconegut,未知歌手
-music.unknownalbum,Unknown Album,Álbum desconocido,Àlbum desconegut,未知专辑
-music.back,Back,Atrás,Enrere,返回
-music.down,Close,Cerrar,Tanca,关闭
+music.library,Library,Biblioteca,Biblioteca,资料库,Liburutegia,Biblioteca,Biblioteca
+music.songs,Songs,Canciones,Cançons,歌曲,Abestiak,Canciones,Músicas
+music.song,Song,Canción,Cançó,歌曲,Abestia,Canción,Canção
+music.albums,Albums,Álbumes,Àlbums,专辑,Diskoak,Álbums,Álbuns
+music.artists,Artists,Artistas,Artistes,歌手,Artistaak,Artistas,Artistas
+music.nowplaying,Now Playing,Reproduciendo,En reproducció,正在播放,Erreproduzitzen,Reproducindo,A reproduzir
+music.recentlyadded,Recently Added,Recientes,Afegits recentment,最近添加,Berriki gehitutakoak,Engadidos recentemente,Adicionadas recentemente
+music.playlists,Playlists,Listas de reproducción,Llistes de reproducció,播放列表,Zerrendak,Listas de reprodución,Listas de reprodução
+music.play,Play,Reproducir,Reprodueix,播放,Erreproduzitu,Reproducir,Reproduzir
+music.pause,Pause,Pausa,Pausa,暂停,Pausatu,Pausar,Pausa
+music.next,Next,Siguiente,Següent,下一曲,Hurrengoa,Seguinte,Seguinte
+music.prev,Previous,Anterior,Anterior,上一曲,Aurrekoa,Anterior,Anterior
+music.shuffle,Shuffle,Aleatorio,Aleatori,随机播放,Arazteko,Aleatorio,Aleatório
+music.repeat,Repeat,Repetir,Repeteix,重复,Errepikatu,Repetir,Repetir
+music.search,Search,Buscar,Cerca,搜索,Bilatu,Buscar,Pesquisar
+music.empty,No music found in your Music folder,No se encontró música en tu carpeta de Música,No s'ha trobat música a la carpeta de Música,未在音乐文件夹中找到音乐,Ez da musikarik aurkitu zure Musika karpetan,Non atopouse música na túa carpeta de música,Não foi encontrada música na sua pasta Música
+music.unknowntrack,Unknown Track,Pista desconocida,Pista desconeguda,未知曲目,Pistari ezezaguna,Canción descoñecida,Faixa desconhecida
+music.unknownartist,Unknown Artist,Artista desconocido,Artista desconegut,未知歌手,Artista ezezaguna,Artista descoñecido,Artista desconhecido
+music.unknownalbum,Unknown Album,Álbum desconocido,Àlbum desconegut,未知专辑,Disko ezezaguna,Álbum descoñecido,Álbum desconhecido
+music.back,Back,Atrás,Enrere,返回,Atzera,Atrás,Voltar
+music.down,Close,Cerrar,Tanca,关闭,Itxi,Cerrar,Fechar
 # Camera
-camera.title,Camera,Cámara,Càmera,相机
-camera.photo,Photo,Foto,Foto,照片
-camera.video,Video,Vídeo,Vídeo,视频
-camera.flip,Flip Camera,Girar cámara,Girar càmera,翻转摄像头
-camera.switch,Switch Camera,Cambiar cámara,Canviar càmera,切换摄像头
-camera.gallery,Gallery,Galería,Galeria,图库
-camera.saved,Photo saved,Foto guardada,Foto guardada,照片已保存
-camera.videosaved,Video saved,Vídeo guardado,Vídeo guardat,视频已保存
-camera.notavailable,Camera not available,Cámara no disponible,Càmera no disponible,相机不可用
-camera.failedsave,Failed to save photo,Error al guardar la foto,Error al guardar la foto,保存照片失败
+camera.title,Camera,Cámara,Càmera,相机,Kamera,Cámara,Câmara
+camera.photo,Photo,Foto,Foto,照片,Argazkia,Foto,Foto
+camera.video,Video,Vídeo,Vídeo,视频,Bideoa,Vídeo,Vídeo
+camera.flip,Flip Camera,Girar cámara,Girar càmera,翻转摄像头,Alderatu kamera,Virar a cámara,Virar a câmara
+camera.switch,Switch Camera,Cambiar cámara,Canviar càmera,切换摄像头,Aldatu kamera,Cambiar de cámara,Mudar de câmara
+camera.gallery,Gallery,Galería,Galeria,图库,Galeria,Galería,Galeria
+camera.saved,Photo saved,Foto guardada,Foto guardada,照片已保存,Argazkia gorde da,Foto gardada,Foto guardada
+camera.videosaved,Video saved,Vídeo guardado,Vídeo guardat,视频已保存,Bideoa gorde da,Vídeo gardado,Vídeo guardado
+camera.notavailable,Camera not available,Cámara no disponible,Càmera no disponible,相机不可用,Kamera ez dago eskuragarri,A cámara non está dispoñible,Câmara indisponível
+camera.failedsave,Failed to save photo,Error al guardar la foto,Error al guardar la foto,保存照片失败,Errorea argazkia gordetzean,Erro ao gardar a foto,Erro ao guardar a foto
 # Gallery
-gallery.title,Gallery,Galería,Galeria,图库
-gallery.empty,No photos yet,Aún no hay fotos,Encara no hi ha fotos,暂无照片
-gallery.openCamera,Open Camera,Abrir cámara,Obre la càmera,打开相机
-gallery.today,Hoy,Avui,Avui,今天
-gallery.yesterday,Ayer,Ahir,Ahir,昨天
-gallery.delete,Delete,Eliminar,Elimina,删除
-gallery.photosaved,Photo deleted,Foto eliminada,Foto eliminada,照片已删除
-gallery.faileddelete,Failed to delete,Error al eliminar,Error al eliminar,删除失败
-gallery.select,Select,Seleccionar,Selecciona,选择
+gallery.title,Gallery,Galería,Galeria,图库,Galeria,Galería,Galeria
+gallery.back,Back,Atrás,Enrere,返回,Atzera,Atrás,Voltar
+gallery.empty,No photos yet,Aún no hay fotos,Encara no hi ha fotos,暂无照片,Oraindik ez dago argazkirik,Aínda non hai fotos,Ainda não há fotos
+gallery.openCamera,Open Camera,Abrir cámara,Obre la càmera,打开相机,Ireki kamera,Abrir a cámara,Abrir a câmara
+gallery.today,Today,Hoy,Avui,今天,Gaur,Hoxe,Hoje
+gallery.yesterday,Yesterday,Ayer,Ahir,昨天,Atzo,Onte,Ontem
+gallery.daysago,{n} days ago,hace {n} días,fa {n} dies,过去{n}天,duela {n} egun,hai {n} días,há {n} dias
+gallery.delete,Delete,Eliminar,Elimina,删除,Ezabatu,Eliminar,Eliminar
+gallery.photosaved,Photo deleted,Foto eliminada,Foto eliminada,照片已删除,Argazkia ezabatuta,Foto eliminada,Foto eliminada
+gallery.faileddelete,Failed to delete,Error al eliminar,Error al eliminar,删除失败,Errorea ezabatzean,Erro ao eliminar,Erro ao eliminar
+gallery.select,Select,Seleccionar,Selecciona,选择,Hautatu,Seleccionar,Selecionar
+gallery.close,Close,Cerrar,Tanca,关闭,Itxi,Cerrar,Fechar
+gallery.previous,Previous,Anterior,Anterior,上一张,Aurrekoa,Anterior,Anterior
+gallery.next,Next,Siguiente,Següent,下一张,Hurrengoa,Seguinte,Seguinte
 # Contacts
-contacts.title,Contacts,Contactos,Contactes,联系人
-contacts.search,Search,Buscar,Cerca,搜索
-contacts.empty,No contacts yet,No hay contactos aún,Encara no hi ha contactes,暂无联系人
-contacts.newcontact,New Contact,Nuevo Contacto,Nou Contacte,新建联系人
-contacts.editcontact,Edit Contact,Editar Contacto,Edita Contacte,编辑联系人
-contacts.name,Name,Nombre,Nom,姓名
-contacts.phone,Phone,Teléfono,Telèfon,电话
-contacts.email,Email,Correo electrónic,Correu electrònic,电子邮件
-contacts.notes,Notes,Notas,Notes,备注
-contacts.save,Save,Guardar,Desa,保存
-contacts.cancel,Cancel,Cancelar,Cancel·la,取消
-contacts.delete,Delete,Eliminar,Elimina,删除
-contacts.call,Call,Llamar,Trucar,呼叫
-contacts.message,Message,Mensaje,Missatge,消息
-contacts.edit,Edit,Editar,Edita,编辑
+contacts.title,Contacts,Contactos,Contactes,联系人,Kontaktuak,Contactos,Contactos
+contacts.search,Search,Buscar,Cerca,搜索,Bilatu,Buscar,Pesquisar
+contacts.empty,No contacts yet,No hay contactos aún,Encara no hi ha contactes,暂无联系人,Oraindik ez dago kontakturik,Aínda non hai contactos,Ainda não há contactos
+contacts.newcontact,New Contact,Nuevo Contacto,Nou Contacte,新建联系人,Kontaktu berria,Contacto novo,Novo contacto
+contacts.editcontact,Edit Contact,Editar Contacto,Edita Contacte,编辑联系人,Editatu kontaktua,Editar contacto,Editar contacto
+contacts.addcontact,Add Contact,Añadir contacto,Afegeix un contacte,添加联系人,Gehitu kontaktua,Engadir contacto,Adicionar contacto
+contacts.back,Back,Atrás,Enrere,返回,Atzera,Atrás,Voltar
+contacts.name,Name,Nombre,Nom,姓名,Izena,Nome,Nome
+contacts.phone,Phone,Teléfono,Telèfon,电话,Telefonoa,Teléfono,Telefone
+contacts.email,Email,Correo electrónic,Correu electrònic,电子邮件,Helbide elektronikoa,Correo electrónico,Correio eletrónico
+contacts.notes,Notes,Notas,Notes,备注,Oharrak,Notas,Notas
+contacts.save,Save,Guardar,Desa,保存,Gorde,Gardar,Guardar
+contacts.cancel,Cancel,Cancelar,Cancel·la,取消,Utzi,Cancelar,Cancelar
+contacts.delete,Delete,Eliminar,Elimina,删除,Ezabatu,Eliminar,Eliminar
+contacts.call,Call,Llamar,Trucar,呼叫,Deitu,Chamalar,Ligar
+contacts.message,Message,Mensaje,Missatge,消息,Mezua,Mensaxe,Mensagem
+contacts.edit,Edit,Editar,Edita,编辑,Editatu,Editar,Editar
 # Notes
-notes.title,Notes,Notas,Notes,笔记
-notes.empty,No notes yet,No hay notas aún,Encara no hi ha notes,暂无笔记
-notes.newnote,New Note,Nueva Nota,Nota Nova,新建笔记
-notes.notetitle,Title,Título,Títol,标题
-notes.notecontent,Write something...,Escribe algo...,Escriu algo...,写点什么...
-notes.save,Save,Guardar,Desa,保存
-notes.cancel,Cancel,Cancelar,Cancel·la,取消
-notes.edit,Edit,Editar,Edita,编辑
-notes.delete,Delete,Eliminar,Elimina,删除
+notes.title,Notes,Notas,Notes,笔记,Oharrak,Notas,Notas
+notes.empty,No notes yet,No hay notas aún,Encara no hi ha notes,暂无笔记,Oraindik ez dago oharrik,Aínda non hai notas,Ainda não há notas
+notes.newnote,New Note,Nueva Nota,Nota Nova,新建笔记,Ohar berria,Nota nova,Nova nota
+notes.notetitle,Title,Título,Títol,标题,Izenburua,Título,Título
+notes.notecontent,Write something...,Escribe algo...,Escriu algo...,写点什么...,Idatzi zerbait...,Escribe algo...,Escreva algo...
+notes.save,Save,Guardar,Desa,保存,Gorde,Gardar,Guardar
+notes.cancel,Cancel,Cancelar,Cancel·la,取消,Utzi,Cancelar,Cancelar
+notes.back,Back,Atrás,Enrere,返回,Atzera,Atrás,Voltar
+notes.edit,Edit,Editar,Edita,编辑,Editatu,Editar,Editar
+notes.delete,Delete,Eliminar,Elimina,删除,Ezabatu,Eliminar,Eliminar
+notes.confirmdelete,Delete this note?,¿Eliminar esta nota?,Vols eliminar aquesta nota?,删除这条笔记？,Ohar hau ezabatu?,Eliminar esta nota?,Eliminar esta nota?
 # Keyboard
-keyboard.done,Done,Hecho,Fet,完成
+keyboard.done,Done,Hecho,Fet,完成,Egitako,Feito,Concluído
+keyboard.space,space,espacio,espai,空格,espazioa,espazo,espaço
 # Flatpak Environment
-app.flatpakenv,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境
-flatpakenv.title,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境
-flatpakenv.installed,Installed Apps,Apps instaladas,Apps instalades,已安装应用
-flatpakenv.search,Search Flathub,Buscar en Flathub,Cerca a Flathub,搜索 Flathub
-flatpakenv.open,Open,Abrir,Obre,打开
-flatpakenv.remove,Remove,Eliminar,Elimina,移除
-flatpakenv.cancel,Cancel,Cancelar,Cancel·la,取消
-flatpakenv.install,Install,Instalar,Instal·la,安装
-flatpakenv.installing,Installing…,Instalando…,Instalant…,正在安装…
-flatpakenv.removing,Removing…,Eliminando…,Eliminant…,正在移除…
-flatpakenv.noinstalled,No apps installed,No hay apps instaladas,No hi ha apps instalades,没有已安装应用
-flatpakenv.noresults,No results found,No se encontraron resultados,No s'han trobat resultats,未找到结果
-flatpakenv.searchapps,Search for apps,Buscar aplicaciones,Cerca aplicacions,搜索应用
-flatpakenv.appinstalled,App installed successfully,App instalada correctamente,App instalada correctament,应用安装成功
-flatpakenv.appremoved,App removed successfully,App eliminada correctamente,App eliminada correctament,应用移除成功
-flatpakenv.confirmremove,Are you sure you want to remove this app?,¿Seguro que quieres eliminar esta app?,Segur que vols eliminar aquesta app?,确定要移除这个应用吗？
-flatpakenv.ok,OK,OK,OK,好
-flatpakenv.loading,Loading…,Cargando…,Carregant…,加载中…
+app.flatpakenv,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境,Flatpak ingurunea,Ambiente Flatpak,Ambiente Flatpak
+flatpakenv.title,Flatpak environment,Entorno Flatpak,Entorn Flatpak,Flatpak 环境,Flatpak ingurunea,Ambiente Flatpak,Ambiente Flatpak
+flatpakenv.installed,Installed Apps,Apps instaladas,Apps instalades,已安装应用,Instalatutako aplikazioak,Apps instaladas,Aplicações instaladas
+flatpakenv.search,Search Flathub,Buscar en Flathub,Cerca a Flathub,搜索 Flathub,Bilatu Flathuben,Buscar en Flathub,Pesquisar no Flathub
+flatpakenv.open,Open,Abrir,Obre,打开,Ireki,Abrir,Abrir
+flatpakenv.remove,Remove,Eliminar,Elimina,移除,Kendu,Eliminar,Remover
+flatpakenv.cancel,Cancel,Cancelar,Cancel·la,取消,Utzi,Cancelar,Cancelar
+flatpakenv.install,Install,Instalar,Instal·la,安装,Instalatu,Instalar,Instalar
+flatpakenv.installing,Installing…,Instalando…,Instalant…,正在安装…,Instalatzen...,Instalando...,A instalar…
+flatpakenv.removing,Removing…,Eliminando…,Eliminant…,正在移除…,Kentzen...,Eliminando...,A remover…
+flatpakenv.noinstalled,No apps installed,No hay apps instaladas,No hi ha apps instalades,没有已安装应用,Ez dago aplikazio instalaturik,Non hai apps instaladas,Nenhuma aplicação instalada
+flatpakenv.noresults,No results found,No se encontraron resultados,No s'han trobat resultats,未找到结果,Ez da emaitzarik aurkitu,Non se atoparon resultados,Nenhum resultado encontrado
+flatpakenv.searchapps,Search for apps,Buscar aplicaciones,Cerca aplicacions,搜索应用,Bilatu aplikazioen artean,Buscar aplicacións,Procurar aplicações
+flatpakenv.appinstalled,App installed successfully,App instalada correctamente,App instalada correctament,应用安装成功,Aplikazioa ondo instalatu da,App instalada correctamente,Aplicação instalada com sucesso
+flatpakenv.appremoved,App removed successfully,App eliminada correctamente,App eliminada correctament,应用移除成功,Aplikazioa ondo kendu da,App eliminada correctamente,Aplicação removida com sucesso
+flatpakenv.confirmremove,Are you sure you want to remove this app?,¿Seguro que quieres eliminar esta app?,Segur que vols eliminar aquesta app?,确定要移除这个应用吗？,Ziurtatu nahi duzu aplikazio hau kendu nahi duzu?,Seguro que queres eliminar esta app?,Tem a certeza de que quer remover esta aplicação?
+flatpakenv.ok,OK,OK,OK,好,OK,OK,OK
+flatpakenv.loading,Loading…,Cargando…,Carregant…,加载中…,Kargatzen...,Cargando...,A carregar…

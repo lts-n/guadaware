@@ -288,7 +288,7 @@
       <div class="kb-row kb-row-bottom">
         <button class="kb-key wide" data-action="symbols">123</button>
         <button class="kb-key" data-key=",">,</button>
-        <button class="kb-key space" data-key=" ">space</button>
+        <button class="kb-key space" data-key=" " data-locale="keyboard.space">space</button>
         <button class="kb-key" data-key=".">.</button>
         <button class="kb-key wide" data-action="enter">&#9166;</button>
       </div>
@@ -297,7 +297,7 @@
 
   <script src="guadawareUniversalFramework/Locale.js"></script>
   <script>
-    new Locale();
+    const locale = new Locale();
 
     const frame = document.getElementById("app-frame");
     const clock = document.getElementById("status-time");
@@ -434,7 +434,7 @@
       rows[4].innerHTML =
         `<button class="kb-key wide" data-action="symbols">123</button>` +
         `<button class="kb-key" data-key=",">,</button>` +
-        `<button class="kb-key space" data-key=" ">space</button>` +
+        `<button class="kb-key space" data-key=" ">${locale.t("keyboard.space")}</button>` +
         `<button class="kb-key" data-key=".">.</button>` +
         `<button class="kb-key wide" data-action="enter">&#9166;</button>`;
       symbolsMode = false;
@@ -453,7 +453,7 @@
       rows[4].innerHTML =
         `<button class="kb-key wide" data-action="letters">ABC</button>` +
         `<button class="kb-key" data-key=",">,</button>` +
-        `<button class="kb-key space" data-key=" ">space</button>` +
+        `<button class="kb-key space" data-key=" ">${locale.t("keyboard.space")}</button>` +
         `<button class="kb-key" data-key=".">.</button>` +
         `<button class="kb-key wide" data-action="enter">&#9166;</button>`;
       symbolsMode = true;
