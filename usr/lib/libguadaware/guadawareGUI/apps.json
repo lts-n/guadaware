@@ -34,11 +34,5 @@
     "icon": "apps/homescreen/icons/gallery-icon.png",
     "url": "apps/gallery/",
     "name": "app.gallery"
-  },
-  {
-    "icon": "apps/homescreen/icons/notes-icon.png",
-    "url": "http://localhost:8082/",
-    "name": "app.notes"
   }
-
 ]

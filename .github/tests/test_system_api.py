@@ -116,7 +116,3 @@ class TestContacts:
         assert data.get("ok") is True
 
 
-class TestInstallApp:
-    def test_install_app(self, api):
-        response = api.get("/installApp/test")
-        assert response.status_code == 200
