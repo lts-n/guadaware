@@ -6,7 +6,7 @@
   },
 
   {
-    "icon": "apps/homescreen/icons/safari-icon.webp",
+    "icon": "apps/homescreen/icons/safari-icon.png",
     "url": "apps/safari/",
     "name": "app.safari"
   },
@@ -26,12 +26,12 @@
     "name": "app.contacts"
   },
   {
-    "icon": "apps/homescreen/icons/musicstore-icon.webp",
+    "icon": "apps/homescreen/icons/musicstore-icon.png",
     "url": "http://localhost:8080/safariProxy/http://guadaware-ms.rf.gd/",
     "name": "app.musicstore"
   },
   {
-    "icon": "apps/homescreen/icons/gallery-icon.webp",
+    "icon": "apps/homescreen/icons/gallery-icon.png",
     "url": "apps/gallery/",
     "name": "app.gallery"
   },
