@@ -422,6 +422,8 @@ function updatePlayingUI() {
   } else {
     mini.classList.add("hidden");
   }
+  /* The mini player floats above the list, so the screen needs extra room. */
+  document.body.classList.toggle("mini-on", !!song);
   updatePlayIcon();
 }
 

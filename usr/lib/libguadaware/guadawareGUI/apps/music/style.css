@@ -2,6 +2,9 @@
   --music: #fa243c;
   --music-dim: rgba(250, 36, 60, 0.18);
   --np-bg: #20060d;
+  /* Heights of the two bars that float above the content. */
+  --tabbar-h: calc(49px + env(safe-area-inset-bottom, 0px));
+  --mini-player-h: 56px;
 }
 
 * {
@@ -29,13 +32,20 @@ body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 8px;
+  padding-bottom: calc(var(--tabbar-h) + 8px);
 }
 
 #screen::-webkit-scrollbar {
   display: none;
+}
+
+/* The tab bar and the mini player are fixed, so keep the last rows clear of
+   both of them instead of letting them sit on top of the list. */
+body.mini-on #screen {
+  padding-bottom: calc(var(--tabbar-h) + var(--mini-player-h) + 8px);
 }
 
 .lt-title {
@@ -87,6 +97,7 @@ body {
   width: 130px;
   height: 130px;
   border-radius: 8px;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .album-card p {
@@ -113,10 +124,6 @@ body {
 .album-card:active .artwork {
   transform: scale(0.97);
   filter: brightness(0.9);
-}
-
-.album-card .artwork {
-  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 /* ---------- Artwork placeholders ---------- */
@@ -406,12 +413,12 @@ body {
   position: fixed;
   left: 8px;
   right: 8px;
-  bottom: calc(55px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--tabbar-h) + 6px);
   z-index: 30;
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 56px;
+  height: var(--mini-player-h);
   padding: 6px 8px;
   border-radius: 12px;
   background: rgba(249, 249, 249, 0.97);
@@ -534,6 +541,7 @@ body {
 }
 
 #np-header {
+  position: relative;
   flex-shrink: 0;
   height: 58px;
   padding: 10px 20px 0;
@@ -558,6 +566,7 @@ body {
 
 #np-close {
   position: absolute;
+  top: 14px;
   left: 12px;
   width: 30px;
   height: 30px;
@@ -587,13 +596,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* "safe" keeps the top of the content reachable once it no longer fits. */
+  justify-content: safe center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   padding: 12px 24px calc(20px + env(safe-area-inset-bottom, 0px));
   gap: 18px;
 }
 
+#np-stage::-webkit-scrollbar {
+  display: none;
+}
+
 #np-art {
-  width: min(76vw, 300px);
+  /* Capped by height too, so the cover never squeezes the controls off screen. */
+  width: min(76vw, 300px, 40vh);
   aspect-ratio: 1;
   border-radius: 14px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
@@ -612,6 +631,7 @@ body {
 }
 
 #np-title {
+  margin: 0;
   font-size: 20px;
   font-weight: 700;
   white-space: nowrap;
@@ -620,7 +640,7 @@ body {
 }
 
 #np-artist {
-  margin-top: 4px;
+  margin: 4px 0 0;
   font-size: 15px;
   opacity: 0.75;
   white-space: nowrap;
@@ -664,12 +684,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
+  gap: clamp(8px, 4vw, 26px);
 }
 
 #np-controls button {
-  width: 46px;
-  height: 46px;
+  position: relative;
+  flex: none;
+  width: clamp(38px, 11vw, 46px);
+  height: clamp(38px, 11vw, 46px);
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -682,8 +704,8 @@ body {
 }
 
 #np-controls button svg {
-  width: 26px;
-  height: 26px;
+  width: 58%;
+  height: 58%;
   fill: #fff;
 }
 
@@ -703,21 +725,17 @@ body {
   display: none;
 }
 
-#np-controls button {
-  position: relative;
-}
-
 #np-controls button.big {
-  width: 72px;
-  height: 72px;
+  width: clamp(56px, 17vw, 72px);
+  height: clamp(56px, 17vw, 72px);
   background: #fff;
   color: #000;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
 }
 
 #np-controls button.big svg {
-  width: 36px;
-  height: 36px;
+  width: 50%;
+  height: 50%;
   margin-left: 3px;
   fill: #000;
 }
